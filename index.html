@@ -3,6 +3,14 @@
   <head>
     <meta charset="utf-8">
     <title>Aljoscha Meyer</title>
+    <style>
+    	body {
+    		margin:5% auto;
+    		max-width:40em;
+    		padding:0 .6em;
+    		font:1.3em sans-serif;
+    	}
+  </style>
   </head>
   <body>
     <div class="h-card">
@@ -13,5 +21,12 @@
     <ul>
       <li><a href="https://github.com/AljoschaMeyer" rel="me">Github</a></li>
     </ul>
+    <script type="text/javascript">
+      const max = 5;
+      const x = Math.floor(Math.random() * max * 2) - max;
+      const y = Math.floor(Math.random() * max * 2) - max;
+      const z = Math.floor(Math.random() * max * 2) - max;
+      document.body.style.transform = `perspective( 600px ) rotateX( ${x}deg) rotateY( ${y}deg ) rotateZ( ${z}deg )`
+    </script>
   </body>
 </html>
