@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+    <head>
+        <meta charset=utf-8>
+        <script>
+    MathJax = {
+        loader: {load: ['[tex]/mathtools', '[tex]/html', '[tex]/newcommand', '[tex]/textmacros']},
+        startup: {
+            pageReady: () => {
+                return MathJax.startup.defaultPageReady().then(() => {
+                    const loading_screen = document.getElementById("loading_screen");
+                    loading_screen.style.display = 'none';
+                });
+            }
+        },
+        tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            packages: {'[+]': ['mathtools', 'html', 'newcommand', 'textmacros']},
+        }
+    };
+    </script>
+    <script id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+    </script>
+    
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap" rel="stylesheet">
+        <style>
+            html, body, div, span, applet, object, iframe,
+        h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+        a, abbr, acronym, address, big, cite, code,
+        del, dfn, em, img, ins, kbd, q, s, samp,
+        small, strike, strong, sub, sup, tt, var,
+        b, u, i, center,
+        dl, dt, dd, ol, ul, li,
+        fieldset, form, label, legend,
+        table, caption, tbody, tfoot, thead, tr, th, td,
+        article, aside, canvas, details, embed,
+        figure, figcaption, footer, header, hgroup,
+        menu, nav, output, ruby, section, summary,
+        time, mark, audio, video {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            font-size: 100%;
+            font: inherit;
+            vertical-align: baseline;
+        }
+        /* HTML5 display-role reset for older browsers */
+        article, aside, details, figcaption, figure,
+        footer, header, hgroup, menu, nav, section {
+            display: block;
+        }
+        body {
+            line-height: 1;
+        }
+        ol, ul {
+            list-style: none;
+        }
+        blockquote, q {
+            quotes: none;
+        }
+        blockquote:before, blockquote:after,
+        q:before, q:after {
+            content: '';
+            content: none;
+        }
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Open Sans', sans-serif;
+            font-weight: 700;
+        }
+
+        body {
+            font-family: 'Merriweather', serif;
+            text-align: justify;
+        }
+
+        body {
+            margin:5% auto;
+            max-width: 35em;
+            padding:0 .6em;
+            font-size: 16pt;
+            line-height: 1.3;
+            color: #000;
+            background: #fff;
+        }
+
+        p {
+            margin-top: 0.5em;
+            margin-bottom: 0.5em;
+        }
+
+        .assumptions + p {
+            margin-top: 0em;
+        }
+
+        ul, ol, dl {
+            margin-top: 2em;
+            margin-bottom: 2em;
+        }
+
+        ul {
+            list-style-type: disc;
+        }
+
+        li {
+            margin-left: 2.5em;
+            margin-top: 0.2em;
+            margin-bottom: 0.2em;
+        }
+
+        h1 {
+            margin-bottom: 0.5em;
+            font-size: 36pt;
+            text-align: center;
+            line-height: 1.6;
+        }
+
+        #subtitle {
+            text-align: center;
+            margin-bottom: 4em;
+        }
+
+        h2 {
+            margin-bottom: 1em;
+            font-size: 28pt;
+            text-align: center;
+        }
+
+        .chapterNumber.chapterHeading {
+            margin-top: 3em;
+            margin-bottom: 0.5em;
+            font-family: 'Open Sans', sans-serif;
+            font-weight: 700;
+            font-size: 22pt;
+            text-align: center;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .ref {
+            border-bottom: dotted 1px #a0a0a0;
+        }
+
+        h3 {
+            margin-top: 1.5em;
+            margin-bottom: 1em;
+            font-size: 22pt;
+        }
+
+        h4 {
+            margin-top: 1.5em;
+            margin-bottom: 1em;
+            font-size: 20pt;
+        }
+
+        em {
+            font-style: italic;
+        }
+
+        .literal::before {
+            content: "“";
+        }
+
+        .literal::after {
+            content: "”";
+        }
+
+        .defined {
+            color: rgb(124, 0, 132);
+            font-weight: bold;
+        }
+
+        .box {
+            margin-top: 1em;
+            margin-bottom: 1em;
+            padding-top: 0.5em;
+            padding-bottom: 0.5em;
+            padding-right: 1em;
+            padding-left: 1em;
+        }
+
+        aside {
+            border: solid;
+            border-radius: 1em;
+            color: #00529b;
+            background-color: #bde5f8;
+        }
+
+        .programming {
+            color: #7f0099;
+            background-color: #ffb5f9;
+        }
+
+        .statement {
+            
+                    margin-top: 1.5em;
+                    margin-bottom: 1.5em;
+                    padding-top: 0.5em;
+                    padding-bottom: 0.5em;
+                    padding-right: 1em;
+                    padding-left: 1em;
+                    background:
+                        linear-gradient(to left, #e33900 0em, #e33900 2em, transparent 2em) 0 100% / 100% 3px no-repeat,
+                        linear-gradient(to right, #e33900 0em, #e33900 2em, transparent 2em) 0 0 / 100% 3px no-repeat,
+                        linear-gradient(to bottom, #e33900 0em, #e33900 2em, transparent 2em) 0 0 / 3px 100% no-repeat,
+                        linear-gradient(to top, #e33900 0em, #e33900 2em, transparent 2em) 100% 0 / 3px 100% no-repeat,
+                        #fff
+        }
+
+        .observation {
+            
+                    margin-top: 1.5em;
+                    margin-bottom: 1.5em;
+                    padding-top: 0.5em;
+                    padding-bottom: 0.5em;
+                    padding-right: 1em;
+                    padding-left: 1em;
+                    background:
+                        linear-gradient(to left, #e33900 0em, #e33900 2em, transparent 2em) 0 100% / 100% 3px no-repeat,
+                        linear-gradient(to right, #e33900 0em, #e33900 2em, transparent 2em) 0 0 / 100% 3px no-repeat,
+                        linear-gradient(to bottom, #e33900 0em, #e33900 2em, transparent 2em) 0 0 / 3px 100% no-repeat,
+                        linear-gradient(to top, #e33900 0em, #e33900 2em, transparent 2em) 100% 0 / 3px 100% no-repeat,
+                        #fff
+        }
+
+        .theorem {
+            
+                    margin-top: 1.5em;
+                    margin-bottom: 1.5em;
+                    padding-top: 0.5em;
+                    padding-bottom: 0.5em;
+                    padding-right: 1em;
+                    padding-left: 1em;
+                    background:
+                        linear-gradient(to left, #e33900 0em, #e33900 2em, transparent 2em) 0 100% / 100% 3px no-repeat,
+                        linear-gradient(to right, #e33900 0em, #e33900 2em, transparent 2em) 0 0 / 100% 3px no-repeat,
+                        linear-gradient(to bottom, #e33900 0em, #e33900 2em, transparent 2em) 0 0 / 3px 100% no-repeat,
+                        linear-gradient(to top, #e33900 0em, #e33900 2em, transparent 2em) 100% 0 / 3px 100% no-repeat,
+                        #fff
+        }
+
+        .lemma {
+            
+                    margin-top: 1.5em;
+                    margin-bottom: 1.5em;
+                    padding-top: 0.5em;
+                    padding-bottom: 0.5em;
+                    padding-right: 1em;
+                    padding-left: 1em;
+                    background:
+                        linear-gradient(to left, #e33900 0em, #e33900 2em, transparent 2em) 0 100% / 100% 3px no-repeat,
+                        linear-gradient(to right, #e33900 0em, #e33900 2em, transparent 2em) 0 0 / 100% 3px no-repeat,
+                        linear-gradient(to bottom, #e33900 0em, #e33900 2em, transparent 2em) 0 0 / 3px 100% no-repeat,
+                        linear-gradient(to top, #e33900 0em, #e33900 2em, transparent 2em) 100% 0 / 3px 100% no-repeat,
+                        #fff
+        }
+
+        .corollary {
+            
+                    margin-top: 1.5em;
+                    margin-bottom: 1.5em;
+                    padding-top: 0.5em;
+                    padding-bottom: 0.5em;
+                    padding-right: 1em;
+                    padding-left: 1em;
+                    background:
+                        linear-gradient(to left, #e33900 0em, #e33900 2em, transparent 2em) 0 100% / 100% 3px no-repeat,
+                        linear-gradient(to right, #e33900 0em, #e33900 2em, transparent 2em) 0 0 / 100% 3px no-repeat,
+                        linear-gradient(to bottom, #e33900 0em, #e33900 2em, transparent 2em) 0 0 / 3px 100% no-repeat,
+                        linear-gradient(to top, #e33900 0em, #e33900 2em, transparent 2em) 100% 0 / 3px 100% no-repeat,
+                        #fff
+        }
+
+        .definition {
+            
+                    margin-top: 1.5em;
+                    margin-bottom: 1.5em;
+                    padding-top: 0.5em;
+                    padding-bottom: 0.5em;
+                    padding-right: 1em;
+                    padding-left: 1em;
+                    background:
+                        linear-gradient(to left, rgb(124, 0, 132) 0em, rgb(124, 0, 132) 2em, transparent 2em) 0 100% / 100% 3px no-repeat,
+                        linear-gradient(to right, rgb(124, 0, 132) 0em, rgb(124, 0, 132) 2em, transparent 2em) 0 0 / 100% 3px no-repeat,
+                        linear-gradient(to bottom, rgb(124, 0, 132) 0em, rgb(124, 0, 132) 2em, transparent 2em) 0 0 / 3px 100% no-repeat,
+                        linear-gradient(to top, rgb(124, 0, 132) 0em, rgb(124, 0, 132) 2em, transparent 2em) 100% 0 / 3px 100% no-repeat,
+                        #fff
+        }
+
+        .exercise {
+            
+                    margin-top: 1.5em;
+                    margin-bottom: 1.5em;
+                    padding-top: 0.5em;
+                    padding-bottom: 0.5em;
+                    padding-right: 1em;
+                    padding-left: 1em;
+                    background:
+                        linear-gradient(to left, #00c5e3 0em, #00c5e3 2em, transparent 2em) 0 100% / 100% 3px no-repeat,
+                        linear-gradient(to right, #00c5e3 0em, #00c5e3 2em, transparent 2em) 0 0 / 100% 3px no-repeat,
+                        linear-gradient(to bottom, #00c5e3 0em, #00c5e3 2em, transparent 2em) 0 0 / 3px 100% no-repeat,
+                        linear-gradient(to top, #00c5e3 0em, #00c5e3 2em, transparent 2em) 100% 0 / 3px 100% no-repeat,
+                        #fff
+        }
+
+        .example {
+            
+                    margin-top: 1.5em;
+                    margin-bottom: 1.5em;
+                    padding-top: 0.5em;
+                    padding-bottom: 0.5em;
+                    padding-right: 1em;
+                    padding-left: 1em;
+                    background:
+                        linear-gradient(to left, rgb(0, 156, 28) 0em, rgb(0, 156, 28) 2em, transparent 2em) 0 100% / 100% 3px no-repeat,
+                        linear-gradient(to right, rgb(0, 156, 28) 0em, rgb(0, 156, 28) 2em, transparent 2em) 0 0 / 100% 3px no-repeat,
+                        linear-gradient(to bottom, rgb(0, 156, 28) 0em, rgb(0, 156, 28) 2em, transparent 2em) 0 0 / 3px 100% no-repeat,
+                        linear-gradient(to top, rgb(0, 156, 28) 0em, rgb(0, 156, 28) 2em, transparent 2em) 100% 0 / 3px 100% no-repeat,
+                        #fff
+        }
+
+        h5 {
+            font-weight: 700;
+            margin-top: 0.5em;
+        }
+
+        .proof:before {
+            content: "Proof:";
+            font-style: italic;
+        }
+
+        .infoheader, .programmingheader {
+            border-bottom: solid 1px;
+        }
+
+        .infoheader:before {
+            content:"By the way:";
+        }
+
+        .programmingheader:before {
+            content: "For programmers:";
+        }
+
+        .citation {
+            color: #0000EE;
+        }
+
+        .citation:before {
+            content: "[";
+            color: #000;
+        }
+
+        .citation:after {
+            content: "]";
+            color: #000;
+        }
+
+        ul.references {
+            list-style-type: none;
+        }
+
+        ul.references li {
+            margin-bottom: 1em;
+            margin-left: 0em;
+        }
+
+        .sourceMeta {
+            margin-left: 1em;
+        }
+
+        ul.cases {
+            margin-top: 0.5em;
+            margin-bottom: 0.5em;
+            list-style-type: none;
+        }
+
+        ul.cases li {
+            margin-left: 0em;
+        }
+
+        .caseNumbering {
+            font-weight: 700;
+        }
+
+        .caseBody {
+            margin-left: 1em;
+        }
+
+        .outlink {
+            border: none;
+            text-decoration: underline;
+            color: #0000EE;
+        }
+
+        .step_btn {
+            display: inline-block;
+            margin-top: 1em;
+            margin-right: 3em;
+            padding-left: 0.5em;
+            padding-right: 0.5em;
+            padding-top: 0.3em;
+            padding-bottom: 0.3em;
+            font-family: 'Open Sans', sans-serif;
+            border: solid;
+            border-radius: 4pt;
+            color: #00529b;
+            background-color: #bde5f8;
+            cursor: pointer;
+            transition: color .2s ease;
+            transition: background-color .2s ease;
+        }
+
+        .step_btn:hover {
+            color: #0074db;
+            background-color: #e4f6ff;
+        }
+
+        .step_btn.inactive {
+            cursor: not-allowed;
+            color: #00529b;
+            background-color: #bde5f8;
+        }
+
+        svg {
+            font-family: 'Open Sans', sans-serif;
+            border: solid;
+            border-radius: 4px;
+        }
+
+        /* from https://loading.io/css/ */
+        .lds-dual-ring {
+            display: inline-block;
+            width: 80px;
+            height: 80px;
+        }
+        .lds-dual-ring:after {
+            content: " ";
+            display: block;
+            width: 64px;
+            height: 64px;
+            margin: 8px;
+            border-radius: 50%;
+            border: 6px solid #000;
+            border-color: #000 transparent #000 transparent;
+            animation: lds-dual-ring 1.2s linear infinite;
+        }
+        @keyframes lds-dual-ring {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+            .skiplink {
+        stroke: black;
+        fill: black;
+    }
+
+    .predecessorlink {
+        stroke: black;
+        fill: black;
+    }
+
+    .skiplinkarclink {
+        stroke: black;
+        fill: none;
+    }
+
+    #skiplinkhead {
+        fill: black;
+    }
+
+    .chapterNumber {
+        display: none;
+    }
+        </style>
+    </head>
+    <body>
+        <div id="loading_screen" style="position:fixed;
+      top:0;
+      left:0;
+      background: #ffffff;
+      z-index:5;
+      width:100%;
+      height:100%;
+      display: flex;
+  justify-content: center;
+  align-items: center;">
+      <div>
+        <h1><h1>Magma</h1></h1>
+        <h2>Rendering formulae <div class="lds-dual-ring"></div></h2>
+    </div>
+    </div>
+        <h1>Magma</h1>
+        $\newcommand{\value}[1]{\mathrm{#1}}
+    \newcommand{\var}[1]{\class{var #1}{#1}}
+    \newcommand{\fun}[3]{{#1}: {#2} \rightarrow {#3}}
+    \newcommand{\defeq}[0]{\coloneqq}
+    \newcommand{\N}[0]{\mathbb{N}}
+    \newcommand{\Np}[0]{{\mathbb{N}^{+}}}
+    \newcommand{\Z}[0]{\mathbb{Z}}
+    \newcommand{\Zp}[0]{{\mathbb{Z}^{+}}}
+    \newcommand{\set}[1]{\left\{#1\right\}}
+    \newcommand{\sequence}[1]{\left(#1\right)}
+    \newcommand{\ceil}[1]{\left\lceil#1\right\rceil}
+    \newcommand{\floor}[1]{\left\lfloor#1\right\rfloor}
+    \newcommand{\abs}[1]{\left|#1\right|}
+    \newcommand{\powerset}[1]{\mathcal{P}({#1})}
+    \newcommand{\kleene}[1]{{#1}^{\ast}}
+    \newcommand{\bit}[0]{\set{0, 1}}
+    \newcommand{\bitstring}[0]{\kleene{\bit}}
+    \newcommand{\complexity}[1]{\mathcal{O}({#1})}
+    \newcommand{\groupAdd}[0]{+}
+    \newcommand{\groupZero}[0]{0}
+    \newcommand{\nil}[0]{\mathtt{nil}}
+
+    \DeclareMathOperator{\lbl}{lbl}
+    \DeclareMathOperator{\enc}{enc}
+    \DeclareMathOperator{\discriminatedUnion}{\cup}
+        $
+        <p>Magma is a protocol for immutably storing snapshots of values which evolve over time, in a way that enables efficient updates from one value to a later one even if the source providing the update data cannot compute what changed between any two values. That is quite a mouthful, so we begin with an extended description of the problem that magma aims to solve.</p>
+<section class="section">
+            <h3><a id="introduction" href="#introduction">Introduction</a></h3>
+        <p>Consider a data source producing a sequence of values. These values might be large, but any new value can be obtained from the preceding value through a small change — we can think of the sequence as describing a single, mutable variable changing over time.</p>
+<p>The sequence is read by a server, which stores enough data to be able to reconstruct the value of the variable at any point of its evolution. The easiest way of accomplishing this is to store the full sequence of values, but other options exist.</p>
+<p>Now consider a client that knows the value of the variable at a certain point of time, has obtained the identifier of a more recent value from a trusted source, and now wants to obtain that value from the server. There are some trivial strategies, but all of them are problematic:</p>
+<ul>
+                    <li>If the server stores the full sequence of values, it can simply send the requested value to the client. This does not however utilize in any way that the client already knows an older value. As we assume values to be large and changes to be small, this is efficient.</li>
+                    <li>If the server stores the full sequence of values, it could compute what changed between the client's old value and the requested value. This preserve bandwidth, but requires (potentially high) computational resources on the server. Furthermore, if the data is authenticated by the data source, the server cannot reauthenticate the computed change. Or if the data is encrypted, the server cannot perform the computation in the first place.</li>
+                    <li>If the data source publishes the sequence as a sequence of changes compared to each preceding sequence item, the server can also store that sequence of changes. The client can then be given the subsequence of changes leading from its old value to the requested value. This list can however get very long, and if some of the changes cancel each other out, it becomes cluttered with ultimately useless information.</li>
+                    <li>If the data source published the sequence by providing the change from each new value to every old value, the server could send exactly the right data to the client. However, the amount of data would grow quadratically.</li>
+                </ul>
+<p>Magma provides a more efficient trade-off between these extremes, by employing <a href="https://aljoscha-meyer.de/linkingschemes" class="outlink">binary anti-monotone linking schemes</a>. It further uses <a href="https://en.wikipedia.org/wiki/Cryptographic_hash_function" class="outlink">secure hashes</a> to ensure that the server party need not be trusted by either the data source or the client.</p>
+</section>
+<section class="section">
+            <h3><a id="evolving_values" href="#evolving_values">Evolving Values</a></h3>
+        <p>We begin by examining how a data source can publish values such that clients can efficiently obtain updates from a server without requiring the server to be able to perform computations on the values. The magma protocol itself is introduced later.</p>
+<p>The approach that magma uses applies to a wider class of data structures than the sequences from the introduction. We consider values with at most one preceding value, or in other words, forests of rooted trees labeled with changes. Or yet another viewpoint: we consider sets of sequences that may share a common past (i.e., a common prefix).</p>
+<div id="labeled_forest" class="definition">
+<h5><a href="#labeled_forest">Definition <span class="chapterNumber">0.</span>1: Labeled In-Forest</a></h5><div class="assumptions">Let $S$ be a set, $G = (V, A)$ a directed graph, and $\fun{\lbl}{V}{S}$ a function.</div><p>We call the pair $\sequence{G, \lbl}$ a <a href="#labeled_forest" class="defined">labeled in-forest</a> if $G$ is a forest of rooted trees with all edges oriented toward the roots.</p>
+</div>
+<div id="example_labeled_forest" class="example">
+<h5><a href="#example_labeled_forest">Example <span class="chapterNumber">0.</span>2</a></h5><p>The following figure shows an example <a href="#labeled_forest" class="ref">labeled in-forest</a>.</p>
+<svg xmlns="http://www.w3.org/2000/svg" viewbox="-0.5 -0.5 7.5 3" id="figure_example_labeled_forest"><defs><marker id="predecessorhead" viewBox="0 0 15 15" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="predecessorlink"/></marker><marker id="skiphead" viewBox="0 0 15 15" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="skiplink"/></marker><marker id="skiplinkarchead" viewBox="0 0 15 15" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="skiplinkarclinkk"/></marker></defs><g><text x="1" y="1" class="24" font-size="0.2" text-anchor="middle" dominant-baseline="middle">24</text><text x="2" y="1" class="29" font-size="0.2" text-anchor="middle" dominant-baseline="middle">29</text><text x="3" y="1" class="29" font-size="0.2" text-anchor="middle" dominant-baseline="middle">29</text><text x="4" y="1.5" class="30" font-size="0.2" text-anchor="middle" dominant-baseline="middle">30</text><text x="4" y="0.5" class="47" font-size="0.2" text-anchor="middle" dominant-baseline="middle">47</text><text x="5" y="1.5" class="28" font-size="0.2" text-anchor="middle" dominant-baseline="middle">28</text><text x="5" y="0.5" class="40" font-size="0.2" text-anchor="middle" dominant-baseline="middle">40</text><text x="6" y="1.5" class="34" font-size="0.2" text-anchor="middle" dominant-baseline="middle">34</text><line x1="1.8" y1="1" x2="1.2" y2="1" class="predecessorlink" marker-end="url(#predecessorhead)" stroke-width="0.02"></line><line x1="2.8" y1="1" x2="2.2" y2="1" class="predecessorlink" marker-end="url(#predecessorhead)" stroke-width="0.02"></line><line x1="3.821114561800017" y1="1.4105572809000084" x2="3.178885438199983" y2="1.0894427190999916" class="predecessorlink" marker-end="url(#predecessorhead)" stroke-width="0.02"></line><line x1="3.821114561800017" y1="0.5894427190999916" x2="3.178885438199983" y2="0.9105572809000084" class="predecessorlink" marker-end="url(#predecessorhead)" stroke-width="0.02"></line><line x1="4.8" y1="1.5" x2="4.2" y2="1.5" class="predecessorlink" marker-end="url(#predecessorhead)" stroke-width="0.02"></line><line x1="4.8" y1="0.5" x2="4.2" y2="0.5" class="predecessorlink" marker-end="url(#predecessorhead)" stroke-width="0.02"></line><line x1="5.8" y1="1.5" x2="5.2" y2="1.5" class="predecessorlink" marker-end="url(#predecessorhead)" stroke-width="0.02"></line></g></svg>
+</div>
+<p>We now wish to find a data structure that allows to efficiently reconstruct a <a href="#labeled_forest" class="ref">labeled in-forest</a> by applying a series of changes. To obtain an efficient solution, we require that the grouping of how changes are applied is irrelevant (notice that the order of changes must however remain unchanged), this is captured in the concept of a <a href="https://en.wikipedia.org/wiki/Semigroup" class="outlink">semigroup</a>.</p>
+<div id="semigroup" class="definition">
+<h5><a href="#semigroup">Definition <span class="chapterNumber">0.</span>3: Semigroup</a></h5><p>A <a href="#semigroup" class="defined">semigroup</a> is a pair $\sequence{S, \groupAdd}$ of a set $S$ and a function $\fun{\groupAdd}{S \times S}{S}$ satisfying:</p>
+<ul>
+                            <li><a id="semigroup_associativity" href="#semigroup_associativity" class="defined">associativity</a>: For all $x, y, z \in S$ it holds that $(x \groupAdd y) \groupAdd z = x \groupAdd (y \groupAdd z)$.</li>
+                        </ul>
+</div>
+<p>The core idea now is to create a graph describing the changes between different values in a <a href="#labeled_forest" class="ref">labeled in-forest</a>. <a href="https://aljoscha-meyer.de/linkingschemes#bamls" class="ref">Binary anti-monotone linking schemes</a> have short paths between any pair of vertices, labeling the arcs of a <a href="https://aljoscha-meyer.de/linkingschemes#bamls" class="ref">binary anti-monotone linking scheme</a> allows to efficiently reconstruct the accumulated changes. <a href="#semigroup_associativity" class="ref">Associativity</a> ensures that accumulating along <a href="https://aljoscha-meyer.de/linkingschemes#skip_link" class="ref">skip links</a> leads to the same results as accumulating along <a href="https://aljoscha-meyer.de/linkingschemes#predecessor_link" class="ref">predecessor links</a>. Formally:</p>
+<div id="forest_notation" class="definition">
+<h5><a href="#forest_notation">Definition <span class="chapterNumber">0.</span>4: Notation</a></h5><div class="assumptionsmulti">Let $G = (V, A)$ be a forest of rooted trees with all arcs oriented toward the roots, and let $v, u \in V$.</div><p>$\DeclareMathOperator{\depthVanilla}{depth}\newcommand{\depth}[2]{\href{##forest_notation}{\depthVanilla}_{#2}({#1})}$We write $\depth{v}{G}$ to denote the length of the path from $v$ to its root ($0$ in case $v$ is a root itself).</p>
+<p>$\newcommand{\ancestor}[1]{\href{##forest_notation}{\leq}_{#1}}$We write $u \ancestor{G} v$ if there is a path from $v$ to $u$.</p>
+</div>
+<div id="evolution" class="definition">
+<h5><a href="#evolution">Definition <span class="chapterNumber">0.</span>5: Evolution</a></h5><div class="assumptionsmulti">$\newcommand{\associatedGraph}[1]{\href{https://aljoscha-meyer.de/linkingschemes##associated_graph}{G}_{#1}}$Let $\mathcal{S} = \sequence{S, \groupAdd}$ be a <a href="#semigroup" class="ref">semigroup</a>, $\mathcal{F} = \sequence{G = \sequence{V, A}, \fun{\lbl}{V}{S}}$ a <a href="#labeled_forest" class="ref">labeled in-forest</a>, and $\fun{f}{\Np}{\Np}$ be a function such that $\associatedGraph{f}$ is a <a href="https://aljoscha-meyer.de/linkingschemes#bamls" class="ref">binary anti-monotone linking scheme</a>.</div><p>$\newcommand{\evolution}[3]{{#1}_{\sequence{{#2}, {#3}}}}$An $\sequence{f, \mathcal{S}}$-<a id="evolution" href="#evolution" class="defined">evolution</a> of $\mathcal{F}$ is an arc-labeled directed graph $\evolution{E}{f}{\mathcal{S}} \defeq \sequence{\evolution{G}{f}{\mathcal{S}} = (\evolution{V}{f}{\mathcal{S}}, \evolution{A}{f}{\mathcal{S}}), \evolution{\lbl}{f}{\mathcal{S}}}$, such that:</p>
+<p>$\begin{align*}
+                        \evolution{V}{f}{\mathcal{S}} &\defeq V \discriminatedUnion \set{\nil},\\
+                        \evolution{A}{f}{\mathcal{S}} &\defeq A \cup \set{\sequence{\nil, v} \mid \text{$v \in V$ and $\depth{v}{G} = 0$}}\\
+                        &\cup \{\sequence{u, v} \mid u, v \in V, u \ancestor{G} v,\\
+                        &\text{\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;and $\depth{u}{G} + 1 = f(\depth{v}{G} + 1)$}\},\\
+                        \end{align*}$</p>
+<p>and for all $\sequence{v, u} \in \evolution{A}{f}{\mathcal{S}}$, $\lbl(u) \groupAdd \evolution{\lbl}{f}{\mathcal{S}}(\sequence{v, u}) = \lbl(v)$.</p>
+</div>
+<div id="example_evolution" class="example">
+<h5><a href="#example_evolution">Example <span class="chapterNumber">0.</span>6</a></h5><p>$\DeclareMathOperator{\lsTwoVanilla}{ls_{2}}\newcommand{\lstwo}[0]{\href{https://aljoscha-meyer.de/linkingschemes##lstwo}{\lsTwoVanilla}}$The following figure shows the unique $\sequence{\lstwo, \mathcal{Z}}$-<a href="#evolution" class="ref">evolution</a> of <a href="#example_labeled_forest" class="ref">Example&#xA0;<span class="chapterNumber">0.</span>2</a>, where $\mathcal{Z} \defeq \sequence{\Z, +}$ is the additive <a href="#semigroup" class="ref">semigroup</a> of integers. Notice how adding up the arc labels along any path from a vertex to the root yields the label of that vertex in <a href="#example_labeled_forest" class="ref">Example&#xA0;<span class="chapterNumber">0.</span>2</a>.</p>
+<svg xmlns="http://www.w3.org/2000/svg" viewbox="-0.5 -0.5 7.5 3" id="figure_example_evolution"><defs><marker id="predecessorhead" viewBox="0 0 15 15" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="predecessorlink"/></marker><marker id="skiphead" viewBox="0 0 15 15" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="skiplink"/></marker><marker id="skiplinkarchead" viewBox="0 0 15 15" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="skiplinkarclinkk"/></marker></defs><g><circle cx="0" cy="1" r="0.1"/><circle cx="1" cy="1" r="0.1"/><circle cx="2" cy="1" r="0.1"/><circle cx="3" cy="1" r="0.1"/><circle cx="4" cy="1.5" r="0.1"/><circle cx="4" cy="0.5" r="0.1"/><circle cx="5" cy="1.5" r="0.1"/><circle cx="5" cy="0.5" r="0.1"/><circle cx="6" cy="1.5" r="0.1"/><line x1="0.8" y1="1" x2="0.2" y2="1" class="predecessorlink" marker-end="url(#predecessorhead)" stroke-width="0.02"></line><text x="0.5" y="0.88" class="24" text-anchor="middle" dominant-baseline="middle" font-size="0.2">24</text><line x1="1.8" y1="1" x2="1.2" y2="1" class="predecessorlink" marker-end="url(#predecessorhead)" stroke-width="0.02"></line><text x="1.5" y="0.88" class="5" text-anchor="middle" dominant-baseline="middle" font-size="0.2">5</text><line x1="2.8" y1="1" x2="2.2" y2="1" class="predecessorlink" marker-end="url(#predecessorhead)" stroke-width="0.02"></line><text x="2.5" y="0.88" class="0" text-anchor="middle" dominant-baseline="middle" font-size="0.2">0</text><line x1="3.821114561800017" y1="1.4105572809000084" x2="3.178885438199983" y2="1.0894427190999916" class="predecessorlink" marker-end="url(#predecessorhead)" stroke-width="0.02"></line><text x="3.5" y="1.13" class="1" text-anchor="middle" dominant-baseline="middle" font-size="0.2">1</text><line x1="3.821114561800017" y1="0.5894427190999916" x2="3.178885438199983" y2="0.9105572809000084" class="predecessorlink" marker-end="url(#predecessorhead)" stroke-width="0.02"></line><text x="3.5" y="0.63" class="18" text-anchor="middle" dominant-baseline="middle" font-size="0.2">18</text><line x1="4.8" y1="1.5" x2="4.2" y2="1.5" class="predecessorlink" marker-end="url(#predecessorhead)" stroke-width="0.02"></line><text x="4.5" y="1.38" class="-2" text-anchor="middle" dominant-baseline="middle" font-size="0.2">-2</text><line x1="4.8" y1="0.5" x2="4.2" y2="0.5" class="predecessorlink" marker-end="url(#predecessorhead)" stroke-width="0.02"></line><text x="4.5" y="0.38" class="-7" text-anchor="middle" dominant-baseline="middle" font-size="0.2">-7</text><line x1="5.8" y1="1.5" x2="5.2" y2="1.5" class="predecessorlink" marker-end="url(#predecessorhead)" stroke-width="0.02"></line><text x="5.5" y="1.38" class="6" text-anchor="middle" dominant-baseline="middle" font-size="0.2">6</text><path d="M 2.8585786437626903 0.8585786437626904 Q 2 0 1.1414213562373094 0.8585786437626904" class="skiplinkarclink" marker-end="url(#skiplinkarchead)" stroke-width="0.02"></path><text x="2" y="0.25" class="5" text-anchor="middle" dominant-baseline="middle" font-size="0.2">5</text><path d="M 5.828501414857491 1.6028991510855053 Q 3.5 3 3.0485071250072666 1.1940285000290665" class="skiplinkarclink" marker-end="url(#skiplinkarchead)" stroke-width="0.02"></path><text x="4.1" y="2" class="5" text-anchor="middle" dominant-baseline="middle" font-size="0.2">5</text></g></svg>
+</div>
+<p>If a server stores an <a href="#evolution" class="ref">evolution</a> and a client wants to update a value, the server can answer with the arc labels along the shortest path between the requested value and the clients old value.</p>
+<p>Because we consider settings where server does not perform any computation on the data it serves, the data source has to publish data in the correct form. More specifically, an update to the <a href="#labeled_forest" class="ref">labeled in-forest</a> produced by a data source must include the following information: the new vertex $v$, the predecessor vertex $p$, the change from the predecessor $\evolution{\lbl}{f}{\mathcal{S}}(\sequence{v, p})$, the <a href="https://aljoscha-meyer.de/linkingschemes#skip_link" class="ref">skip link</a> vertex $s$, and the change from that vertex $\evolution{\lbl}{f}{\mathcal{S}}(\sequence{v, s})$.</p>
+<p>This concludes an abstract description of how magma solves the problem of providing incremental updates through untrusted intermediaries. The next section introduces the magma protocol proper, going into specifics of, e.g., the question of how peers can identify vertices, or how clients can be protected from servers feeding them garbage data.</p>
+</section>
+<section class="section">
+            <h3><a id="magma_events" href="#magma_events">Magma Events</a></h3>
+        <p>$\newcommand{\h}[0]{\href{##h}{h}}$Working with <a href="#evolution" class="ref">evolutions</a> requires the ability to compactly reference pieces of data. Magma uses <a href="https://en.wikipedia.org/wiki/Content-addressable_storage" class="outlink">content-based addressing</a>, the reference to a datum consists of the digest of a <a href="https://en.wikipedia.org/wiki/Cryptographic_hash_function" class="outlink">cryptographic hash function</a> of that datum. Magma is generic over which hash function is used, an instantiation of the protocol must specify one. In the following text, we write $\cssId{h}{\fun{\h}{\bitstring}{\bitstring}}$ for that function.</p>
+<p>$\newcommand{\S}[0]{\href{##S}{S}}\newcommand{\SM}[0]{\href{##Sm}{\mathcal{S}}}\newcommand{\encS}[0]{\href{##encS}{\enc_{\S}}}$An instantiation of magma must also specify the <a href="#semigroup" class="ref">semigroup</a> of the values, we write $\cssId{SM}{\SM} = \sequence{\cssId{S}{\S}, \groupAdd}$ for it. Furthermore, it must be possible to encode values as bit-strings, an instantiation must specify an injective encoding function $\fun{\cssId{encS}{\encS}}{S}{\bitstring}$.</p>
+<p>$\DeclareMathOperator{\lsThreeVanilla}{ls_{3}}\newcommand{\lsthree}[0]{\href{https://aljoscha-meyer.de/linkingschemes##lsthree}{\lsThreeVanilla}}$Magma uses $\lsthree$ as its linking scheme.</p>
+<p>With these parameters fixed, we can now define the data published by a data source:</p>
+<div id="magma_event" class="definition">
+<h5><a href="#magma_event">Definition <span class="chapterNumber">0.</span>7: Magma Event</a></h5><p>$\newcommand{\rootEvent}[2]{\href{##root_event}{\value{RootEvent}}\sequence{{#1}, {#2}}}\newcommand{\childEvent}[7]{\href{##child_event}{\value{ChildEvent}}\sequence{{#1}, {#2}, {#3}, {#4}, {#5}, {#6}, {#7}}}\newcommand{\predChange}[0]{\delta}\newcommand{\len}[1]{{#1}_{\value{len}}}\newcommand{\time}[0]{d}\newcommand{\pred}[0]{\predChange_{\mathit{id}}}\newcommand{\skipChange}[0]{\Delta}\newcommand{\skip}[0]{\skipChange_{\mathit{id}}}$A <a href="#magma_event" class="defined">magma event</a> is either a <a id="root_event" href="#root_event" class="defined">root event</a> $\rootEvent{\predChange}{\len{\predChange}}$ or a <a id="child_event" href="#child_event" class="defined">child event</a> $\childEvent{\time}{\predChange}{\len{\predChange}}{\pred}{\skipChange}{\len{\skipChange}}{\skip}$, where $\time, \len{\predChange}, \len{\skipChange}$ are unsigned 64-bit integers, and $\predChange, \skipChange, \pred, \skip \in \bitstring$.</p>
+</div>
+<div id="magma_event_encoding" class="definition">
+<h5><a href="#magma_event_encoding">Definition <span class="chapterNumber">0.</span>8: Event Encoding</a></h5><p>A <a href="#magma_event" class="ref">magma event</a> can be <a id="magma_event_encoding" href="#magma_event_encoding" class="defined">encoded</a> as a bit-string as follows:<ul>
+                            <li>If it is a $\rootEvent{\predChange}{\len{\predChange}}$, the encoding consists of a zero-byte, followed by $\predChange$, followed by $\len{\predChange}$ encoded as a canonic <a href="https://github.com/AljoschaMeyer/varu64" class="outlink">VarU64</a>.</li>
+                            <li>If it is a $\childEvent{\time}{\predChange}{\len{\predChange}}{\pred}{\skipChange}{\len{\skipChange}}{\skip}$, the encoding consists of $\time$ encoded as a canonic <a href="https://github.com/AljoschaMeyer/varu64#non-zero-unsigned-integers" class="outlink">VarNonZeroU64</a>, followed by $\pred$, followed by $\predChange$, followed by $\len{\predChange}$ encoded as a canonic <a href="https://github.com/AljoschaMeyer/varu64" class="outlink">VarU64</a>. If $\pred \neq \skip$, then this is followed by $\skip$, followed by $\skipChange$, followed by $\len{\skipChange}$ encoded as a canonic <a href="https://github.com/AljoschaMeyer/varu64" class="outlink">VarU64</a>.</li>
+                        </ul></p>
+<p>$\newcommand{\eventEncoding}[1]{\href{##magma_event_encoding}{\enc_{\value{event}}}({#1})}$We write $\eventEncoding{e}$ for the <a href="#magma_event_encoding" class="ref">event encoding</a> of a <a href="#magma_event" class="ref">magma event</a> $e$.</p>
+</div>
+<p>The meaning behind the different data items of a <a href="#magma_event" class="ref">magma event</a> becomes apparent from how the vertices of an <a href="#evolution" class="ref">evolution</a> can be represented through <a href="#magma_event" class="ref">magma events</a>.</p>
+<div id="event_meaning" class="definition">
+<h5><a href="#event_meaning">Definition <span class="chapterNumber">0.</span>9</a></h5><div class="assumptions">Let $\evolution{E}{\lsthree}{\SM} = \sequence{\evolution{G}{\lsthree}{\SM} = (\evolution{V}{\lsthree}{\SM}, \evolution{A}{\lsthree}{\mathcal{S}}), \evolution{\lbl}{\lsthree}{\SM}}$ be an <a href="#evolution" class="ref">evolution</a>, and let $v \in \evolution{V}{f}{\SM} \setminus \set{\nil}$.</div><p>$\DeclareMathOperator{\eventVanilla}{event}\newcommand{\event}[1]{\href{##event_meaning}{\eventVanilla}_{#1}}$The <a href="#magma_event" class="ref">magma event</a> $\event{v}$ is defined as follows:<ul>
+                            <li>If $\depth{v}{\evolution{G}{f}{\mathcal{S}}} = 1$, then $\event{v} \defeq \rootEvent{h_{\delta}}{\abs{h_{\delta}}}$, where $h_{\delta} \defeq \h(\encS(\evolution{\lbl}{f}{\mathcal{S}}(\sequence{v, \nil})))$.</li>
+                            <li>Otherwise, let $\delta$ be the predecessor of $v$, and let $\Delta$ be the other out-neighbor of $v$ if one exists, or the predecessor of $v$ if $v$ has only one out-neighbor. Then
+                            $$\begin{align*}
+                                &\event{v} \defeq \href{##child_event}{\value{ChildEvent}}(\\
+                                &\;\;\;\;\;\;\;\;\;\depth{\evolution{G}{f}{\mathcal{S}}}{v},\\
+                                &\;\;\;\;\;\;\;\;\;h_{\delta}, \abs{h_{\delta}}, \h(\eventEncoding{\delta}),\\
+                                &\;\;\;\;\;\;\;\;\;h_{\Delta}, \abs{h_{\Delta}}, \abs{h_{\Delta}}\\
+                                &),\\
+                            \end{align*}$$
+
+                            where
+
+                            $$\begin{align*}
+                                h_{\delta} &\defeq \h(\encS(\evolution{\lbl}{f}{\mathcal{S}}(\sequence{v, \delta}))),\\
+                                h_{\Delta} &\defeq \h(\encS(\evolution{\lbl}{f}{\mathcal{S}}(\sequence{v, \Delta}))).\\
+                            \end{align*}$$</li>
+                        </ul></p>
+</div>
+<p>The 64-bit integers used by magma limit which <a href="#evolution" class="ref">evolutions</a> can be represented: neither the depth of any <a href="#magma_event" class="ref">magma event</a> nor the size of the encoding of a <a href="#semigroup" class="ref">semigroup</a> value may exceed $2^{64} - 1$.</p>
+<p>Servers store <a href="#magma_event" class="ref">magma events</a> of this form. <a href="#magma_event" class="ref">Magma events</a> contain more than the bare minimum of data that would be necessary to reconstruct an <a href="#evolution" class="ref">evolution</a>. This additional data allows clients to detect malicious behavior in a server. The structure of their communication is described in the next section.</p>
+</section>
+<section class="section">
+            <h3><a id="communication" href="#communication">Client-Server Communication</a></h3>
+        <p>The general structure of the communication between client and server is that of the client making request and the server responding with <a href="#magma_event" class="ref">magma events</a> and <a href="#semigroup" class="ref">semigroup</a> values. A request contains the hash of the <a href="#magma_event_encoding" class="ref">event encoding</a> for which the client wishes to obtain the accumulated value, as well as the hash of the most recent <a href="#magma_event" class="ref">magma event</a> the client has. The server responds with the <a href="#magma_event" class="ref">magma events</a> along the shortest path from the requested event to the old event, supplying the client with enough metadata to verify the integrity of the <a href="#semigroup" class="ref">semigroup</a> values the server transmits up towards. The request furthermore contains some parameters determining which <a href="#semigroup" class="ref">semigroup</a> values are to be transmitted, as well as some options for skipping parts of the event transfer in case some of that information is already available to the client.</p>
+<div id="request" class="definition">
+<h5><a href="#request">Definition <span class="chapterNumber">0.</span>10: Request</a></h5><p>$\renewcommand{\to}[0]{\mathit{to}}\newcommand{\from}[0]{\mathit{from}}\newcommand{\fromName}[0]{\mathit{from}_{\mathit{id}}}\newcommand{requestMode}[0]{\mathit{mode}}\newcommand{eventOffset}[0]{\mathit{event_offset}}\newcommand{\payloadOffset}[0]{\mathit{payload_offset}}\newcommand{\payloadNone}[0]{\href{##request}{\value{None}}}\newcommand{\payloadAscending}[0]{\href{##request}{\value{Ascending}}}\newcommand{payloadDescending}[0]{\href{##request}{\value{Descending}}}\newcommand{payloadAll}[0]{\href{##request}{\value{All}}}$A <a href="#request" class="defined">request</a> is a tuple $\sequence{\to, \from, \fromName, \requestMode, \eventOffset, \payloadOffset}$, where $\to \in \bitstring$ is the hash of an <a href="#magma_event_encoding" class="ref">event encoding</a>, $\from$ is an unsigned 64-bit integer, $\fromName \in \bitstring \cup \set{\nil}$ is an optional hash of an <a href="#magma_event_encoding" class="ref">event encoding</a>, $\requestMode \in \set{\payloadNone, \payloadAscending, \payloadDescending, \payloadAll}$, $\eventOffset$ is an unsigned 8-bit integer, and $\payloadOffset$ is a pair of an unsigned 64-bit integer and a hash.</p>
+</div>
+<div id="response" class="definition">
+<h5><a href="#response">Definition <span class="chapterNumber">0.</span>11: Response</a></h5><p>A <a href="#response" class="defined">response</a> is either $\nil$ or a pair consisting of a sequence of <a href="#magma_event" class="ref">magma events</a> and a sequence of elements from $\S$.</p>
+</div>
+<p>Intuitively, $\to$ specifies the point in the <a href="#evolution" class="ref">evolution</a> to which the client wants to update, and $\from$ indicates the depth of the most recent value that the client already has. $\fromName$ allows the client to optionally include the hash of that value, so that in case of a mismatch the server will not waste bandwidth on transmitting values which are of no use to the client. This is a safeguard against the client having received an invalid hash. The $\requestMode$ lets the client specify which <a href="#semigroup" class="ref">semigroup</a> values it wants to receive: none at all, the minimum amount of values in either ascending or descending order, or the full step-by-step changes (ideal for server-to-server synchronization). $\eventOffset$ and $\payloadOffset$ make the server over the beginning of a response, enabling efficient continuation after a communication channel failure in mid-transmission.</p>
+<p>We now describe how to map <a href="#request" class="ref">request</a> to <a href="#response" class="ref">responses</a> more formally. Let $\evolution{E}{\lsthree}{\SM} = \sequence{\evolution{G}{\lsthree}{\SM} = (\evolution{V}{\lsthree}{\SM}, \evolution{A}{\lsthree}{\SM}), \evolution{\lbl}{\lsthree}{\SM}}$ be an <a href="#evolution" class="ref">evolution</a>, let $U \subseteq \evolution{V}{\lsthree}{\SM}$, and let $T \subseteq \S$. We consider a server that holds the set of <a href="#magma_event" class="ref">magma events</a> $E \defeq \set{\event{u} \mid u \in U}$ and the set of <a href="#semigroup" class="ref">semigroup</a> values $T$.</p>
+<p>When the server receives a <a href="#request" class="ref">request</a> $\sequence{\to, \from, \fromName, \requestMode, \eventOffset, \payloadOffset = \sequence{\mathit{len}, \mathit{hash}}}$, it checks whether there is $e \in E$ such that $\h(e) = \to$. If there is not, the <a href="#response" class="ref">response</a> is $\nil$. Otherwise let $v$ be the vertex with $\event{v} = e$. The server then proceeds by computing the sequence of <a href="#magma_event" class="ref">magma events</a> it will respond with.</p>
+<p>If $\from > \depth{v}{\evolution{G}{\lsthree}{\SM}}$, the response consists of two empty sequences. Otherwise, let $u$ be the vertex in $\evolution{V}{\lsthree}{\SM}$ such that $\depth{u}{\evolution{G}{\lsthree}{\SM}} = \from$ and $u \ancestor{\evolution{G}{\lsthree}{\SM}} v$. Let $\sequence{v_0 = v, v_1, \ldots, v_k = u}$ be the shortest path from $v$ to $u$. Let $l < k$ be the greatest number such that all <a href="#magma_event" class="ref">magma events</a> in $L \defeq \sequence{\event{v_{\eventOffset}}, \event{v_{\eventOffset + 1}}, \ldots, v_{l}}$ are in $U$. Then $L$ is the sequence of <a href="#magma_event" class="ref">magma events</a> in the <a href="#response" class="ref">response</a>.</p>
+<p>The sequence of elements from $\S$ in the <a href="#response" class="ref">response</a> is the empty sequence if $\requestMode = \payloadNone$ or if $\fromName \neq \nil$ and $\fromName \neq \eventEncoding{u}$.</p>
+<p>If $\requestMode = \payloadDescending$ or $\requestMode = \payloadAscending$, let $j \leq l$ be the greatest number such that all members of the sequence $J \defeq \sequence{\evolution{\lbl}{\lsthree}{\SM}(\sequence{v_0, v_1}), \evolution{\lbl}{\lsthree}{\SM}(\sequence{v_1, v_2}), \ldots, \evolution{\lbl}{\lsthree}{\SM}(\sequence{v_j, v_{j + 1}})}$ are in $T$.</p>
+<p>If $\requestMode = \payloadDescending$, then $J$ is the sequence of elements from $\S$ in the <a href="#response" class="ref">response</a>. If $\requestMode = \payloadAscending$, it is the reversed sequence $\sequence{\evolution{\lbl}{\lsthree}{\SM}(\sequence{v_j, v_{j + 1}}), \ldots, \evolution{\lbl}{\lsthree}{\SM}(\sequence{v_0, v_1})}$.</p>
+<p>Otherwise, if $\requestMode = \payloadAll$, let $\sequence{t_0 = v, t_1, \ldots, t_n = u}$ be the <em>longest</em> path from $v$ to $u$. Let $m \leq n$ be the greatest number such that all members of the sequence $J \defeq \sequence{\evolution{\lbl}{\lsthree}{\SM}(\sequence{t_0, t_1}), \evolution{\lbl}{\lsthree}{\SM}(\sequence{t_1, t_2}), \ldots, \evolution{\lbl}{\lsthree}{\SM}(\sequence{t_m, t_{m + 1}})}$ are in $T$. Then $M$ is the sequence of elements from $\S$ in the <a href="#response" class="ref">response</a>.</p>
+<p>The $\payloadOffset$ is ignored unless $\eventOffset \geq k$, in which case the server computes the hash over the first $\mathit{len}$ bytes of the encoding of the first <a href="#semigroup" class="ref">semigroup</a> value to be transmitted. If that hash is equal to $\mathit{hash}$, the transmission begins at byte $\mathit{len}$ (zero-indexed), otherwise the value is transmitted as normal.</p>
+<p>When receiving a response, the client verifies the integrity of the data that receives. For the first <a href="#magma_event_encoding" class="ref">event encoding</a> it receives, it checks whether it matches the expected hash. For all further <a href="#magma_event_encoding" class="ref">event encodings</a> it verifies that its depth is the expected one, and that it hashes to the hash specified in the previous <a href="#magma_event" class="ref">magma event</a>.</p>
+<p>When receiving encoded <a href="#semigroup" class="ref">semigroup</a> values, the client verifies that they have exactly the length and hash promised in the corresponding <a href="#magma_event" class="ref">magma event</a>.</p>
+</section>
+<section class="section">
+            <h3><a id="transmission_protocol" href="#transmission_protocol">Transmission Protocol</a></h3>
+        <p>To allow for concurrent requests, the protocol is an instantiation of <a href="https://github.com/AljoschaMeyer/reqres" class="outlink">reqres</a> static request and streaming responses.</p>
+<p>Request are encoded beginning with a byte of flags: the four most significant bits should be set to zero and are ignored during decoding, the fifth bit is set to one iff $\eventOffset \neq 0$, the sixth bit is set to one iff $\fromName \neq \nil$, and the seventh and eighth bit encode the $\requestMode$: $00$ for $\payloadNone$, $01$ for $\payloadAscending$, $10$ for $\payloadDescending$, and $11$ for $\payloadAll$.</p>
+<p>This initial byte is followed by $\to$, followed by $\from$ encoded as a <a href="https://github.com/AljoschaMeyer/varu64" class="outlink">VarU64</a>, followed by $\fromName$ if $\fromName \neq \nil$. If $\eventOffset \neq 0$, this is followed by $\eventOffset$ encoded as a <a href="https://github.com/AljoschaMeyer/varu64#non-zero-unsigned-integers" class="outlink">VarNonZeroU64</a>.</p>
+<p>Finally, if $\eventOffset$ is large enough that the <a href="#response" class="ref">response</a> will not contain any <a href="#magma_event" class="ref">magma events</a> even if the server had all events that exist, this is followed by the 64-bit integer part of the $\payloadOffset$ encoded as a <a href="https://github.com/AljoschaMeyer/varu64" class="outlink">VarU64</a>, and if that is nonzero, that is followed by the hash part of the $\payloadOffset$.</p>
+<p>A $\nil$ <a href="#response" class="ref">response</a> is transmitted as zero byte for the first response item, and the unit type for the last response item (there are no repeated response items). If the response is not $\nil$ but both sequences are empty, the server may act as if the response was $\nil$, since this is more efficient to encode yet the client does not lose out on information.</p>
+<p>Otherwise let $\sequence{e, s}$ be the sequences of <a href="#magma_event" class="ref">magma events</a> and <a href="#semigroup" class="ref">semigroup</a> values respectively. The first response item is the byte $0x01$. The repeated response items are the bytes of the encodings of the <a href="#magma_event" class="ref">magma events</a> in $e$ (in sequence order), followed by the bytes of the encodings of the values in $s$ (in sequence order). The last response item is the unit type.</p>
+<p>If the response contained a $\payloadOffset = \sequence{\mathit{len}, \mathit{hash}}$, the server computes the hash over the first $\mathit{len}$ bytes of the encoding of the first <a href="#semigroup" class="ref">semigroup</a> value in $s$. If it matches $\mathit{hash}$, the first response item is the byte $0x02$ and the first $\mathit{len}$ bytes of the encoding of the first value of $s$ are omitted from the response.</p>
+<p>If in the request $\requestMode = \payloadAll$, the encoding of each <a href="#semigroup" class="ref">semigroup</a> value whose corresponding <a href="#magma_event" class="ref">magma event</a> has not yet been transmitted in the response, is preceded by the encoding of its corresponding <a href="#magma_event" class="ref">magma event</a>.</p>
+</section>
+
+</html>
