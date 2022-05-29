@@ -29,7 +29,7 @@ export function tex(str, elem, opts) {
 // elems is an array containing the tex source of the elements of the set
 export function set(elems, level) {
   if (elems.length === 0) {
-    return String.raw`\htmlData{preview=https://aljoscha-meyer.de/intromathpreviews/set.html}{\href{https://aljoscha-meyer.de/intromathsets.html#set}{\emptyset}}`;
+    return String.raw`\htmlData{preview=https://aljoscha-meyer.de/intromath/previews/set.html}{\href{https://aljoscha-meyer.de/intromath/sets.html#set}{\emptyset}}`;
   } else {
     if (level === 0 || !level) {
       return String.raw` \left\lbrace ${elems.join(", ")} \right\rbrace `;
@@ -65,31 +65,31 @@ export function p(inner_tex, level) {
 
 export function powerset(inner_tex, level) {
   if (level === 0 || !level) {
-    return String.raw`\htmlData{preview=https://aljoscha-meyer.de/intromathpreviews/powerset.html}{\href{https://aljoscha-meyer.de/intromathsets.html#powerset}{\operatorname{\mathcal{P}}}} \left( ${inner_tex} \right) `;
+    return String.raw`\htmlData{preview=https://aljoscha-meyer.de/intromath/previews/powerset.html}{\href{https://aljoscha-meyer.de/intromath/sets.html#powerset}{\operatorname{\mathcal{P}}}} \left( ${inner_tex} \right) `;
   } else if (level === 1) {
-    return String.raw`\htmlData{preview=https://aljoscha-meyer.de/intromathpreviews/powerset.html}{\href{https://aljoscha-meyer.de/intromathsets.html#powerset}{\operatorname{\mathcal{P}}}} \big( ${inner_tex} \big) `;
+    return String.raw`\htmlData{preview=https://aljoscha-meyer.de/intromath/previews/powerset.html}{\href{https://aljoscha-meyer.de/intromath/sets.html#powerset}{\operatorname{\mathcal{P}}}} \big( ${inner_tex} \big) `;
   } else if (level === 2) {
-    return String.raw`\htmlData{preview=https://aljoscha-meyer.de/intromathpreviews/powerset.html}{\href{https://aljoscha-meyer.de/intromathsets.html#powerset}{\operatorname{\mathcal{P}}}} \Big( ${inner_tex} \Big) `;
+    return String.raw`\htmlData{preview=https://aljoscha-meyer.de/intromath/previews/powerset.html}{\href{https://aljoscha-meyer.de/intromath/sets.html#powerset}{\operatorname{\mathcal{P}}}} \Big( ${inner_tex} \Big) `;
   } else if (level === 3) {
-    return String.raw`\htmlData{preview=https://aljoscha-meyer.de/intromathpreviews/powerset.html}{\href{https://aljoscha-meyer.de/intromathsets.html#powerset}{\operatorname{\mathcal{P}}}} \bigg( ${inner_tex} \bigg) `;
+    return String.raw`\htmlData{preview=https://aljoscha-meyer.de/intromath/previews/powerset.html}{\href{https://aljoscha-meyer.de/intromath/sets.html#powerset}{\operatorname{\mathcal{P}}}} \bigg( ${inner_tex} \bigg) `;
   } else if (level === 4) {
-    return String.raw`\htmlData{preview=https://aljoscha-meyer.de/intromathpreviews/powerset.html}{\href{https://aljoscha-meyer.de/intromathsets.html#powerset}{\operatorname{\mathcal{P}}}} \Bigg( ${inner_tex} \Bigg) `;
+    return String.raw`\htmlData{preview=https://aljoscha-meyer.de/intromath/previews/powerset.html}{\href{https://aljoscha-meyer.de/intromath/sets.html#powerset}{\operatorname{\mathcal{P}}}} \Bigg( ${inner_tex} \Bigg) `;
   } else {
     throw "unimplemented level of paren sizing";
   }
 }
 
-export const defeq = String.raw`\htmlData{preview=https://aljoscha-meyer.de/intromathpreviews/defeq.html}{\href{https://aljoscha-meyer.de/intromathdeductive_reasoning.html#defeq}{\coloneqq}}`;
-export const seq = String.raw`\htmlData{preview=https://aljoscha-meyer.de/intromathpreviews/set_eq.html}{\href{https://aljoscha-meyer.de/intromathsets.html#set_eq}{=}}`;
-export const sneq = String.raw`\htmlData{preview=https://aljoscha-meyer.de/intromathpreviews/set_eq.html}{\href{https://aljoscha-meyer.de/intromathsets.html#set_eq}{\neq}}`;
-export const subseteq = String.raw`\htmlData{preview=https://aljoscha-meyer.de/intromathpreviews/subseteq.html}{\href{https://aljoscha-meyer.de/intromathsets.html#subseteq}{\subseteq}}`;
-export const subset = String.raw`\htmlData{preview=https://aljoscha-meyer.de/intromathpreviews/subset.html}{\href{https://aljoscha-meyer.de/intromathsets.html#subset}{\subset}}`;
-export const supseteq = String.raw`\htmlData{preview=https://aljoscha-meyer.de/intromathpreviews/subseteq.html}{\href{https://aljoscha-meyer.de/intromathsets.html#subseteq}{\supseteq}}`;
-export const supset = String.raw`\htmlData{preview=https://aljoscha-meyer.de/intromathpreviews/subset.html}{\href{https://aljoscha-meyer.de/intromathsets.html#subset}{\supset}}`;
-export const nsubseteq = String.raw`\htmlData{preview=https://aljoscha-meyer.de/intromathpreviews/subseteq.html}{\href{https://aljoscha-meyer.de/intromathsets.html#subseteq}{\nsubseteq}}`;
-export const nsubset = String.raw`\htmlData{preview=https://aljoscha-meyer.de/intromathpreviews/subset.html}{\href{https://aljoscha-meyer.de/intromathsets.html#subset}{\not\subset}}`;
-export const nsupseteq = String.raw`\htmlData{preview=https://aljoscha-meyer.de/intromathpreviews/subseteq.html}{\href{https://aljoscha-meyer.de/intromathsets.html#subseteq}{\nsupseteq}}`;
-export const nsupset = String.raw`\htmlData{preview=https://aljoscha-meyer.de/intromathpreviews/subset.html}{\href{https://aljoscha-meyer.de/intromathsets.html#subset}{\not\supset}}`;
-export const intersection = String.raw`\htmlData{preview=https://aljoscha-meyer.de/intromathpreviews/intersection.html}{\href{https://aljoscha-meyer.de/intromathsets.html#intersection}{\cap}}`;
-export const union = String.raw`\htmlData{preview=https://aljoscha-meyer.de/intromathpreviews/union.html}{\href{https://aljoscha-meyer.de/intromathsets.html#union}{\cup}}`;
-export const setminus = String.raw`\htmlData{preview=https://aljoscha-meyer.de/intromathpreviews/set_difference.html}{\href{https://aljoscha-meyer.de/intromathsets.html#set_difference}{\setminus}}`;
+export const defeq = String.raw`\htmlData{preview=https://aljoscha-meyer.de/intromath/previews/defeq.html}{\href{https://aljoscha-meyer.de/intromath/deductive_reasoning.html#defeq}{\coloneqq}}`;
+export const seq = String.raw`\htmlData{preview=https://aljoscha-meyer.de/intromath/previews/set_eq.html}{\href{https://aljoscha-meyer.de/intromath/sets.html#set_eq}{=}}`;
+export const sneq = String.raw`\htmlData{preview=https://aljoscha-meyer.de/intromath/previews/set_eq.html}{\href{https://aljoscha-meyer.de/intromath/sets.html#set_eq}{\neq}}`;
+export const subseteq = String.raw`\htmlData{preview=https://aljoscha-meyer.de/intromath/previews/subseteq.html}{\href{https://aljoscha-meyer.de/intromath/sets.html#subseteq}{\subseteq}}`;
+export const subset = String.raw`\htmlData{preview=https://aljoscha-meyer.de/intromath/previews/subset.html}{\href{https://aljoscha-meyer.de/intromath/sets.html#subset}{\subset}}`;
+export const supseteq = String.raw`\htmlData{preview=https://aljoscha-meyer.de/intromath/previews/subseteq.html}{\href{https://aljoscha-meyer.de/intromath/sets.html#subseteq}{\supseteq}}`;
+export const supset = String.raw`\htmlData{preview=https://aljoscha-meyer.de/intromath/previews/subset.html}{\href{https://aljoscha-meyer.de/intromath/sets.html#subset}{\supset}}`;
+export const nsubseteq = String.raw`\htmlData{preview=https://aljoscha-meyer.de/intromath/previews/subseteq.html}{\href{https://aljoscha-meyer.de/intromath/sets.html#subseteq}{\nsubseteq}}`;
+export const nsubset = String.raw`\htmlData{preview=https://aljoscha-meyer.de/intromath/previews/subset.html}{\href{https://aljoscha-meyer.de/intromath/sets.html#subset}{\not\subset}}`;
+export const nsupseteq = String.raw`\htmlData{preview=https://aljoscha-meyer.de/intromath/previews/subseteq.html}{\href{https://aljoscha-meyer.de/intromath/sets.html#subseteq}{\nsupseteq}}`;
+export const nsupset = String.raw`\htmlData{preview=https://aljoscha-meyer.de/intromath/previews/subset.html}{\href{https://aljoscha-meyer.de/intromath/sets.html#subset}{\not\supset}}`;
+export const intersection = String.raw`\htmlData{preview=https://aljoscha-meyer.de/intromath/previews/intersection.html}{\href{https://aljoscha-meyer.de/intromath/sets.html#intersection}{\cap}}`;
+export const union = String.raw`\htmlData{preview=https://aljoscha-meyer.de/intromath/previews/union.html}{\href{https://aljoscha-meyer.de/intromath/sets.html#union}{\cup}}`;
+export const setminus = String.raw`\htmlData{preview=https://aljoscha-meyer.de/intromath/previews/set_difference.html}{\href{https://aljoscha-meyer.de/intromath/sets.html#set_difference}{\setminus}}`;
