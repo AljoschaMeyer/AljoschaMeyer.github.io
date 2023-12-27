@@ -347,7 +347,8 @@ vec2 only_work_with_central_square(vec2 st) {
 
 void main() {
     vec2 st = only_work_with_central_square(vec2(ts.x, ts.y));
-    st.y = -st.y;
+    // st.y = -st.y;
+    st.x = -st.x;
     st = rotate2d(-PIH) * st;
 
     const float pi = 3.14159265359;
@@ -548,7 +549,7 @@ function main() {
     gl.bindVertexArray(vao);
     gl.uniform1f(t_loc, t / 10000);
     gl.uniform2f(resolution_loc, gl.canvas.width, gl.canvas.height);
-    gl.uniform1f(h_pct_loc, now.getHours() / 24);
+    gl.uniform1f(h_pct_loc, (now.getHours() % 12) / 12);
     gl.uniform1f(m_pct_loc, now.getMinutes() / 60);
     gl.uniform1f(s_pct_loc, now.getSeconds() / 60);
     gl.uniform1f(rings_loc, 4.0);
