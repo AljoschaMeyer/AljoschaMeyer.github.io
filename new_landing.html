@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Aljoscha Meyer</title>
+  <style>
+    body {
+      margin: 5% auto;
+      max-width: 60em;
+      padding: 0 .6em;
+      font: 1.3em sans-serif;
+    }
+
+    img,
+    iframe {
+      width: 100%;
+      height: auto;
+    }
+
+    .columns2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      margin: 3rem 0;
+
+      h2 {
+        text-align: center;
+      }
+    }
+
+    .card {
+      margin: 2rem 0;
+      padding: 1rem;
+      border-radius: 4px;
+      background-color: rgb(242, 242, 242);
+
+      >h4 {
+        margin-top: 0;
+      }
+
+      >h4>a {
+        color: inherit;
+      }
+    }
+
+    .centered {
+      margin: 0 auto; width: fit-content;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="centered" style="font-size: 2em;">
+    Aljoscha Meyer does computer science.
+  </div>
+  <div class="centered">(<a class="u-email" href="mailto:mail@aljoscha-meyer.de"
+      rel="me">mail@aljoscha-meyer.de</a>) (<a href="https://github.com/AljoschaMeyer" rel="me">Github</a>)</div>
+
+  <div class="columns2">
+    <div>
+      <h2>Selected Projects</h2>
+
+      <div class="card">
+        <h4><a href="https://willowprotocol.org/">
+            Willow
+          </a></h4>
+        <a href="https://willowprotocol.org/">
+          <img src="assets/willow_emblem.png" />
+        </a>
+        <p>
+          A peer-to-peer, multi-writer data store.
+        </p>
+      </div>
+
+      <div class="card">
+        <h4><a href="https://aljoscha-meyer.de/reed/">
+            Reed
+          </a></h4>
+        <a href="https://aljoscha-meyer.de/reed/">
+          <img src="assets/reed.svg" />
+        </a>
+        <p>
+          A <a href="https://arxiv.org/pdf/2308.13836">prefix authentication scheme</a> that is more efficient than the
+          one used in <a href="https://en.wikipedia.org/wiki/Certificate_Transparency">certificate transparency</a>.
+        </p>
+      </div>
+
+      <div class="card">
+        <h4><a href="https://github.com/worm-blossom/macromania/tree/main">
+            Macromania
+          </a></h4>
+        <a href="https://github.com/worm-blossom/macromania/tree/main">
+          <img src="assets/macromania_deco.png" />
+        </a>
+        <p>
+          A macro system for generating plaintext files. Suitable for producing <a
+            href="https://github.com/worm-blossom/demo_macromania">web-native scientific papers</a>.
+        </p>
+      </div>
+
+      <div class="card">
+        <h4><a href="https://crates.io/crates/ufotofu">
+            Ufotofu
+          </a></h4>
+        <p>
+          A <a href="https://www.rust-lang.org/">Rust</a> library of abstractions for <a
+            href="https://github.com/AljoschaMeyer/lazy_on_principle/blob/main/main.pdf">working lazily working with
+            sequences</a>.
+        </p>
+      </div>
+
+      <div class="card">
+        <h4><a href="https://seasonalclock.org/">
+            Seasonal Clock
+          </a></h4>
+
+        <iframe id="inlineFrameExample" title="Inline Frame Example"
+          src="https://seasonalclock.org/?lat=52.31&lon=13.24&offset=2"
+          style="height: 360px; border-radius: 4px; border: none;">
+        </iframe>
+        <p>
+          A tool for scheduling meetings across timezones, mapping UTC offsets to emoji. Carrying on some of <a
+            href="https://github.com/cinnamon-bun">Cinnamon's</a> light.
+        </p>
+      </div>
+    </div>
+
+    <div>
+      <h2>Selected Writing</h2>
+
+      <div class="card">
+        <h4><a href="https://g-trees.github.io/g_trees/">
+            Geometric Search Trees
+          </a></h4>
+        <a href="https://g-trees.github.io/g_trees/">
+          <img src="assets/kziptree.svg" />
+        </a>
+        <div>
+          A family of randomized set data structures that generalizes the <a
+            href="https://arxiv.org/pdf/1806.06726">zip-trees</a> to work more efficiently in the presence of cache
+          hierarchies. Can be used for set fingerprinting and for membership proofs.
+        </div>
+      </div>
+
+      <div class="card">
+        <h4><a href="https://github.com/AljoschaMeyer/rbsr_short/blob/main/main.pdf">
+            Range-Based Set Reconciliation
+          </a></h4>
+        <a href="https://github.com/AljoschaMeyer/rbsr_short/blob/main/main.pdf">
+          <img src="assets/rbsr.png" />
+        </a>
+        <div>
+          Range-based set reconciliation is a simple approach to efficiently computing the union of two sets over a
+          network, based on recursively partitioning the sets and comparing fingerprints of the partitions to
+          probabilistically detect whether a
+          partition requires further work. Quite a few open source projects <a
+            href="https://logperiodic.com/rbsr.html">started</a> <a
+            href="https://www.youtube.com/watch?v=_D_tbAMqADM&list=PLvsg-fc7APc3liifbs3O_gokEIJcFn7Eu">considering</a>
+          <a href="https://cips.ceramic.network/CIPs/cip-124">this</a> <a
+            href="https://willowprotocol.org/specs/3d-range-based-set-reconciliation/index.html#d3_range_based_set_reconciliation">algorithm</a>.
+        </div>
+      </div>
+
+      <div class="card">
+        <h4><a href="https://github.com/AljoschaMeyer/lazy_on_principle/blob/main/main.pdf">
+            Strict Principles for Lazy Sequences
+          </a></h4>
+        <div>
+          APIs like iterators, streams, sinks, readers, writers, are all APIs for lazily working with potentially
+          infinite sequences of items. There is a large number of competing designs, but little principled work on
+          evaluating or deriving these designs. Starting from the question of how to objectively evaluate such APIs, I
+          derive some instructive and quite useful hierarchies of interfaces for working with sequences.
+        </div>
+      </div>
+
+      <div class="card">
+        <h4><a href="https://arxiv.org/pdf/2308.15058">
+            Better Prefix Authentication
+          </a></h4>
+        <a href="https://arxiv.org/pdf/2308.15058">
+          <img src="assets/slls2.svg" />
+        </a>
+        <div>
+          Like <a href="https://datatracker.ietf.org/doc/html/rfc9162">certificate transparency logs</a>, but more
+          simple and more efficient.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="centered">
+    <p>Some guiding principles on coding:</p>
+  
+    <ul>
+      <li>code affects humans, not machines</li>
+      <li>think through the consequences of design decisions</li>
+      <li>tradeoffs are everywhere, document them</li>
+      <li>taking on technical debt should be an informed decision, not the default</li>
+      <li>all resources are finite</li>
+      <li>share, teach and be taught</li>
+      <li>don't hesitate to create and improve your tools</li>
+      <li>know your complexity bounds and impossibility results</li>
+      <li>algebraic laws are one honking great idea—let's do more of those</li>
+      <li>when in doubt, create beauty</li>
+    </ul>
+  </div>
+
+</body>
+
+</html>
