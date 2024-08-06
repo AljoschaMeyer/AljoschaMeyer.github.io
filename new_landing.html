@@ -35,6 +35,14 @@
             }
         }
 
+        a {
+            color: rgb(47, 0, 70);
+        }
+
+        a:not(:has(img))::after {
+            display: inline;
+            content: '↗';
+        }
 
         .card {
             margin: 1rem 0;
@@ -67,12 +75,10 @@
 
     <div class="columns2">
         <div>
-            <h2>Selected Projects</h2>
+            <h2>Some Projects</h2>
 
             <div class="card">
-                <h4><a href="https://willowprotocol.org/">
-                        Willow
-                    </a></h4>
+                <h4><a href="https://willowprotocol.org/">Willow</a></h4>
                 <a href="https://willowprotocol.org/">
                     <img src="assets/willow_emblem.png" />
                 </a>
@@ -82,9 +88,7 @@
             </div>
 
             <div class="card">
-                <h4><a href="https://aljoscha-meyer.de/reed/">
-                        Reed
-                    </a></h4>
+                <h4><a href="https://aljoscha-meyer.de/reed/">Reed</a></h4>
                 <a href="https://aljoscha-meyer.de/reed/">
                     <img src="assets/reed.svg" />
                 </a>
@@ -97,9 +101,7 @@
             </div>
 
             <div class="card">
-                <h4><a href="https://github.com/worm-blossom/macromania/tree/main">
-                        Macromania
-                    </a></h4>
+                <h4><a href="https://github.com/worm-blossom/macromania/tree/main">Macromania</a></h4>
                 <a href="https://github.com/worm-blossom/macromania/tree/main">
                     <img src="assets/macromania_deco.png" />
                 </a>
@@ -110,9 +112,7 @@
             </div>
 
             <div class="card">
-                <h4><a href="https://docs.rs/ufotofu/latest/ufotofu/">
-                        Ufotofu
-                    </a></h4>
+                <h4><a href="https://docs.rs/ufotofu/latest/ufotofu/">Ufotofu</a></h4>
                 <p>
                     A <a href="https://www.rust-lang.org/">Rust</a> library of abstractions for <a
                         href="https://github.com/AljoschaMeyer/lazy_on_principle/blob/main/main.pdf">lazily producing or
@@ -121,9 +121,7 @@
             </div>
 
             <div class="card">
-                <h4><a href="https://seasonalclock.org/">
-                        Seasonal Clock
-                    </a></h4>
+                <h4><a href="https://seasonalclock.org/">Seasonal Clock</a></h4>
 
                 <iframe id="inlineFrameExample" title="Inline Frame Example"
                     src="https://seasonalclock.org/?lat=52.31&lon=13.24&offset=2"
@@ -137,12 +135,10 @@
         </div>
 
         <div>
-            <h2>Selected Writing</h2>
+            <h2>Some Writing</h2>
 
             <div class="card">
-                <h4><a href="https://g-trees.github.io/g_trees/">
-                        Geometric Search Trees
-                    </a></h4>
+                <h4><a href="https://g-trees.github.io/g_trees/">Geometric Search Trees</a></h4>
                 <a href="https://g-trees.github.io/g_trees/">
                     <img src="assets/kziptree.svg" />
                 </a>
@@ -154,9 +150,8 @@
             </div>
 
             <div class="card">
-                <h4><a href="https://github.com/AljoschaMeyer/rbsr_short/blob/main/main.pdf">
-                        Range-Based Set Reconciliation
-                    </a></h4>
+                <h4><a href="https://github.com/AljoschaMeyer/rbsr_short/blob/main/main.pdf">Range-Based Set
+                        Reconciliation</a></h4>
                 <a href="https://github.com/AljoschaMeyer/rbsr_short/blob/main/main.pdf">
                     <img src="assets/rbsr.png" />
                 </a>
@@ -164,7 +159,7 @@
                     Range-based set reconciliation is a simple approach to efficiently computing the union of two sets
                     over a network, based on recursively partitioning the sets and comparing fingerprints of the
                     partitions to probabilistically detect whether a
-                    partition requires further work. Quite a few open source projects <a
+                    partition requires further work. Several open source projects <a
                         href="https://logperiodic.com/rbsr.html">started</a> <a
                         href="https://www.youtube.com/watch?v=_D_tbAMqADM&list=PLvsg-fc7APc3liifbs3O_gokEIJcFn7Eu">considering</a>
                     <a href="https://cips.ceramic.network/CIPs/cip-124">this</a> <a
@@ -173,9 +168,8 @@
             </div>
 
             <div class="card">
-                <h4><a href="https://github.com/AljoschaMeyer/lazy_on_principle/blob/main/main.pdf">
-                        Strict Principles for Lazy Sequences
-                    </a></h4>
+                <h4><a href="https://github.com/AljoschaMeyer/lazy_on_principle/blob/main/main.pdf">Strict Principles
+                        for Lazy Sequences</a></h4>
                 <p>
                     APIs like iterators, streams, sinks, readers, or writers are all APIs for lazily working with
                     potentially infinite sequences of items. There is a large number of competing designs, but little
@@ -186,9 +180,7 @@
             </div>
 
             <div class="card">
-                <h4><a href="https://arxiv.org/pdf/2308.15058">
-                        Better Prefix Authentication
-                    </a></h4>
+                <h4><a href="https://arxiv.org/pdf/2308.15058">Better Prefix Authentication</a></h4>
                 <a href="https://arxiv.org/pdf/2308.15058">
                     <img src="assets/slls2.svg" />
                 </a>
