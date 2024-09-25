@@ -1,0 +1,14 @@
+#game {
+    /* https://stackoverflow.com/questions/4191260/drawing-a-grid-using-css */
+    background-image:
+      repeating-linear-gradient(#969696 0 1px, transparent 1px 100%),
+      repeating-linear-gradient(90deg, #969696 0 1px, transparent 1px 100%);
+    background-size: var(--ppf) var(--ppf);
+
+    border-bottom: 1px solid #969696;
+    border-right: 1px solid #969696;
+}
+
+#game * {
+    pointer-events: none;
+}

@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset=utf-8>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="build.css">
+</head>
+
+<body>
+   <div id="message">
+        Click an empty cell to populate it; press <kbd>1</kbd> through <kbd>6</kbd> to place walls, <kbd>7</kbd> and <kbd>8</kbd> to place start and end positions.
+        Click a wall to invert it, click again to turn it into a toggle, click again to empty the cell.
+        Press <kbd>p</kbd> to play.
+        All level information is saved in the url.
+   </div>
+   <div id="game">
+    <div id="avatar"></div>
+    <div id="fields">
+    </div>
+    <div class="field goal" id="goal"></div>
+   </div>
+    <script src="build.js"></script>
+</body>
+
+</html>
