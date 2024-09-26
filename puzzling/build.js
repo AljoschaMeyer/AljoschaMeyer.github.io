@@ -297,25 +297,47 @@ gameContainer.addEventListener("click", (e)=>{
         }
     } else {
         const elem = state.fieldElems.get(id);
-        if ("wall" in field.kind) {
-            if (field.kind.inverted) {
-                field.kind.inverted = false;
-                elem.classList.remove("inv");
-            } else {
-                field.kind = {
-                    toggle: field.kind.wall
-                };
-                elem.classList.replace("wall", "toggle");
-            }
-        } else {
+        if (e.button === 2) {
             state.fields.delete(id);
             state.fieldElems.delete(id);
             elem.remove();
+            e.preventDefault();
+            return false;
+        } else {
+            if ("wall" in field.kind) {
+                if (field.kind.inverted) {
+                    field.kind.inverted = false;
+                    elem.classList.remove("inv");
+                } else {
+                    field.kind = {
+                        toggle: field.kind.wall
+                    };
+                    elem.classList.replace("wall", "toggle");
+                }
+            } else {
+                state.fields.delete(id);
+                state.fieldElems.delete(id);
+                elem.remove();
+            }
         }
     }
     const encoded = encodeLevel(stateToLevel(state));
     const urlWithoutParamers = `${window.location.protocol}//${window.location.host}${window.location.pathname}`;
     history.replaceState({}, "", `${urlWithoutParamers}?lvl=${encoded}`);
+});
+gameContainer.addEventListener("contextmenu", (e)=>{
+    const x = Math.floor(e.offsetX / 32);
+    const y = Math.floor(e.offsetY / 32);
+    const id = fieldId(x, y);
+    const field = state.fields.get(id);
+    if (field !== undefined) {
+        const elem = state.fieldElems.get(id);
+        state.fields.delete(id);
+        state.fieldElems.delete(id);
+        elem.remove();
+        e.preventDefault();
+        return false;
+    }
 });
 function stateToLevel(state) {
     return {

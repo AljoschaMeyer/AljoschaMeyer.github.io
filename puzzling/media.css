@@ -1,0 +1,13 @@
+#media {
+    display: none;
+}
+
+@media (max-height: 800px) or (max-width: 1200px) {
+    #media {
+        display: block;
+    }
+
+    body > *:not(#media) {
+        display: none
+    }
+}

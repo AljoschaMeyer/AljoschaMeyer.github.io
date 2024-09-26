@@ -225,6 +225,8 @@ function loadLevel(state, lvl) {
     state.currentLevel = lvl;
     state.currentLevelState = initialStateOfLevel(lvl.level);
     state.responsive = true;
+    const urlWithoutParamers = `${window.location.protocol}//${window.location.host}${window.location.pathname}`;
+    history.replaceState({}, "", `${urlWithoutParamers}?level=${lvl.id}`);
     uiResizeGame(state.ui.gameContainer, lvl.level);
     uiUpdateMessage(state.ui.messageContainer, lvl.message);
     uiUpdateAvatar(state.ui.avatar, state.currentLevelState.avatar);
@@ -368,7 +370,7 @@ function move(state, xDir, yDir) {
     }
     setTimeout(()=>{
         state.responsive = true;
-    }, animationDuration);
+    }, animationDuration - msPerField);
 }
 function toggle(state, toggles, delay) {
     if (state.currentLevelState.activatedFields.has(toggles)) {
