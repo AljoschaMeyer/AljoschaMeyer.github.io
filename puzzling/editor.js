@@ -328,267 +328,6 @@ editorHelpMessage.append(p([
 editorHelpMessage.append(p([
     "Press any other key to toggle this help message."
 ]));
-class PlayController {
-    levels;
-    levelIndex;
-    keyEventSource;
-    model;
-    view;
-    currentlyShowingMessage;
-    currentlyShowingHelpMessage;
-    postLevelMessageIndex;
-    undoStack;
-    constructor(levels, levelIndex, keyEventSource, view, showHelpAtStart){
-        this.levels = levels;
-        this.levelIndex = levelIndex;
-        if (levelIndex >= levels.ordered.length) {
-            throw "Starting levelIndex greater than number of levels";
-        }
-        this.model = freshModelForLevel(this.levels.ordered[this.levelIndex].level);
-        this.view = view;
-        this.undoStack = [];
-        this.currentlyShowingMessage = false;
-        this.currentlyShowingHelpMessage = false;
-        this.postLevelMessageIndex = -1;
-        this.keyEventSource = keyEventSource;
-        this.keyEventSource.addEventListener("keydown", (e)=>{
-            if (e.repeat) {
-                return;
-            }
-            if (this.currentlyShowingMessage) {
-                this.leaveCurrentMessage();
-            } else {
-                if (e.key == `Escape`) {
-                    this.restartLevel(true);
-                } else if (e.key == `u`) {
-                    this.undo();
-                } else {
-                    let undefinedKey = true;
-                    let xStep = 0;
-                    let yStep = 0;
-                    if (e.key == `w` || e.key == `ArrowUp`) {
-                        yStep = 1;
-                        undefinedKey = false;
-                    } else if (e.key == `s` || e.key == `ArrowDown`) {
-                        yStep = -1;
-                        undefinedKey = false;
-                    } else if (e.key == `a` || e.key == `ArrowLeft`) {
-                        xStep = -1;
-                        undefinedKey = false;
-                    } else if (e.key == `d` || e.key == `ArrowRight`) {
-                        xStep = 1;
-                        undefinedKey = false;
-                    }
-                    if (undefinedKey && e.key !== `r`) {
-                        this.displayMessage(helpMessage, true);
-                    } else if (e.key !== `r`) {
-                        this.processMove(xStep, yStep);
-                    }
-                }
-            }
-        });
-        if (showHelpAtStart) {
-            this.displayMessage(helpMessage, true);
-        } else {
-            this.view.displayMessage(null);
-        }
-        this.view.registerWonGameCb(()=>{
-            this.displayMessage("Thank you for playing");
-        });
-    }
-    displayMessage(msg, isHelp) {
-        if (this.view.displayMessage(msg)) {
-            this.currentlyShowingMessage = true;
-            this.currentlyShowingHelpMessage = !!isHelp;
-            return true;
-        } else {
-            return false;
-        }
-    }
-    restartLevel(notifyView) {
-        this.model = freshModelForLevel(this.levels.ordered[this.levelIndex].level);
-        if (notifyView) {
-            this.view.restartLevel();
-        }
-    }
-    leaveCurrentMessage() {
-        if (this.currentlyShowingHelpMessage) {
-            if (this.view.displayMessage(null)) {
-                this.currentlyShowingHelpMessage = false;
-                this.currentlyShowingMessage = false;
-            }
-        } else {
-            const messages = this.levels.ordered[this.levelIndex].messages;
-            if (this.postLevelMessageIndex + 1 >= messages.length) {
-                if (this.view.displayMessage(null)) {
-                    this.currentlyShowingMessage = false;
-                    this.levelIndex += 1;
-                    this.postLevelMessageIndex = -1;
-                    if (this.levelIndex >= this.levels.ordered.length) {
-                        this.view.nextLevel(null);
-                    } else {
-                        const nextLevel = this.levels.ordered[this.levelIndex];
-                        this.model = freshModelForLevel(nextLevel.level);
-                        this.view.nextLevel(nextLevel.level);
-                        const urlWithoutParamers = `${window.location.protocol}//${window.location.host}${window.location.pathname}`;
-                        history.replaceState({}, "", `${urlWithoutParamers}?level=${nextLevel.id}`);
-                    }
-                }
-            } else {
-                if (this.displayMessage(messages[this.postLevelMessageIndex])) {
-                    this.postLevelMessageIndex += 1;
-                }
-            }
-        }
-    }
-    processMove(xDir, yDir) {
-        const move = this.model.movePure(xDir, yDir);
-        if (move.distance > 0) {
-            const inverseMove = {
-                oldX: move.newX,
-                oldY: move.newY,
-                newX: move.oldX,
-                newY: move.oldY,
-                distance: move.distance,
-                changedColor: undefined,
-                stoppedBy: move.stoppedBy,
-                won: false,
-                xDir: move.xDir * -1,
-                yDir: move.yDir * -1,
-                activatedFieldsAfterMove: new Set(move.activatedFieldsAfterMove)
-            };
-            if (move.changedColor !== undefined) {
-                inverseMove.changedColor = [
-                    move.changedColor[0],
-                    !move.changedColor[1]
-                ];
-                if (inverseMove.activatedFieldsAfterMove.has(move.changedColor[0])) {
-                    inverseMove.activatedFieldsAfterMove.delete(move.changedColor[0]);
-                } else {
-                    inverseMove.activatedFieldsAfterMove.add(move.changedColor[0]);
-                }
-            }
-            this.undoStack.push(inverseMove);
-            if (this.view.renderMove(move)) {
-                if (move.stoppedBy) {
-                    if (move.won) {
-                        this.undoStack = [];
-                        this.leaveCurrentMessage();
-                    } else {
-                        this.model.applyRegularMove(move);
-                    }
-                } else {
-                    this.restartLevel(false);
-                }
-            }
-        }
-    }
-    undo() {
-        const move = this.undoStack.pop();
-        if (move !== undefined) {
-            if (this.view.renderMove(move, true)) {
-                this.model.applyRegularMove(move);
-            } else {
-                this.undoStack.push(move);
-            }
-        }
-    }
-}
-function freshModelForLevel(lvl) {
-    return new Model({
-        currentLevel: lvl,
-        currentLevelState: initialStateOfLevel(lvl)
-    });
-}
-function decodeNat(i, enc) {
-    let sign = 1.0;
-    const firstChar = enc.charAt(i.offset);
-    if (firstChar === "b") {
-        sign = -1;
-    } else if (firstChar !== "a") {
-        throw "nope";
-    }
-    i.offset += 1;
-    let abs = 0;
-    while(true){
-        abs *= 10;
-        const nextChar = enc.charAt(i.offset);
-        if (nextChar === "0") {
-            abs += 0;
-        } else if (nextChar === "1") {
-            abs += 1;
-        } else if (nextChar === "2") {
-            abs += 2;
-        } else if (nextChar === "3") {
-            abs += 3;
-        } else if (nextChar === "4") {
-            abs += 4;
-        } else if (nextChar === "5") {
-            abs += 5;
-        } else if (nextChar === "6") {
-            abs += 6;
-        } else if (nextChar === "7") {
-            abs += 7;
-        } else if (nextChar === "8") {
-            abs += 8;
-        } else if (nextChar === "9") {
-            abs += 9;
-        } else {
-            return sign * abs / 10;
-        }
-        i.offset += 1;
-    }
-}
-function decodeField(i, enc) {
-    const x = decodeNat(i, enc);
-    const y = decodeNat(i, enc);
-    const color = decodeNat(i, enc);
-    let kind = "wall";
-    const nextChar = enc.charAt(i.offset);
-    i.offset += 1;
-    if (nextChar === "c") {} else if (nextChar === "d") {
-        kind = "wallInverted";
-    } else if (nextChar === "e") {
-        kind = "toggle";
-    } else {
-        throw "nope";
-    }
-    return {
-        x,
-        y,
-        kind: kind === "toggle" ? {
-            toggle: color
-        } : {
-            wall: color,
-            inverted: kind === "wallInverted"
-        }
-    };
-}
-function decodeLevel(i, enc) {
-    const start = [
-        decodeNat(i, enc),
-        decodeNat(i, enc)
-    ];
-    const target = [
-        decodeNat(i, enc),
-        decodeNat(i, enc)
-    ];
-    const fields = new Set();
-    while(i.offset < enc.length){
-        fields.add(decodeField(i, enc));
-    }
-    return {
-        start,
-        target,
-        fields
-    };
-}
-function decodeLevelFromString(enc) {
-    const i = {
-        offset: 0
-    };
-    return decodeLevel(i, enc);
-}
 function compileShader(gl, shaderSource, shaderType) {
     const shader = gl.createShader(shaderType);
     gl.shaderSource(shader, shaderSource);
@@ -1122,6 +861,305 @@ function chainTimedActions(a1, a2) {
         }
     };
 }
+class WebglEditorView extends WebglView {
+    mouseX;
+    mouseY;
+    constructor(initialLevel, initialLevelState, canvas, messages, cover, shaderSources){
+        super(initialLevel, initialLevelState, canvas, messages, cover, 3, shaderSources);
+        this.mouseX = 0;
+        this.mouseY = 0;
+        this.messages.addEventListener("mousemove", (e)=>{
+            this.mouseX = e.offsetX;
+            this.mouseY = this.canvas.clientHeight - e.offsetY;
+        });
+    }
+    getCurrentSquareOfMouse() {
+        return this.levelAndResolutionState.sizing.pxToSquare(this.mouseX, this.mouseY);
+    }
+    setLevel(lvl) {
+        this.startLevel(lvl);
+    }
+    setColor(_color) {}
+    setBrush(_brush) {}
+}
+function encodeNat(n) {
+    if (n >= 0) {
+        return `a${n}`;
+    } else {
+        return `b${-n}`;
+    }
+}
+function encodeField(f) {
+    return `${encodeNat(f.x)}${encodeNat(f.y)}${encodeNat(fieldColor(f))}${"toggle" in f.kind ? "e" : f.kind.inverted ? "d" : "c"}`;
+}
+function encodeLevel(lvl) {
+    let enc = `${encodeNat(lvl.start[0])}${encodeNat(lvl.start[1])}${encodeNat(lvl.target[0])}${encodeNat(lvl.target[1])}`;
+    for (const f of lvl.fields.values()){
+        enc = `${enc}${encodeField(f)}`;
+    }
+    return enc;
+}
+function decodeNat(i, enc) {
+    let sign = 1.0;
+    const firstChar = enc.charAt(i.offset);
+    if (firstChar === "b") {
+        sign = -1;
+    } else if (firstChar !== "a") {
+        throw "nope";
+    }
+    i.offset += 1;
+    let abs = 0;
+    while(true){
+        abs *= 10;
+        const nextChar = enc.charAt(i.offset);
+        if (nextChar === "0") {
+            abs += 0;
+        } else if (nextChar === "1") {
+            abs += 1;
+        } else if (nextChar === "2") {
+            abs += 2;
+        } else if (nextChar === "3") {
+            abs += 3;
+        } else if (nextChar === "4") {
+            abs += 4;
+        } else if (nextChar === "5") {
+            abs += 5;
+        } else if (nextChar === "6") {
+            abs += 6;
+        } else if (nextChar === "7") {
+            abs += 7;
+        } else if (nextChar === "8") {
+            abs += 8;
+        } else if (nextChar === "9") {
+            abs += 9;
+        } else {
+            return sign * abs / 10;
+        }
+        i.offset += 1;
+    }
+}
+function decodeField(i, enc) {
+    const x = decodeNat(i, enc);
+    const y = decodeNat(i, enc);
+    const color = decodeNat(i, enc);
+    let kind = "wall";
+    const nextChar = enc.charAt(i.offset);
+    i.offset += 1;
+    if (nextChar === "c") {} else if (nextChar === "d") {
+        kind = "wallInverted";
+    } else if (nextChar === "e") {
+        kind = "toggle";
+    } else {
+        throw "nope";
+    }
+    return {
+        x,
+        y,
+        kind: kind === "toggle" ? {
+            toggle: color
+        } : {
+            wall: color,
+            inverted: kind === "wallInverted"
+        }
+    };
+}
+function decodeLevel(i, enc) {
+    const start = [
+        decodeNat(i, enc),
+        decodeNat(i, enc)
+    ];
+    const target = [
+        decodeNat(i, enc),
+        decodeNat(i, enc)
+    ];
+    const fields = new Set();
+    while(i.offset < enc.length){
+        fields.add(decodeField(i, enc));
+    }
+    return {
+        start,
+        target,
+        fields
+    };
+}
+function decodeLevelFromString(enc) {
+    const i = {
+        offset: 0
+    };
+    return decodeLevel(i, enc);
+}
+class PlayController {
+    levels;
+    levelIndex;
+    keyEventSource;
+    model;
+    view;
+    currentlyShowingMessage;
+    currentlyShowingHelpMessage;
+    postLevelMessageIndex;
+    undoStack;
+    constructor(levels, levelIndex, keyEventSource, view, showHelpAtStart){
+        this.levels = levels;
+        this.levelIndex = levelIndex;
+        if (levelIndex >= levels.ordered.length) {
+            throw "Starting levelIndex greater than number of levels";
+        }
+        this.model = freshModelForLevel(this.levels.ordered[this.levelIndex].level);
+        this.view = view;
+        this.undoStack = [];
+        this.currentlyShowingMessage = false;
+        this.currentlyShowingHelpMessage = false;
+        this.postLevelMessageIndex = -1;
+        this.keyEventSource = keyEventSource;
+        this.keyEventSource.addEventListener("keydown", (e)=>{
+            if (e.repeat) {
+                return;
+            }
+            if (this.currentlyShowingMessage) {
+                this.leaveCurrentMessage();
+            } else {
+                if (e.key == `Escape`) {
+                    this.restartLevel(true);
+                } else if (e.key == `u`) {
+                    this.undo();
+                } else {
+                    let undefinedKey = true;
+                    let xStep = 0;
+                    let yStep = 0;
+                    if (e.key == `w` || e.key == `ArrowUp`) {
+                        yStep = 1;
+                        undefinedKey = false;
+                    } else if (e.key == `s` || e.key == `ArrowDown`) {
+                        yStep = -1;
+                        undefinedKey = false;
+                    } else if (e.key == `a` || e.key == `ArrowLeft`) {
+                        xStep = -1;
+                        undefinedKey = false;
+                    } else if (e.key == `d` || e.key == `ArrowRight`) {
+                        xStep = 1;
+                        undefinedKey = false;
+                    }
+                    if (undefinedKey && e.key !== `r`) {
+                        this.displayMessage(helpMessage, true);
+                    } else if (e.key !== `r`) {
+                        this.processMove(xStep, yStep);
+                    }
+                }
+            }
+        });
+        if (showHelpAtStart) {
+            this.displayMessage(helpMessage, true);
+        } else {
+            this.view.displayMessage(null);
+        }
+        this.view.registerWonGameCb(()=>{
+            this.displayMessage("Thank you for playing");
+        });
+    }
+    displayMessage(msg, isHelp) {
+        if (this.view.displayMessage(msg)) {
+            this.currentlyShowingMessage = true;
+            this.currentlyShowingHelpMessage = !!isHelp;
+            return true;
+        } else {
+            return false;
+        }
+    }
+    restartLevel(notifyView) {
+        this.model = freshModelForLevel(this.levels.ordered[this.levelIndex].level);
+        if (notifyView) {
+            this.view.restartLevel();
+        }
+    }
+    leaveCurrentMessage() {
+        if (this.currentlyShowingHelpMessage) {
+            if (this.view.displayMessage(null)) {
+                this.currentlyShowingHelpMessage = false;
+                this.currentlyShowingMessage = false;
+            }
+        } else {
+            const messages = this.levels.ordered[this.levelIndex].messages;
+            if (this.postLevelMessageIndex + 1 >= messages.length) {
+                if (this.view.displayMessage(null)) {
+                    this.currentlyShowingMessage = false;
+                    this.levelIndex += 1;
+                    this.postLevelMessageIndex = -1;
+                    if (this.levelIndex >= this.levels.ordered.length) {
+                        this.view.nextLevel(null);
+                    } else {
+                        const nextLevel = this.levels.ordered[this.levelIndex];
+                        this.model = freshModelForLevel(nextLevel.level);
+                        this.view.nextLevel(nextLevel.level);
+                        const urlWithoutParamers = `${window.location.protocol}//${window.location.host}${window.location.pathname}`;
+                        history.replaceState({}, "", `${urlWithoutParamers}?level=${nextLevel.id}`);
+                    }
+                }
+            } else {
+                if (this.displayMessage(messages[this.postLevelMessageIndex])) {
+                    this.postLevelMessageIndex += 1;
+                }
+            }
+        }
+    }
+    processMove(xDir, yDir) {
+        const move = this.model.movePure(xDir, yDir);
+        if (move.distance > 0) {
+            const inverseMove = {
+                oldX: move.newX,
+                oldY: move.newY,
+                newX: move.oldX,
+                newY: move.oldY,
+                distance: move.distance,
+                changedColor: undefined,
+                stoppedBy: move.stoppedBy,
+                won: false,
+                xDir: move.xDir * -1,
+                yDir: move.yDir * -1,
+                activatedFieldsAfterMove: new Set(move.activatedFieldsAfterMove)
+            };
+            if (move.changedColor !== undefined) {
+                inverseMove.changedColor = [
+                    move.changedColor[0],
+                    !move.changedColor[1]
+                ];
+                if (inverseMove.activatedFieldsAfterMove.has(move.changedColor[0])) {
+                    inverseMove.activatedFieldsAfterMove.delete(move.changedColor[0]);
+                } else {
+                    inverseMove.activatedFieldsAfterMove.add(move.changedColor[0]);
+                }
+            }
+            this.undoStack.push(inverseMove);
+            if (this.view.renderMove(move)) {
+                if (move.stoppedBy) {
+                    if (move.won) {
+                        this.undoStack = [];
+                        this.leaveCurrentMessage();
+                    } else {
+                        this.model.applyRegularMove(move);
+                    }
+                } else {
+                    this.restartLevel(false);
+                }
+            }
+        }
+    }
+    undo() {
+        const move = this.undoStack.pop();
+        if (move !== undefined) {
+            if (this.view.renderMove(move, true)) {
+                this.model.applyRegularMove(move);
+            } else {
+                this.undoStack.push(move);
+            }
+        }
+    }
+}
+function freshModelForLevel(lvl) {
+    return new Model({
+        currentLevel: lvl,
+        currentLevelState: initialStateOfLevel(lvl)
+    });
+}
 class WebglPlayView extends WebglView {
     wonGameCb;
     constructor(initialLevel, initialLevelState, canvas, messages, cover, shaderSources){
@@ -1280,49 +1318,180 @@ function lerp(v1, v2, p) {
 function easeInOutQuad(x) {
     return x < 0.5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2;
 }
-async function startTheGame(levelInfo) {
-    const levels = {
-        ordered: [],
-        byId: new Map()
-    };
-    levelInfo.forEach(({ encoded, messages }, i)=>{
-        const lvl = levelFromLevelData(decodeLevelFromString(encoded));
-        const id = `${i}`;
-        levels.ordered.push({
-            level: lvl,
-            id,
-            messages: messages ?? []
+class EditorController {
+    eventSource;
+    view;
+    currentlyShowingHelpMessage;
+    lvl;
+    encodedLvl;
+    brush;
+    paintingColor;
+    playing;
+    constructor(initialLevel, eventSource, view){
+        this.view = view;
+        this.currentlyShowingHelpMessage = false;
+        this.brush = "wall";
+        this.paintingColor = 0;
+        this.lvl = initialLevel;
+        this.encodedLvl = encodeLevel(initialLevel);
+        this.playing = null;
+        this.eventSource = eventSource;
+        this.eventSource.addEventListener("keydown", (e)=>{
+            if (e.repeat) {
+                return;
+            }
+            if (this.playing === null) {
+                if (this.currentlyShowingHelpMessage) {
+                    this.dismissMessage();
+                } else {
+                    if (e.key == `q`) {
+                        this.setBrush("wall");
+                    } else if (e.key == `w`) {
+                        this.setBrush("wallInverted");
+                    } else if (e.key == `e`) {
+                        this.setBrush("toggle");
+                    } else if (e.key == `p`) {
+                        this.startPlaying();
+                    } else if (e.key == `1`) {
+                        this.handleNumber(0);
+                    } else if (e.key == `2`) {
+                        this.handleNumber(1);
+                    } else if (e.key == `3`) {
+                        this.handleNumber(2);
+                    } else if (e.key == `4`) {
+                        this.handleNumber(3);
+                    } else if (e.key == `5`) {
+                        this.handleNumber(4);
+                    } else if (e.key == `6`) {
+                        this.handleNumber(5);
+                    } else if (e.key == `s`) {
+                        const square = this.view.getCurrentSquareOfMouse();
+                        this.changeLevel(this.lvl.setStart(square[0], square[1]));
+                    } else if (e.key == `t`) {
+                        const square = this.view.getCurrentSquareOfMouse();
+                        this.changeLevel(this.lvl.setTarget(square[0], square[1]));
+                    } else {
+                        this.currentlyShowingHelpMessage = true;
+                        this.view.displayMessage(editorHelpMessage);
+                    }
+                }
+            } else {
+                if (e.key == `r`) {
+                    this.stopPlaying();
+                }
+            }
         });
-        levels.byId.set(id, i);
-    });
+        this.eventSource.addEventListener("click", ()=>{
+            if (this.playing === null) {
+                if (this.currentlyShowingHelpMessage) {
+                    this.dismissMessage();
+                } else {
+                    const square = this.view.getCurrentSquareOfMouse();
+                    const kind = this.brush === "toggle" ? {
+                        toggle: this.paintingColor
+                    } : {
+                        wall: this.paintingColor,
+                        inverted: this.brush === "wallInverted"
+                    };
+                    this.changeLevel(this.lvl.setField(square[0], square[1], kind));
+                }
+            }
+        });
+        this.eventSource.addEventListener("contextmenu", (e)=>{
+            if (this.playing === null) {
+                e.preventDefault();
+                if (this.currentlyShowingHelpMessage) {
+                    this.dismissMessage();
+                } else {
+                    const square = this.view.getCurrentSquareOfMouse();
+                    this.changeLevel(this.lvl.deleteField(square[0], square[1]));
+                }
+            }
+        });
+        this.currentlyShowingHelpMessage = true;
+        this.view.displayMessage(editorHelpMessage);
+    }
+    dismissMessage() {
+        this.currentlyShowingHelpMessage = false;
+        this.view.displayMessage(null);
+    }
+    setBrush(b) {
+        this.brush = b;
+        this.view.setBrush(b);
+    }
+    handleNumber(n) {
+        this.paintingColor = n;
+        this.view.setColor(n);
+    }
+    async startPlaying() {
+        const view = new WebglPlayView(this.lvl, initialStateOfLevel(this.lvl), this.view.canvas, this.view.messages, this.view.cover, this.view.shaderSources === null ? undefined : this.view.shaderSources);
+        await view.init();
+        const urlWithoutParamers = `${window.location.protocol}//${window.location.host}${window.location.pathname}`;
+        history.replaceState({}, "", `${urlWithoutParamers}?play=true&lvl=${this.encodedLvl}`);
+        this.view.pause();
+        const levels = {
+            ordered: [
+                {
+                    level: this.lvl,
+                    id: "l",
+                    messages: []
+                }
+            ],
+            byId: new Map()
+        };
+        levels.byId.set("l", 0);
+        const controller = new PlayController(levels, 0, document.body, view, false);
+        view.registerWonGameCb(()=>{
+            this.stopPlaying();
+        });
+        this.playing = {
+            view,
+            controller
+        };
+    }
+    stopPlaying() {
+        if (this.playing) {
+            this.view.messages.innerHTML = "";
+            this.playing.view.pause();
+            this.view.unpause();
+            this.playing = null;
+            const urlWithoutParamers = `${window.location.protocol}//${window.location.host}${window.location.pathname}`;
+            history.replaceState({}, "", `${urlWithoutParamers}?lvl=${this.encodedLvl}`);
+        }
+    }
+    changeLevel(lvl) {
+        this.lvl = lvl;
+        this.view.setLevel(this.lvl);
+        this.encodedLvl = encodeLevel(lvl);
+        const urlWithoutParamers = `${window.location.protocol}//${window.location.host}${window.location.pathname}`;
+        history.replaceState({}, "", `${urlWithoutParamers}?lvl=${this.encodedLvl}`);
+    }
+}
+const basicInitialLevel = new Level(new Map(), [
+    3,
+    4
+], [
+    9,
+    4
+]);
+async function startTheEditor() {
+    let initialLevel = basicInitialLevel;
     const params = new URLSearchParams(window.location.search);
-    const startLevelId = params.get("level") ?? "0";
-    const lvlIndex = levels.byId.get(startLevelId) ?? 0;
-    const lvl = levels.ordered[lvlIndex];
+    const encodedLvl = params.get("lvl");
+    if (encodedLvl) {
+        try {
+            const decoded = decodeLevelFromString(encodedLvl);
+            initialLevel = levelFromLevelData(decoded);
+        } catch (_) {}
+    }
     const canvas = document.getElementById("glCanvas");
     const cover = document.getElementById("cover");
     const messagesDisplay = document.getElementById("messages");
-    const view = new WebglPlayView(lvl.level, initialStateOfLevel(lvl.level), canvas, messagesDisplay, cover);
+    const view = new WebglEditorView(initialLevel, initialStateOfLevel(initialLevel), canvas, messagesDisplay, cover);
     await view.init();
-    new PlayController(levels, lvlIndex, document.body, view, true);
-}
-startTheGame([
-    {
-        encoded: "a3a4a9a1a3a1a0ca8a4a0ca8a1a0ca12a2a0ca13a0a0ca11b3a0ca7b2a0c"
-    },
-    {
-        encoded: "a3a4a3a1a2a1a0ca6a2a0ca3b5a0ca7b4a0c"
-    },
-    {
-        encoded: "a12a8a9a4a12a3a0ca10a4a0ca15a4a0ea8a4a1c"
-    },
-    {
-        encoded: "a3b1a3a4a2b1a0da8a0a0da9b1a0ea8b2a0ea3a3a1ca3a5a1da8a4a1e"
-    },
-    {
-        encoded: "a3a4a9a4a1a4a0ea5a4a1ea1a5a1ea5a5a2ea5a3a0ea1a3a2ea2a8a2da2a0a2da4a0a2da4a8a2da7a7a0ca2a6a0ea4a2a1ea2a2a1ca4a6a1ca3a6a0da3a2a2ca4a4a1da2a4a1da3a5a0da3a3a2da6a3a1da6a5a1ca7a1a2eb1a1a0cb1a7a2ea10a4a2cb3a4a2c"
-    },
-    {
-        encoded: "a5a6a18b1b4a1a3db3a2a3db2a1a3db3a0a3db3a1a1eb2a7a0cb3a8a0cb1a8a0cb2a9a0cb2a8a2eb1b4a1da0b3a1da1b4a1da0b5a1da0b4a3ea3b5a1ca2a2a1da4a1a3ca5a2a3ca6a1a3ca5a0a3ca5a1a1ea4a5a3ea7a7a1ea9a6a1ca10a3a3ca11a4a3ca12a3a3ca11a2a3ca11a3a1ea12b2a3da13b1a3da14b2a3da13b3a3da12b5a3ca13b2a1ea14a5a3da15a8a3ea16a7a3ea17a8a3ea16a9a3ea16a8a1ea16a3a1ca17a2a1ca15a2a1ca16a1a1ca16a2a3ea17b1a3ca18a0a3da18b2a1ca19b1a1da19a5a1ea19a9a3ca20a8a3ca21a9a3ca20a10a3ca20a9a1ea21b4a3ea21b3a1da22b4a1da21b5a1da20b4a1da23b2a3ea24a3a3da24a2a3da24b4a2da25b3a2da26b4a2da25b5a2da25b4a0ea25a9a2ca26a8a2ca26a10a2ca27a9a2ca26a9a0e"
+    const controller = new EditorController(initialLevel, document.body, view);
+    if (params.get("play")) {
+        controller.startPlaying();
     }
-]);
+}
+startTheEditor();
