@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Treasures</title>
+    <style>
+        html {
+            /* background: #123456; */
+            width: 100vw;
+            height: 100vh;
+            /* background-image: repeating-conic-gradient(from 7deg at -30% -35%, rgba(64, 3, 98, 0.02) 0deg 10deg, rgba(174, 126, 2, 0.02) 10deg 20deg, rgba(33, 106, 52, 0.02) 20deg 30deg), repeating-conic-gradient(from 5deg at 70% 80%, rgba(64, 3, 98, 0.02) 0deg 10deg, rgba(174, 126, 2, 0.02) 10deg 20deg, rgba(33, 106, 52, 0.02) 20deg 30deg), linear-gradient(-2deg, #0e2a35, #123057); */
+            background-image: repeating-conic-gradient(from 5deg at 125% 80%, rgba(64, 3, 98, 0.02) 0deg 4deg, rgba(174, 126, 2, 0.02) 4deg 8deg, rgba(33, 106, 52, 0.02) 8deg 12deg), linear-gradient(-2deg, #0e2a35, #123057);
+        }
+
+        body {
+            margin: 5% auto;
+            margin-top: 1rem;
+            max-width: 60em;
+            padding: 0 .6em;
+            font-family: Superclarendon, 'Bookman Old Style', 'URW Bookman', 'URW Bookman L', 'Georgia Pro', Georgia, serif;
+            font-size: 1.3em;
+            /* color: #ccd5e2; */
+            color: #d5c5b5;
+        }
+
+        /* a:not(:has(img))::after {
+            display: inline;
+            content: '↗\fe0e';
+        } */
+
+        .treasure {
+            margin: 3rem 0;
+        }
+
+        .metadata {
+            >*:first-child {
+                display: block;
+                margin: 0 auto;
+                width: fit-content;
+                font-size: 2.4rem;
+            }
+
+            >*:nth-child(2) {
+                margin: 0 auto;
+                width: fit-content;
+                margin-top: 0.5rem;
+            }
+
+            a {
+                text-decoration: none;
+                color: inherit;
+            }
+
+            margin-bottom: 1rem;
+        }
+
+        .vertsplash {
+            display: flex;
+            gap: 1rem;
+
+            >a, >a>img {
+                height: auto;
+                width: 100%;
+            }
+
+            >a {
+                flex: 1;
+            }
+
+            >*:nth-child(2) {
+                flex: 2;
+            }
+        }
+
+        blockquote {
+            font-family: 'Iowan Old Style', 'Palatino Linotype', 'URW Palladio L', P052, serif;
+            /* font-style: italic; */
+            margin: 2rem 0;
+            padding: 1rem;
+            border-left: 0.55rem solid #ffffff23;
+            background-color: #ffffff0a;
+            /* border-radius: 4px; */
+        }
+    </style>
+</head>
+
+<body>
+
+    <div style="font-size: 2em; text-align: center;">
+        Treasures
+    </div>
+
+    <P>
+        Works that have been important to me.
+    </P>
+
+    <div class="treasure">
+        <div class="vertsplash">
+            <a href="archived_treasures/Le Guin - The Dispossessed.pdf">
+                <img src="./archived_treasures/le-guin-dispossessed.jpg">
+            </a>
+            <div>
+                <div class="metadata">
+                    <a href="archived_treasures/Le Guin - The Dispossessed.pdf">The Dispossessed</a>
+                    <div>
+                        <a href="https://en.wikipedia.org/wiki/Ursula_K._Le_Guin">Ursula K. Le Guin</a> (1974)
+                    </div>
+                </div>
+                <div class="commentary">
+                    This “ambiguous utopia” with its flawed but beautiful anarchist society has been an inexhaustible
+                    font of
+                    inspiration, courage, and optimism for me. The world would be a better place if more people read
+                    this book.
+                </div>
+                <blockquote>
+                    <p>
+                        He asked his students to write a paper on any problem in physics that interested them, and told
+                        them
+                        that he would give them all the highest mark, so that the bureaucrats would have something to
+                        write on
+                        their forms and lists. To his surprise a good many students came to him to complain. They wanted
+                        him to
+                        set the problems, to ask the right questions; they did not want to think about questions, but to
+                        write
+                        down the answers they had learned. And some of them objected strongly to his giving everyone the
+                        same
+                        mark. How could the diligent students be distinguished from the dull ones? What was the good in
+                        working
+                        hard? If no competitive distinctions were to be made, one might as well do nothing.
+                    </p>
+                    <p>
+                        “Well, of course,” Shevek said, troubled. “If you do not want to do the work, you should not do
+                        it.”
+                    </p>
+                </blockquote>
+            </div>
+        </div>
+
+        <!--         
+        Surely freedom lay rather in openness than in secrecy, and freedom is always worth the risk.
+
+        ---
+
+        A child free from the guilt of ownership and the burden of economic competition will grow up with the will to do what needs doing and the capacity for joy in doing it. It is useless work that darkens the heart. The delight of the nursing mother, of the scholar, of the successful hunter, of the good cook, of the skillful maker, of anyone doing needed work and doing it well—this durable joy is perhaps the deepest source of human affection, and of sociality as a whole.
+
+        ---     
+
+        "But what," Oiie said abruptly, as if the question, long kept back, burst from him under pressure, "what keeps people in order? Why don't they rob and murder each other?"
+
+        "Nobody owns anything to rob. If you want things you take them from the depository. As for violence, well, I don't know, Oiie; would you murder me, ordinarily? And if you felt like it, would a law against it stop you? Coercion is the least efficient means of obtaining order."
+
+        ---
+
+        It is our suffering that brings us together. It is not love. Love does not obey the mind, and turns to hate when forced. The bond that binds us is beyond choice. We are brothers. We are brothers in what we share. In pain, which each of us must suffer alone, in hunger, in poverty, in hope, we know our brotherhood. We know it, because we have had to learn it. We know that there is no help for us but from one another, that no hand will save us if we do not reach out our hand. And the hand that you reach out is empty, as mine is. You have nothing. You possess nothing. You own nothing. You are free. All you have is what you are, and what you give. -->
+
+    </div>
+
+
+</body>
+
+</html>
+
+<!--
+
+- maro tumblr
+
+- the dispossessed
+- walkaway
+- the brothers karamasov
+- his dark materials
+
+- tools for conviviality
+- compute power and human reasoning
+- debt
+- seeing like a state
+- mindstorms
+
+- catch 22
+- house of leaves
+
+- homestuck
+- that baseball thing
+- cookie clicker
+- hpmor
+
+- disco elysium
+
+- beepbox
+
+- nausica
+- howl's moving castle
+
+- ssb
+- the future will be technical
+- NDC
+
+- song to a seagull
+- (early) zappa
+- king crimson
+- nonagon infinity
+- grand opening and closing
+
+- brett victor
+- https://okmij.org/ftp/
+- eskil steenberg https://www.quelsolaar.com/
+- dominic
+- rich hickey
+- alan kay
+
+- buffy
+
+- the köln concert
+
+- bach violin sonatas
+- pictures at an exhibition
+- pour le piano
+- musica ricercata
+- ludus tonalis
+- kodaly missa brevis
+- beethoven pastorale
+- ravel piano concerto
+- shostakovich violin concerto (passacalia)
+
+-->
