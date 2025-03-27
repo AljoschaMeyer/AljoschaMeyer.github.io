@@ -1,0 +1,104 @@
+html {
+    background-image: repeating-conic-gradient(from 5deg at 125% 80%, rgba(64, 3, 98, 0.02) 0deg 4deg, rgba(174, 126, 2, 0.02) 4deg 8deg, rgba(33, 106, 52, 0.02) 8deg 12deg), linear-gradient(-2deg, #0e2a35, #123057);
+    background-attachment: fixed;
+}
+
+body {
+    margin: 5% auto;
+    margin-top: 4rem;
+    max-width: 48em;
+    padding: 0 .6em;
+    font-family: Superclarendon, 'Bookman Old Style', 'URW Bookman', 'URW Bookman L', 'Georgia Pro', Georgia, serif;
+    font-size: 1.2em;
+    color: #eedcb0;
+}
+
+.treasure {
+    margin: 8rem 0;
+}
+
+.metadata {
+    >*:first-child {
+        display: block;
+        margin: 0 auto;
+        width: fit-content;
+        font-size: 2.4rem;
+    }
+
+    >*:nth-child(2) {
+        margin: 0 auto;
+        width: fit-content;
+        margin-top: 0.5rem;
+    }
+
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    margin-bottom: 2rem;
+}
+
+.vertsplash {
+    display: flex;
+    gap: 1rem;
+
+    >div>a>img {
+        height: auto;
+        width: 100%;
+        position: sticky;
+        top: 2rem;
+    }
+
+    >div {
+        flex: 1;
+    }
+
+    >*:nth-child(2) {
+        flex: 2;
+    }
+}
+
+blockquote {
+    font-family: 'Iowan Old Style', 'Palatino Linotype', 'URW Palladio L', P052, serif;
+    margin: 2rem 0;
+    padding: 1rem;
+    border-left: 0.55rem solid #ffffff23;
+    background-color: #ffffff0a;
+
+    >*:first-child {
+        margin-top: 0;
+    }
+
+    >*:last-child {
+        margin-bottom: 0;
+    }
+}
+
+blockquote:last-child {
+    margin-bottom: 0;
+}
+
+h1 {
+    font-size: 3em;
+    text-align: center;
+}
+
+h2 {
+    font-size: 2em;
+    text-align: center;
+    margin-top: 6rem;
+    border-bottom: 1px dotted;
+    padding-bottom: 1rem;
+    font-weight: initial;
+}
+
+.smallerTreasures {
+    display: flex;
+    flex-wrap: wrap;
+
+    >.treasure {
+        flex-grow: 1;
+        max-width: 19rem;
+    }
+}
