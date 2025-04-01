@@ -1,217 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <title>Treasures</title>
-    <style>
-        html {
-            /* background: #123456; */
-            width: 100vw;
-            height: 100vh;
-            /* background-image: repeating-conic-gradient(from 7deg at -30% -35%, rgba(64, 3, 98, 0.02) 0deg 10deg, rgba(174, 126, 2, 0.02) 10deg 20deg, rgba(33, 106, 52, 0.02) 20deg 30deg), repeating-conic-gradient(from 5deg at 70% 80%, rgba(64, 3, 98, 0.02) 0deg 10deg, rgba(174, 126, 2, 0.02) 10deg 20deg, rgba(33, 106, 52, 0.02) 20deg 30deg), linear-gradient(-2deg, #0e2a35, #123057); */
-            background-image: repeating-conic-gradient(from 5deg at 125% 80%, rgba(64, 3, 98, 0.02) 0deg 4deg, rgba(174, 126, 2, 0.02) 4deg 8deg, rgba(33, 106, 52, 0.02) 8deg 12deg), linear-gradient(-2deg, #0e2a35, #123057);
-        }
-
-        body {
-            margin: 5% auto;
-            margin-top: 1rem;
-            max-width: 60em;
-            padding: 0 .6em;
-            font-family: Superclarendon, 'Bookman Old Style', 'URW Bookman', 'URW Bookman L', 'Georgia Pro', Georgia, serif;
-            font-size: 1.3em;
-            /* color: #ccd5e2; */
-            color: #d5c5b5;
-        }
-
-        /* a:not(:has(img))::after {
-            display: inline;
-            content: '↗\fe0e';
-        } */
-
-        .treasure {
-            margin: 3rem 0;
-        }
-
-        .metadata {
-            >*:first-child {
-                display: block;
-                margin: 0 auto;
-                width: fit-content;
-                font-size: 2.4rem;
-            }
-
-            >*:nth-child(2) {
-                margin: 0 auto;
-                width: fit-content;
-                margin-top: 0.5rem;
-            }
-
-            a {
-                text-decoration: none;
-                color: inherit;
-            }
-
-            margin-bottom: 1rem;
-        }
-
-        .vertsplash {
-            display: flex;
-            gap: 1rem;
-
-            >a, >a>img {
-                height: auto;
-                width: 100%;
-            }
-
-            >a {
-                flex: 1;
-            }
-
-            >*:nth-child(2) {
-                flex: 2;
-            }
-        }
-
-        blockquote {
-            font-family: 'Iowan Old Style', 'Palatino Linotype', 'URW Palladio L', P052, serif;
-            /* font-style: italic; */
-            margin: 2rem 0;
-            padding: 1rem;
-            border-left: 0.55rem solid #ffffff23;
-            background-color: #ffffff0a;
-            /* border-radius: 4px; */
-        }
-    </style>
-</head>
-
-<body>
-
-    <div style="font-size: 2em; text-align: center;">
-        Treasures
-    </div>
-
-    <P>
-        Works that have been important to me.
-    </P>
-
-    <div class="treasure">
-        <div class="vertsplash">
-            <a href="archived_treasures/Le Guin - The Dispossessed.pdf">
-                <img src="./archived_treasures/le-guin-dispossessed.jpg">
-            </a>
-            <div>
-                <div class="metadata">
-                    <a href="archived_treasures/Le Guin - The Dispossessed.pdf">The Dispossessed</a>
-                    <div>
-                        <a href="https://en.wikipedia.org/wiki/Ursula_K._Le_Guin">Ursula K. Le Guin</a> (1974)
-                    </div>
-                </div>
-                <div class="commentary">
-                    This “ambiguous utopia” with its flawed but beautiful anarchist society has been an inexhaustible
-                    font of
-                    inspiration, courage, and optimism for me. The world would be a better place if more people read
-                    this book.
-                </div>
-                <blockquote>
-                    <p>
-                        He asked his students to write a paper on any problem in physics that interested them, and told
-                        them
-                        that he would give them all the highest mark, so that the bureaucrats would have something to
-                        write on
-                        their forms and lists. To his surprise a good many students came to him to complain. They wanted
-                        him to
-                        set the problems, to ask the right questions; they did not want to think about questions, but to
-                        write
-                        down the answers they had learned. And some of them objected strongly to his giving everyone the
-                        same
-                        mark. How could the diligent students be distinguished from the dull ones? What was the good in
-                        working
-                        hard? If no competitive distinctions were to be made, one might as well do nothing.
-                    </p>
-                    <p>
-                        “Well, of course,” Shevek said, troubled. “If you do not want to do the work, you should not do
-                        it.”
-                    </p>
-                </blockquote>
-            </div>
-        </div>
-
-        <!--         
-        Surely freedom lay rather in openness than in secrecy, and freedom is always worth the risk.
-
-        ---
-
-        A child free from the guilt of ownership and the burden of economic competition will grow up with the will to do what needs doing and the capacity for joy in doing it. It is useless work that darkens the heart. The delight of the nursing mother, of the scholar, of the successful hunter, of the good cook, of the skillful maker, of anyone doing needed work and doing it well—this durable joy is perhaps the deepest source of human affection, and of sociality as a whole.
-
-        ---     
-
-        "But what," Oiie said abruptly, as if the question, long kept back, burst from him under pressure, "what keeps people in order? Why don't they rob and murder each other?"
-
-        "Nobody owns anything to rob. If you want things you take them from the depository. As for violence, well, I don't know, Oiie; would you murder me, ordinarily? And if you felt like it, would a law against it stop you? Coercion is the least efficient means of obtaining order."
-
-        ---
-
-        It is our suffering that brings us together. It is not love. Love does not obey the mind, and turns to hate when forced. The bond that binds us is beyond choice. We are brothers. We are brothers in what we share. In pain, which each of us must suffer alone, in hunger, in poverty, in hope, we know our brotherhood. We know it, because we have had to learn it. We know that there is no help for us but from one another, that no hand will save us if we do not reach out our hand. And the hand that you reach out is empty, as mine is. You have nothing. You possess nothing. You own nothing. You are free. All you have is what you are, and what you give. -->
-
-    </div>
-
-
-</body>
-
-</html>
-
 <!--
 
-- maro tumblr
-
-- the dispossessed
-- walkaway
-- the brothers karamasov
+Non-Fiction
+===========
 
 - tools for conviviality
 - compute power and human reasoning
 - debt
 - seeing like a state
 - mindstorms
+- Goedel Escher & Bach
 
-- his dark materials
-- catch 22
-- house of leaves
-- the master and margerita
-- 1984
-- Island
+Digital
+=======
 
 - homestuck
 - that baseball thing
 - cookie clicker
 - hpmor
-
+- maro tumblr
 - disco elysium
-
+- competitive pokemon
 - beepbox
-
-- nausica
-- howl's moving castle
-
 - ssb
 - the future will be technical
 - NDC
+- brett victor
+- alan kay
+
+Other
+=====
+
+- choir
+- therapy
+- Hundertwasser (Fensterrecht)
+- werewolf
+- spirit island
+- nausica
+- howl's moving castle
+- buffy
+- https://okmij.org/ftp/
+- eskil steenberg https://www.quelsolaar.com/
+- dominic
+- rich hickey
+
+Music
+=====
 
 - song to a seagull
 - (early) zappa
 - king crimson
 - nonagon infinity
 - grand opening and closing
-
-- brett victor
-- https://okmij.org/ftp/
-- eskil steenberg https://www.quelsolaar.com/
-- dominic
-- rich hickey
-- alan kay
-
-- buffy
 
 - the köln concert
 
@@ -224,5 +63,215 @@
 - beethoven pastorale
 - ravel piano concerto
 - shostakovich violin concerto (passacalia)
+
+
+music chronologically:
+
+- bach violin sonatas g minor fugue
+- köln concert
+- pictures at an exhibition
+- pour le piano
+- paulus
+- weep oh mine eyes
+- the passing of the year
+- musica ricercata
+- ravel piano concerto
+- mlk
+- kodaly missa brevis
+- ceremony of carols
+- Castelnuovo-Tedesco | Fantasia für Gitarre und Klavier
+- shostakovich violin concerto (passacalia)
+- shostakovich 9th symphony
+- tales from topographic oceans
+28.05.2013
+ELP | Tarkus (Album)
+King Crimson | In the Court of the Crimson King (Album)
+Yes | Close to the Edge (Album)
+01.06.2013
+Frank Zappa | The Torture Never Stops - Live NY 31/10/81 (DVD) https://www.youtube.com/watch?v=vwpvepxy2UY
+10.06.2013
+Yes | Yessongs (Album)
+14.06.2013
+- zappa paris 80: https://www.youtube.com/watch?v=DCcrNJ_AD6g
+22.06.2013
+King Crimson | Live in Plymouth (Album)
+    - cirkus
+    - lady of the dancing water
+19.07.2013
+Gentle Giant | Sight and Sound in Concert (DVD)
+Gentle Giant | ZDF 1974 (DVD)
+24.07.2013
+CSNY | Carry On/Questions (Deja Vu)
+Ligeti | Hungarian Rock
+29.10.2013
+King Crimson | Live in Frejus 1982 (DVD)
+15.01.2014
+The Beatles | A Day in the Life (Sgt. Pepper's Lonely Hearts Club Band)
+- Pet Sounds (Beach Boys, 1966)
+https://www.youtube.com/watch?v=T0spkrwl9Qk&list=PLW79q83govkXJJBEnMnlvJ7B1b3xPosvO&index=1
+17.01.2014
+- zappa a token of his extreme (74): https://www.youtube.com/watch?v=_zXGsDLTIKc&list=PL5BFJgXr2uDAqnTiaPdE0s1Pr3v8jcI_F
+16.02.2014
+Jethro Tull | Thick as a Brick (Album)
+17.02.2014
+- gutbucket: c'mon it's just a dollar (live ms stubnitz): https://www.youtube.com/watch?v=7MkSsWWStpg
+18.02.2014
+David Bowie | Space Oddity (Space Oddity)
+19.02.2014
+Sleepytime Gorilla Musuem | Grand Opening and Closing (Album)
+22.02.2014
+Genesis | Live 1973 (DVD - unofficial)
+26.02.2014
+Genesis | The Lamb Lies Down On Broadway (Album)
+04.05.2014
+Gentle Giant | Nothing At All (Gentle Giant)
+10.06.2014
+Joni Mitchell | Song to a Seagull (Album)
+20.08.2014
+- zappa lawrence university 69: https://www.youtube.com/watch?v=wJSVufRuro0
+07.09.2014
+Lounge Lizards | Live in Berlin 91 (Video - unoffical): https://www.youtube.com/watch?v=2njV16CtqOk
+29.10.2014
+Snarky Puppy | Thing of Gold (groundUp)
+18.01.2015
+The Velvet Underground | The Velvet Underground & Nico (Album)
+Sonic Youth | Electric Factory Philadelphia 10/18/95 (Video - unofficial) https://www.youtube.com/watch?v=V3oFoFTvGN8
+John Zorn | Jazz in Marciac 2010 (DVD?)
+Mr. Bungle | Mr. Bungle (Album)
+07.05.2015
+Marvin Pontiac | Bring me Rocks (The Legendary Marvin Pontiac - Greatest Hits)
+17.06.2015
+CSNY | The Lee Shore (4 Way Street)
+17.06.2015
+Kraftwerk | Live in Soest 70 (Video - unofficial)
+
+
+
+
+
+
+- zappa montreux 71: https://www.youtube.com/watch?v=9lpFeopjJhI
+- zappa stockholm 73: https://www.youtube.com/watch?v=BKpd0l-O77U
+- zappa passaic 78: https://www.youtube.com/watch?v=2aoWjVnNqHs
+- joni!
+
+2017
+====
+
+- 'ne Liveaufnahme (Sun Ra Arkestra, 1971)
+https://www.youtube.com/watch?v=_xhx-3OzEE0 und
+https://www.youtube.com/watch?v=VwVchG2xK6s
+- The Kick Inside (Kate Bush, 1978)
+https://www.youtube.com/watch?v=k2mt7_Xe7Lg
+- Starless and Bible Black (King Crimson, 1974)
+https://www.youtube.com/watch?v=_UOkHaC89ls&list=PL3PhWT10BW3UOMM8uPGFnwIeV5IFNR2A7&index=1
+- zappa freak out!: https://www.youtube.com/watch?v=81_4bYgTQCI
+- 'ne Liveaufnahme (John Zorn & Dreamers, 2010)
+https://www.youtube.com/watch?v=arCDeEv_nHw
+- Going for the One (Yes, 1977) https://www.youtube.com/watch?v=A_d6UQKoogk
+- Hungarian Rock (Ligeti) https://www.youtube.com/watch?v=qdzvk1BJOBQ
+- Quote Unquote (Mr. Bungle) https://www.youtube.com/watch?v=9kGhzf5cESU
+- Earthling (David Bowie) https://www.youtube.com/watch?v=J3GYLP_oJFc
+
+- king gizzard nonagon infinity (ende 2017)
+- in the aeroplane over the sea: https://www.youtube.com/watch?v=-AVLJxHSBxk&list=OLAK5uy_mcmpW2ioM2y1kninR5RNG2a_nCfz-AXfY
+- jogging take courage: https://jogging.bandcamp.com/album/take-courage
+- roomful of teeth (the fence is gone): https://www.youtube.com/watch?v=EkbkZbKyAl8
+
+3. [aspirations (gentle giant)](https://www.youtube.com/watch?v=dURDDZyvOds)
+5. [guinnevere (csn)](https://www.youtube.com/watch?v=LPvOTVVbMko)
+7. [lament (king crimson)](https://www.youtube.com/watch?v=_rPtnplgUgs)
+11. [state of the art (gotye)](https://www.youtube.com/watch?v=xWIKQMBBTtk)
+12. [turn of the century (yes)](https://www.youtube.com/watch?v=EwYywM7D-Jg)
+13. [soup (stick men)](https://www.youtube.com/watch?v=9Khl0DZh8Yo)
+16. [tarantella (lounge lizards)](https://www.youtube.com/watch?v=CGmeACnkKls)
+21. [corpus christi carol (jeff buckley)](https://www.youtube.com/watch?v=wxqwq9BnjT0)
+23. [for the roses album (joni mitchell)](https://www.youtube.com/watch?v=OcYvMQQolXI)
+
+
+- ludus tonalis
+
+
+2019
+
+1. [Hobson's Choice - We dream, we are](https://hobsonschoicemusic.bandcamp.com/track/we-dream-we-are)
+2. tUnE-yArDs - https://www.youtube.com/watch?v=sj1C7BFcnvI
+3. [Tracy Silverman - Matisse: La Danse](https://www.youtube.com/watch?v=6Uf7-c-V8NY)
+4. [The Zombies - Changes](https://www.youtube.com/watch?v=XnJB98p5svY)
+6. [Kate Bush - The Man With the Child In His Eyes](https://www.youtube.com/watch?v=mj9lnMuez-Q), Nikolausbonustrack: [Matt Wilson's Christmas Tree-O: Tiny Desk Concert](https://www.youtube.com/watch?v=Q7tz0MPz2QE)
+7. [Bela Fleck & the Flecktones - UFO Tofu](https://www.youtube.com/watch?v=ttmQ5I3EL-8)
+8. [Arlo Guthrie - Alice's Restaurant](https://www.youtube.com/watch?v=m57gzA2JCcM)
+9. [YACHT - Love in the Dark](https://www.youtube.com/watch?v=kNFDYoeK47g)
+10. [Esperanza Spalding - Heaven in Pennies](https://www.youtube.com/watch?v=IhXiJVW_iCk)
+12. [Alt-J - Interlude 1](https://www.youtube.com/watch?v=8VO-mbf9-Vw)
+13. [Patty Smith - Birdland](https://www.youtube.com/watch?v=OReJIwNVOz4)
+15. [Roomful of Teeth - The Fence Is Gone](https://www.youtube.com/watch?v=EkbkZbKyAl8)
+16. [W.I.T.C.H. - Tooth Factory](https://www.youtube.com/watch?v=uvzr-P629E8)
+17. [Efterklang - Frida Found a Friend](https://www.youtube.com/watch?v=ugzA3W592o0)
+19. [Lighthouse Band - Other Half Rule](https://www.youtube.com/watch?v=raKnksNnVLg)
+20. [Melvins - Sacrifice](https://youtu.be/fmt7FFZsGzI?t=80)
+23. [Buke and Gase - NPR Music Live 2012](https://www.youtube.com/watch?v=Rc2VU4Wb7G8)
+[Dark Meat - Freedom Ritual](https://www.youtube.com/watch?v=lD3irzPYHPE)
+24. [Punch Brothers - Julep](https://www.youtube.com/watch?v=lLdtEiUKDig)
+
+
+2020
+====
+- https://arthurrussell.bandcamp.com/album/world-of-echo
+
+
+2023?
+- beethoven pastorale
+
+- 2024
+- punch brothers live
+
+
+
+
+
+- jaga jazzist
+- john zorn painkiller
+- vincent (jazz arrangement)
+- mendelssohn streichquartett
+- caroline shaw architecture string quartet thingy
+- roomful soprano tortoise orchestra
+- sweeney todd
+- cole your moon
+- brahms rapsodie
+- winterreise
+- eisgekühlter bommerlunder
+- hymn of axiomn
+- rathbone love of my life
+- cage 4:33
+- dvorak 9. sinfonie
+
+
+
+
+
+
+
+
+
+
+
+2015
+
+- having all the answers | a softer world | http://asofterworld.com/index.php?id=869
+- lion | a softer world | http://asofterworld.com/index.php?id=880
+- The Universe | men in hats | http://meninhats.com/d/20020902.html
+- Time Now | xkcd | http://xkcd.com/13/
+- Dreams | xkcd | http://xkcd.com/137/
+- Nihilism | xkcd | http://xkcd.com/167/
+- Dreamcatcher | PBF | http://pbfcomics.com/262
+- Palindrome Panda | Buttersafe | http://buttersafe.com/2007/04/24/honor-is-a-palindrome/
+- What's a palindrome anyway | Buttersafe | http://buttersafe.com/2007/09/18/whats-a-palindrome-anyway/
+- Apples | Buttercupfestival | http://www.buttercupfestival.com/col2vol2.htm
+- Difficult | http://www.buttercupfestival.com/col9vol3.htm
+- untitled | http://falseknees.com/comics/33.html
+- Homestuck | Andrew Hussie | http://www.mspaintadventures.com/index.php?s=6&p=001901
+- rejected | Don Hertzfeldt | https://www.youtube.com/watch?v=vSb-nV8l2QY
+- Storm | Tim Minchin | https://www.youtube.com/watch?v=HhGuXCuDb1U
 
 -->

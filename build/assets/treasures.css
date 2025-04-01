@@ -6,7 +6,7 @@ html {
 body {
     margin: 5% auto;
     margin-top: 4rem;
-    max-width: 48em;
+    max-width: 60em;
     padding: 0 .6em;
     font-family: Superclarendon, 'Bookman Old Style', 'URW Bookman', 'URW Bookman L', 'Georgia Pro', Georgia, serif;
     font-size: 1.2em;
@@ -91,14 +91,37 @@ h2 {
     border-bottom: 1px dotted;
     padding-bottom: 1rem;
     font-weight: initial;
+
+    >a {
+        color: inherit;
+        text-decoration: none;
+    }
+}
+
+.majorTreasures {
+    max-width: 48em;
+    margin: 0 auto;
 }
 
 .smallerTreasures {
-    display: flex;
-    flex-wrap: wrap;
+    margin: 0 auto;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(24rem, 1fr));
 
     >.treasure {
-        flex-grow: 1;
-        max-width: 19rem;
+        margin: 1rem;
+        background-color: #ffffff06;
+        padding: 1rem;
+        border-radius: 4px;
+
+        .metadata {
+            &> :first-child {
+                display: block;
+                margin: 0 auto;
+                width: fit-content;
+                font-size: 1.4rem;
+            }
+        }
     }
 }
