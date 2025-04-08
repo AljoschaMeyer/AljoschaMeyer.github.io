@@ -953,7 +953,7 @@ ful, fun, or even very useful.
               horizontal
             >
               Zach beautifully captured the optimism some dozens of us nerds
-              used to shared on{" "}
+              used to share on{" "}
               <A href="https://scuttlebutt.nz/">Secure Scuttlebutt</A>. The
               community has drifted apart, but for me, the wonder will always
               stay.
