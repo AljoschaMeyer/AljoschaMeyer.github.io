@@ -13,6 +13,26 @@ body {
     color: #eedcb0;
 }
 
+#toc ol {
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 3rem;
+    font-size: 1.2em;
+
+    >li {
+        flex: 1 1 calc(10% - 4rem);
+        list-style: none;
+        margin: 2rem 1rem;
+        text-align: center;
+
+        >a {
+            color: inherit;
+        }
+    }
+}
+
 .treasure {
     margin: 8rem 0;
 }
@@ -23,6 +43,7 @@ body {
         margin: 0 auto;
         width: fit-content;
         font-size: 2.4rem;
+        text-align: center;
     }
 
     >*:nth-child(2) {
@@ -36,7 +57,18 @@ body {
         color: inherit;
     }
 
+    a.pdf::after {
+        content: " (PDF)";
+        color: #81d9e8;
+        padding-left: 0.4em;
+        font-size: 0.8em;
+    }
+
     margin-bottom: 2rem;
+}
+
+.commentary a {
+    color: #81d9e8;
 }
 
 .vertsplash {
@@ -56,6 +88,21 @@ body {
 
     >*:nth-child(2) {
         flex: 2;
+    }
+}
+
+.horisplash {
+    >div:first-child {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        margin-bottom: 1rem;
+
+        >a>img {
+            height: 100%;
+            width: auto;
+            max-height: 10rem;
+        }
     }
 }
 
@@ -105,15 +152,20 @@ h2 {
 
 .smallerTreasures {
     margin: 0 auto;
-    display: grid;
-    gap: 1rem;
-    grid-template-columns: repeat(auto-fit, minmax(24rem, 1fr));
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 
     >.treasure {
+        flex: 1 1 calc(50% - 4rem);
+
         margin: 1rem;
         background-color: #ffffff06;
         padding: 1rem;
         border-radius: 4px;
+
+        min-width: 22rem;
+        max-width: 33rem;
 
         .metadata {
             &> :first-child {
@@ -123,5 +175,19 @@ h2 {
                 font-size: 1.4rem;
             }
         }
+    }
+
+    .vertsplash>div>a>img {
+        position: initial;
+    }
+}
+
+#hundertwasser {
+    display: flex;
+    justify-content: center;
+    margin-top: 8rem;
+
+    img {
+        border-radius: 6px;
     }
 }

@@ -14,7 +14,7 @@ import { Div } from "macromania-html";
 
 import { index } from "./index.tsx";
 import { treasures } from "./treasures.tsx";
-import { Copy, Remove } from "macromania-fs";
+import { Copy, EnsureNot, Remove } from "macromania-fs";
 
 const ctx = new Context();
 
@@ -62,7 +62,7 @@ const exp = (
       />,
     ]}
   >
-    <Remove path="build" options={{ recursive: true }} />
+    <EnsureNot path="build" />
     <Copy src="src/non_macromania_pages" dest="build" options={{}} />
     <Dir name="build" mode="placid" clean={false}>
       <ServerRoot url="">
