@@ -312,9 +312,9 @@ float fbm3(
     // q.y = fbm(_st + vec2(1.7f, 0.2f) + speedY * u_time);
 
     // vec2 r = vec2(fbm(_st + 12.0 * q + speedY * u_time));
-    vec2 r = vec2(0.f);
-    r.x = fbm(_st + qFactor * q + vec2(1.4f, 5.3f) + speedX * u_time * speedDiff);
-    r.y = fbm(_st + qFactor * q * 0.9f + vec2(8.3f, 2.8f) + speedY * u_time * speedDiff);
+    // // vec2 r = vec2(0.f);
+    // r.x = fbm(_st + qFactor * q + vec2(1.4f, 5.3f) + speedX * u_time * speedDiff);
+    // r.y = fbm(_st + qFactor * q * 0.9f + vec2(8.3f, 2.8f) + speedY * u_time * speedDiff);
 
     return fbm(q);
 }
