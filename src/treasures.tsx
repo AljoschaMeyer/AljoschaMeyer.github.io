@@ -30,7 +30,7 @@ export const treasures = (
         <CssDependency dep={["treasures.css"]} />
 
         <H1>
-          Treasures
+          <A href="#">Treasures</A>
         </H1>
 
         <P clazz="centered">
@@ -1306,6 +1306,10 @@ ful, fun, or even very useful.
             />
           </A>
         </Div>
+
+        <P clazz="centered" style="margin-top: 6rem;">
+          <A href="/" style="color: inherit;">Home</A>
+        </P>
       </Html5>
     </File>
   </Dir>
