@@ -1009,7 +1009,7 @@ ful, fun, or even very useful.
           <A id="music" href="#music">Music</A>
         </H2>
 
-        <P clazz="centered" style="max-width: 33rem;">
+        <P clazz="centered" style="max-width: 33rem; margin-top: 4rem; margin-bottom: 4rem;">
           This section was difficult to narrow down. I’m going with a
           chronologically sorted selection of works or performances, each of
           which has shaped different parts of my musical understanding. And I’m
