@@ -69,9 +69,11 @@ function RenderPosts({ posts }: { posts: PostProps[] }): Expression {
                   <ConfigMarginalia sidenoteCounter={sidenoteCounter} />,
                 ]}
               >
-                <File name={post.n}>
-                  {PostTemplate(post)}
-                </File>
+                <Dir name={post.n}>
+                  <File name="index.html">
+                    {PostTemplate(post)}
+                  </File>
+                </Dir>
               </Config>
             );
           })}
