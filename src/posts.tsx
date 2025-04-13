@@ -4,7 +4,7 @@ import { CssDependency } from "macromania-previews";
 import { ConfigHsection, Hsection } from "macromania-hsection";
 import { mutability_and_rot } from "./posts/mutability_and_rot.tsx";
 import { Dir, File } from "macromania-outfs";
-import { H1, H2, Li, Ol } from "macromania-html";
+import { Div, H1, H2, Hr, Li, Ol } from "macromania-html";
 import { R } from "macromania-defref";
 import { Config } from "macromania-config";
 import { ConfigMarginalia } from "macromania-marginalia";
@@ -31,13 +31,15 @@ export function PostTemplate(
   return (
     <Html5 title={htmlTitle ? htmlTitle : undefined}>
       <CssDependency dep={["base.css"]} />
+      <CssDependency dep={["layout.css"]} />
       <CssDependency dep={["post.css"]} />
+      <Div id="wrapContent">
+        {draft ? <H1>DRAFT, DO NOT SHARE YET PLEASE, THANK YOU =)</H1> : ""}
 
-      {draft ? <H1>DRAFT, DO NOT SHARE YET PLEASE, THANK YOU =)</H1> : ""}
-
-      <Hsection n={n} title={<exps x={title} />}>
-        <exps x={children} />
-      </Hsection>
+        <Hsection n={n} title={<exps x={title} />}>
+          <exps x={children} />
+        </Hsection>
+      </Div>
     </Html5>
   );
 }
@@ -48,7 +50,7 @@ function RenderPosts({ posts }: { posts: PostProps[] }): Expression {
       <omnomnom>
         <Dir name="posts">
           {posts.map((post) => {
-            const headingPreRenderer = makeNumberingRenderer(1);
+            const headingPreRenderer = makeNumberingRenderer(0, 0);
 
             const sidenoteCounter = new Counter("sidenote-counter", 0);
 
@@ -76,19 +78,25 @@ function RenderPosts({ posts }: { posts: PostProps[] }): Expression {
         </Dir>
       </omnomnom>
 
-      <H2 id="posts" clazz="centered">Posts</H2>
+      {posts.filter((post) => !post.draft).length === 0 ? "" : (
+        <>
+          <H2 id="posts" clazz="centered">Posts</H2>
 
-      <Ol>
-        {posts.filter((post) => !post.draft).map((post) => {
-          return (
-            <Li>
-              <R n={post.n}>
-                <exps x={post.title} />
-              </R>
-            </Li>
-          );
-        })}
-      </Ol>
+          <Ol>
+            {posts.filter((post) => !post.draft).map((post) => {
+              return (
+                <Li>
+                  <R n={post.n}>
+                    <exps x={post.title} />
+                  </R>
+                </Li>
+              );
+            })}
+          </Ol>
+
+          <Hr style="margin: 5rem auto;" />
+        </>
+      )}
     </>
   );
 }

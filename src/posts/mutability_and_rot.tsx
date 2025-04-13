@@ -74,17 +74,23 @@ export const mutability_and_rot = {
           solve
         </Sidenote>{" "}
         the problem of link rot, but they also eliminate mutation. They strip
-        authors of all agency beyond the act of publishing.<Marginale>
-          {" "}
-          Publishing something on the web always sacrifices <Em>some</Em>{" "}
-          agency over the data: whoever consumes the data can take a screenshot
-          and put it on their fridge, and no computer protocol will allow the
-          author to remove that printout. But an author always retains control
-          over the default way of accessing the data, which will be followed by
-          the vast majority of future visitors.
-        </Marginale>{" "}
-        I, personally, am not interested in developing or using systems that
-        strip humans of agency by design.
+        authors of all agency beyond the act of{" "}
+        <Sidenote
+          note={
+            <>
+              Publishing something on the web always sacrifices <Em>some</Em>
+              {" "}
+              agency over the data: whoever consumes the data can take a
+              screenshot and put it on their fridge, and no computer protocol
+              will allow the author to remove that printout. But an author
+              always retains control over the default way of accessing the data,
+              which will be followed by the vast majority of future visitors.
+            </>
+          }
+        >
+          publishing
+        </Sidenote>. I, personally, am not interested in developing or using
+        systems that strip humans of agency by design.
       </P>
 
       <P>
@@ -166,18 +172,19 @@ export const mutability_and_rot = {
           </Marginale>{" "}
           maps human-readable domain names to the IP addresses that make
           everything work under the hood. Domain names are a scarce resource, so
-          they typically are rented out on a yearly basis. Tieing name
-          resolution to continuous payments is the biggest source of link rot,
-          it ensures that content will certainly get lost once its author stops
-          caring about it.
+          they typically are rented out on a yearly basis. Tying name resolution
+          to continuous payments is the biggest source of link rot, it ensures
+          that content will certainly get lost once its author stops caring
+          about it.
         </P>
 
         <P>
-          Abstractly speaking, the challenge is to find implementation
-          techniques for mutable name bindings not based in locations nor depend
-          on the leasing of scarce resources. This is the solution space with
-          the potential to preserve author agency while not suffering from name
-          rot.
+          While immutable name bindings are the easiest solution to link rot,
+          they are not the only solution. Abstractly speaking, the challenge is
+          to find implementation techniques for mutable name bindings not based
+          in locations nor depend on the leasing of scarce resources. This is
+          the solution space with the potential to preserve author agency while
+          not suffering from name rot.
         </P>
       </Hsection>
 
@@ -190,7 +197,7 @@ export const mutability_and_rot = {
           <A href="https://en.wikipedia.org/wiki/Digital_signature">
             digital signatures
           </A>. An author — identified by some public key — binds a name to some
-          data by signing an identifier, the{" "}
+          data by signing an identifier, a timestamp, and the data{" "}
           <Sidenote
             note={
               <>
@@ -199,11 +206,11 @@ export const mutability_and_rot = {
               </>
             }
           >
-            data
-          </Sidenote>, and a timestamp. When the same author binds different
-          data to the same identifier, the binding with the greater timestamp
-          wins. Such a system effectively creates a separate namespace per
-          public key: a <I>name</I>{" "}
+            itself
+          </Sidenote>. When the same author binds different data to the same
+          identifier, the binding with the greater timestamp wins. Such a system
+          effectively creates a separate namespace per public key: a <I>name</I>
+          {" "}
           consists of a public key together with an identifier.
         </P>
 
@@ -228,7 +235,7 @@ export const mutability_and_rot = {
             note={
               <>
                 Whether they share those interest naturally or you pay them to
-                care is irrelevant.
+                care makes little difference on the purely technical level.
               </>
             }
           >
@@ -237,26 +244,66 @@ export const mutability_and_rot = {
           <A href="https://en.wikipedia.org/wiki/Distributed_hash_table">
             distributed hash table
           </A>{" "}
-          which randomly assigns storage responsibilities.
+          which randomly assigns storage responsibilities and routes requests
+          accordingly. Over time, lack of interest in some data might mean that
+          you cannot find anyone who stores it. But the name binding itself
+          never rots away.
         </P>
 
-        {/* The web crams all names into a single namespace, it is this scarcity that  */}
+        <P>
+          Signed bindings like this can hence act as alternatives to
+          location-based addressing or content-adddressing. However, just like
+          an IP address or a hash, the names are not fully meaningful to
+          humans,<Marginale>
+            Oligatory reference to{" "}
+            <A href="https://en.wikipedia.org/wiki/Zooko%27s_triangle">
+              Zooko’s Triangle
+            </A>.
+          </Marginale>
+          since part of the name is a public key. But the DNS is not the only
+          possible solution to mapping meaningful identifiers to
+          machine-friendly names. A good alternative that does not suffer from
+          link rot would be{" "}
+          <A href="https://www.inkandswitch.com/backchannel/">
+            petname systems
+          </A>, for example.
+        </P>
+
+        <P>
+          Is name-resolution that is not based on address resolution and that
+          relies on petnames for usability good enough? I believe and hope so,
+          but I cannot know. But I do know that systems based on
+          content-addressing have to overcome these exact same challenges, just
+          like systems based on signed bindings. Yet the bigger projects in the
+          p2p revival of the 2010s — Secure Scuttlebutt, Dat, IPFS, Holochain
+          come to my mind — exclusively focussed on immutable data. A casual
+          observer of the space might conclude that content-addressing is the
+          only solution to link rot. I hope I have argued convincingly enough
+          that that is not the case.
+        </P>
+      </Hsection>
+
+      <Hsection n="mutability_and_rot_closing" title="Closing Thoughts">
+        <P>
+          Many proposals to make the fediverse less reliant on the continued
+          well-being of individual instances point to content-addressing as the
+          solution. Signed bindings are just as location-independent, yet do not
+          need to give up on mutability. I would love to see more awareness of
+          such alternatives in this space.
+        </P>
+
+        <P>
+          It seems rather unlikely that signed bindings are the <Em>only</Em>{" "}
+          approach to mutability that does not suffer form link rot. I am
+          looking forward to seeing fresh projects pop up that explore other
+          such approaches in the future.
+        </P>
       </Hsection>
     </>
   ),
 };
 
-// Things *can* be implemented differently, for example: names are pairs of public keys and a user-chosen name, a binding is a triplet of the user-chosen name part, an instant in time, and a signature by the public key. Time could be a numeric timestamp (willow), a hash chain (ssb, reed, bluesky even), or anything else really.
-
 // Deletion is built into the triplet-naming-approach. It does not suffer from rot: I might pay a provider to store the data I bind to a name; if I stop paying, they'll forget the data, but the binding remains unaffected.
-
-// rent vs rot
-
-// solves rot by replacing scarce physical place that must be leased into plentiful public-key-space
-// does not cover how to resolve names (neither does content-addressing btw)
-// zoko's triangle
-
-// Could even put name binding thingies into a dht if you feel like it. Bam, mutable ipfs-
 
 // Conclusion: You can have mutability without suffering from link rot. You *should*, even.
 
