@@ -1,12 +1,13 @@
 import { A, Code, Em, I, P, Strong } from "macromania-html";
 import { Marginale, Sidenote } from "macromania-marginalia";
 import { Hsection } from "macromania-hsection";
+import { Quotes } from "../macros.tsx";
 
 export const mutability_and_rot = {
   draft: true,
   n: "mutability_and_rot",
   htmlTitle: "On Link Rot",
-  title: "Mutability Does Not Imply Link Rot",
+  title: "Mutability Without Link Rot",
   date: "2025/04/13",
   children: (
     <>
@@ -15,90 +16,94 @@ export const mutability_and_rot = {
         <A href="https://en.wikipedia.org/wiki/Link_rot">link rot</A>:
         hyperlinks that were valid upon creation will often point into
         nothingness after some time has passed. Within the framework of the web,
-        the typical solution is to link to a snapshot of the original page,
-        hosted on <A href="https://archive.org/">archive.org</A>.
+        the typical{" "}
+        <Sidenote
+          note={
+            <>
+              This is not a <Em>true</Em>{" "}
+              solution, since a link to the internet archive can rot just like
+              any other link. The archivists best intentions do not protect
+              against{" "}
+              <A href="https://blog.archive.org/2024/10/21/internet-archive-services-update-2024-10-21/">
+                targeted attacks to bring down their servers
+              </A>.
+            </>
+          }
+        >
+          solution
+        </Sidenote>{" "}
+        is to link to a snapshot of the original page, hosted on{" "}
+        <A href="https://archive.org/">archive.org</A>.
       </P>
+
       <P>
-        Many projects that envision an alternative to the web try to eliminate
-        the problem of dead links as part of their architecture, usually by
-        employing{" "}
+        The only foolproof solution is to forego hyperlinks to other servers,
+        and to instead{" "}
+        <Sidenote
+          note={
+            <>
+              I deliberately ignore dynamically generated content. I wish to
+              discuss interlinked data evolving over time, not
+              computation-as-a-service.
+            </>
+          }
+        >
+          copy
+        </Sidenote>{"  "}
+        their data onto your own server. The obvious inefficiencies — especially
+        once everyone does this and copying some site would involve recursively
+        copying everything that <Em>it</Em>{" "}
+        had previously copied — can be neatly solved by employing{" "}
         <A href="https://en.wikipedia.org/wiki/Content-addressable_storage">
           content-addressing
-        </A>{" "}
-        of immutable data.{" "}
+        </A>: you link to some data by giving its{" "}
+        <A href="https://en.wikipedia.org/wiki/Cryptographic_hash_function">
+          secure hash
+        </A>, and the software transparently fetches, caches, and deduplicates
+        the data. This is essentially the pitch of the{" "}
+        <A href="https://en.wikipedia.org/wiki/InterPlanetary_File_System">
+          IPFS
+        </A>.
+      </P>
+
+      <P>
+        But if sufficiently efficient verbatim inclusion of data became{" "}
+        <Em>the</Em>{" "}
+        mechanism for hyperlinking, something would be lost. When I link to{" "}
+        <A href="https://gwil.garden/">a friend’s website</A>, I know that
+        readers will always get the up-to-date version. A snapshot of that page
+        at the time of publishing this piece would be stale and incomplete for
+        the majority of readers.
+      </P>
+
+      <P>
+        Personal websites, blogs and microblogging, forums, image boards, and
+        the connections between all of these — indeed most facets of the web
+        that make it feel worthwhile, alive, and human to me — rely on the
+        active mutation of content. Whenever a project promises to deliver{" "}
+        <Quotes>the immutable web</Quotes>, I internally replace those words
+        with{" "}
+        <Quotes>censorship-resistant collections of data dumps</Quotes>. Those
+        are a worthwhile engineering feat in their own, but they can never
+        become a worthy successor of the web.
+      </P>
+
+      <P>
+        On the surface, this looks like a dilemma: either you embrace active
+        mutability at the cost of passive link rot,<Marginale>
+          Active mutation might invalidate links when the author deliberately
+          removes a page, but I do not consider this link rot. Link rot stems
+          from inaction, not from delibarately exercised agency. The latter I
+          consider a feature, not a bug.
+        </Marginale>{" "}
+        or you eliminate passive link rot at the cost of active mutability. But
+        this is a false dichotomy.{" "}
         <Strong>
-          I propose that link rot and dead links are separate concepts, and
-          eliminating link rot at the cost of eliminating all dead links is not
-          worth it.
-        </Strong>
-      </P>
-
-      <P>
-        I will speak of link <I>rot</I> when a link becomes unresolvable due to
-        {" "}
-        <Em>inaction</Em>{" "}
-        of the content’s author. Passive link rot is deeply built into the web,
-        due to the way domains work: they are only rented, never bought.
-        Renewing a domain requires active action. When an author drifts away
-        from old work, they will eventually stop paying the rent for the domain
-        — and the content goes down.
-      </P>
-
-      <P>
-        Contrast this with active{" "}
-        <I>mutation</I>, where an author opts to delete or change some content
-        that is being referenced by other peoples’ links. This kind of link
-        invalidation is a feature, not a bug. It gives agency to authors. In
-        particular, authors can set up{" "}
-        <A href="https://en.wikipedia.org/wiki/URL_redirection">
-          URL redirections
-        </A>{" "}
-        if they want to move content without making it inaccessible.
-      </P>
-
-      <P>
-        Systems that eliminate <Em>all</Em> dead links by design{" "}
-        <Sidenote
-          note={
-            <>
-              Actually, the content you link to still needs to be stored{" "}
-              <Em>somewhere</Em>{" "}
-              for it to be resolvable. In principle, any entity that stores a
-              document can also store everything that this document
-              (transitively) links to. <Em>Surely</Em>{" "}
-              that is completely feasible and will never run into any resource
-              limits.
-            </>
-          }
-        >
-          solve
-        </Sidenote>{" "}
-        the problem of link rot, but they also eliminate mutation. They strip
-        authors of all agency beyond the act of{" "}
-        <Sidenote
-          note={
-            <>
-              Publishing something on the web always sacrifices <Em>some</Em>
-              {" "}
-              agency over the data: whoever consumes the data can take a
-              screenshot and put it on their fridge, and no computer protocol
-              will allow the author to remove that printout. But an author
-              always retains control over the default way of accessing the data,
-              which will be followed by the vast majority of future visitors.
-            </>
-          }
-        >
-          publishing
-        </Sidenote>. I, personally, am not interested in developing or using
-        systems that strip humans of agency by design.
-      </P>
-
-      <P>
-        <Strong>
-          It is possible to design systems that allow for active mutation but do
-          not suffer from passive link rot.
+          You can have systems that allow for productive mutability without
+          suffering from link rot.
         </Strong>{" "}
-        To see how, it helps to take a step back and consider the problem space.
+        Before sketching how to achieve this balance, it helps to step back and
+        consider the wider problem space.
       </P>
 
       <Hsection
@@ -293,7 +298,8 @@ export const mutability_and_rot = {
         </P>
 
         <P>
-          It seems rather unlikely that signed bindings are the <Em>only</Em>{" "}
+          It seems rather unlikely that signed bindings are the <Em>only</Em>
+          {" "}
           approach to mutability that does not suffer form link rot. I am
           looking forward to seeing fresh projects pop up that explore other
           such approaches in the future.
@@ -303,13 +309,60 @@ export const mutability_and_rot = {
   ),
 };
 
-// Deletion is built into the triplet-naming-approach. It does not suffer from rot: I might pay a provider to store the data I bind to a name; if I stop paying, they'll forget the data, but the binding remains unaffected.
+// web has link rot
 
-// Conclusion: You can have mutability without suffering from link rot. You *should*, even.
+// "solution": inline copies; Marginale: the 1-1 mapping of content-addressing is equivalent
 
-// - only one area of hte solution space; hope that eventually other areas will be explored as well
+// this loses productive mutability; Marginale: a mutable link to your own stuff is under your control and thus exempt from discussions of link rot, but a mutable link to somebody else's stuff is giving up control, depending on them. these mutable links create interdependence, which is deeply human. removing mutable links makes the web not only less expressive but less humane
 
-// Also:
+// Active mutation yay, passive link rot nay! We can and should design to allow for active mutation while not suffering from passive rot.
 
-// - content-addressing is not a necessity for addressing data independent from servers, as the signature-based naming schemes show
-// - ipns reintroduces link rot, lol...
+// Solution Space: SSB/Hapercore (and ATProto?) as purely additive "mutation"
+
+// why: fragility: location-based is attackable, censorable, compare "no global singletons"
+
+// at end: link to willow-page protocol comparison, and link from there back to this. Explicitly call out the cyclic linking
+
+// related to main question: can mutability-based systems be made local-first?
+
+// choice of timestamps has deep implications for single/multi-writer access, availability. But for this discussion, I can abstract over that.
+
+// Passive link rot is deeply built into the web,
+// due to the way domains work: they are only rented, never bought.
+// Renewing a domain requires active action. When an author drifts away
+// from old work, they will eventually stop paying the rent for the domain
+// — and the content goes down.
+
+// discussion: signatures already dangerous?
+
+// does this work "at scale"? And *which* scales are important?
+
+// binding-based systems work if and only if content-addressed systems work; whether they do indeed work (at scale) remains to be seen - my primary goal is merely to convert those who already believe that CAS systems work, not to prophecise whether the distributed future will indeed arrive
+
+// from the lens of "cypherlinks are merely copy-pasting", SSB is an incredibly naive system (and a restrictive one, since you can't omit the copy-pasting of anything even if you want to), but one that communicates quite different expectations to (lay) users. STorytelling and teaching and perspectives matter!
+
+// Systems that eliminate <Em>all</Em> dead links by design{" "}
+// <Sidenote
+//   note={
+//     <>
+//       Actually, the content you link to still needs to be stored{" "}
+//       <Em>somewhere</Em>{" "}
+//       for it to be resolvable. In principle, any entity that stores a
+//       document can also store everything that this document
+//       (transitively) links to. <Em>Surely</Em>{" "}
+//       that is completely feasible and will never run into any resource
+//       limits.
+//     </>
+//   }
+// >
+//   solve
+// </Sidenote>{" "}
+// the problem of link rot
+
+// Publishing something on the web always sacrifices <Em>some</Em>
+// {" "}
+// agency over the data: whoever consumes the data can take a
+// screenshot and put it on their fridge, and no computer protocol
+// will allow the author to remove that printout. But an author
+// always retains control over the default way of accessing the data,
+// which will be followed by the vast majority of future visitors.

@@ -19,6 +19,7 @@ import { Dir, File } from "macromania-outfs";
 import { ResolveAsset } from "macromania-assets";
 import { Html5 } from "macromania-html-utils";
 import { CssDependency } from "macromania-previews";
+import { Quotes } from "./macros.tsx";
 
 export const treasures = (
   <Dir name="treasures">
@@ -1009,7 +1010,10 @@ ful, fun, or even very useful.
           <A id="music" href="#music">Music</A>
         </H2>
 
-        <P clazz="centered" style="max-width: 33rem; margin-top: 4rem; margin-bottom: 4rem;">
+        <P
+          clazz="centered"
+          style="max-width: 33rem; margin-top: 4rem; margin-bottom: 4rem;"
+        >
           This section was difficult to narrow down. I’m going with a
           chronologically sorted selection of works or performances, each of
           which has shaped different parts of my musical understanding. And I’m
@@ -1414,15 +1418,5 @@ function SmallerTreasures(
     <Div clazz="smallerTreasures">
       <exps x={children} />
     </Div>
-  );
-}
-
-function Quotes(
-  { children }: { children: Expressions },
-): Expression {
-  return (
-    <>
-      “<exps x={children} />”
-    </>
   );
 }
