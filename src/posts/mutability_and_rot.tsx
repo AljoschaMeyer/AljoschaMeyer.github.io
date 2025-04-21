@@ -567,20 +567,6 @@ export const mutability_and_rot = {
         <P>
           But for now, I hope to have provided a useful overview of the basics.
         </P>
-
-        {/* immutable has the advantage of "being done" at some point */}
-
-        {
-          /* //     <>
-        //       Actually, the content you link to still needs to be stored{" "}
-        //       <Em>somewhere</Em>{" "}
-        //       for it to be resolvable. In principle, any entity that stores a
-        //       document can also store everything that this document
-        //       (transitively) links to. <Em>Surely</Em>{" "}
-        //       that is completely feasible and will never run into any resource
-        //       limits.
-        //     </> */
-        }
       </Hsection>
 
       <Hsection
@@ -614,93 +600,165 @@ export const mutability_and_rot = {
       </P>
 
       <P>
+        Immutable systems based on content-addressable storage are elegant
+        solutions to important concerns: censorship-resistant<Marginale>
+          In the juxtaposition to systems of mutable names that follows, it is
+          crucial that those systems need not suffer from passive link rot
+          either — otherwise, their benefits would be counteracted by lack of
+          durability and resilience, and we would end up comparing apples and
+          oranges.
+        </Marginale>{" "}
+        access to information, automatic durable archiving of valuable material,
+        compression of data (deduplication is a special form of compression).
       </P>
 
-      {
-        /*
-
-- yay immutability: censorship-resistence, archiving [marginale: my argumentation will draw on the assumtion of having mutability without link rot, otherwise I would "lose" on both archiving and censorship-resistence ends]
-- should be *a* tool in the "system of the future", but should not be considered defining
-- there are negative consequences to making this defining, i.e. to make links immutable by default (just as if everyone was copy-pasting by default)
-- mutable links leave agency with the author [marginale on fridge notes vs default way of access]
-- by using a mutable link, you voluntarily cede control; this creates interdependence and requires trust
-- these are deeply human things and they sit at the root of the most positive relationships
-- I'd rather immerse myself (and have others immerse themselves) in a medium that reinforces these notions, instead of a medium that tries to eliminate them
-- such a medium also teaches an important lesson: trust is never forced, you *can* choose to copy-paste (or content-address) after all
-- alternativeless or forced trust is a hollow shell and not-a-great-thing
-- drawing the conclusion that all trust should be eliminated is quite a sad thing; instead we should eliminate coerced trust while simultaneously maximising opertunities for voluntarily granting meaningful trust
-
-- note: I am not being comprehensive here, I merely try to convey how I feel and why
-- there are tons of other important issues. vulnerability, forgiveness, lies and manipulation, ...
-- the important part is that we have these discussions
-- the systems we design are not neutral, neither politically nor socially
-- when I see a new project that does not acknowledge this and communicates where it stands on these questions, I'm not going to go near to it. It might be impressive in what it *can* do, but anyone who does not stop to think whether they *should* be doing it should not get support.
-
-- end with powerful final statement and call to action
-
-      */
-      }
+      <P>
+        As such, I do hope that content-addressing will be an important tool in
+        the distributed information systems of the future. But I believe that
+        content-addressing should not be made the defining feature of such
+        systems. I want to argue that a society would be impoverished<Marginale>
+          I fully subscribe to the assumption that{" "}
+          <A href="https://en.wikipedia.org/wiki/The_medium_is_the_message">
+            the medium is the message
+          </A>.
+        </Marginale>{" "}
+        by making immutable links the default way of connecting its artifacts.
+      </P>
 
       <P>
-        TODO arrange my thoughts, write them down...
+        <Marginale>
+          Publishing something always sacrifices <Em>some</Em>{" "}
+          agency over the data: whoever consumes the data can take a screenshot
+          and put it on their fridge, and no computer protocol will allow the
+          author to remove that printout. But a mutable link lets the author
+          retain control over the outcome of the intended way of accessing the
+          data.
+        </Marginale>
+        Linking to some data with a mutable link means giving agency to the
+        author of the data. They are free to change the contents in the future,
+        or even to fully remove the data. An immutable link does not award this
+        agency.
+      </P>
+
+      <P>
+        Granting this agency means voluntarily ceding control. The quality of
+        your work will vary based on the future actions of another human. A web
+        of mutable references is a web of human interdepence, and builds on the
+        voluntary giving of trust.
+      </P>
+
+      <P>
+        Freely given trust and consensual interdependence are deeply human, they
+        sit at the root of the most positive relationships we can form. I{" "}
+        <Em>want</Em>{" "}
+        to immerse myself (and have others immerse themselves) in a medium that
+        fosters these notions, and I want to stay clear from media whose design
+        choices eliminate them.
+      </P>
+
+      <P>
+        A medium of mutable links should further teach an important lesson:
+        trust must never be without alternative. You <Em>can</Em> choose to{" "}
+        <Sidenote
+          note={
+            <>
+              Or, ideally, you can refer to the content via content-addressing,
+              which has much better usability.
+            </>
+          }
+        >
+          copy
+        </Sidenote>{" "}
+        content and retain full control over it. If trust is not an active
+        choice but the only option, it becomes meaningless.
+      </P>
+
+      <P>
+        I speculate that the vocal proponents of eliminating as much trust from
+        distributed systems as possible arrive at this decision because they
+        primarily reflect on involuntarily given{" "}
+        <Sidenote
+          note={
+            <>
+              An prime example would be the forced trust in and usage of the
+              currency of the nation state you happen live in — it certainly is
+              no coincidence that cryptocurrencies, blockchains, and code-is-law
+              enthusiats frequently use narratives of trustlessness.
+            </>
+          }
+        >
+          trust
+        </Sidenote>. Such indiscriminate opposition to (the giving of) all trust
+        makes me quite sad. Instead, I want to see systems that minimise
+        involuntary, coerced trust, while simultaneously maximising
+        opportunities for voluntarily granting trust. And that is why I, like
+        anybody would, decided to write a post on mutable name bindings.
+      </P>
+
+      <P>
+        The analysis of the implications of mutability without link rot is
+        multifaceted. I personally am passionate about the{" "}
+        <Sidenote
+          note={
+            <>
+              Let alone the engineering opportunities you get from trusting
+              other agents in a distributed system. But that is a different
+              topic for a different piece of writing.
+            </>
+          }
+        >
+          beauty
+        </Sidenote>{" "}
+        of meaningfully given trust, so that is what I want to contribute here.
+        But there are numerous other important issues as well, and things are
+        rarely black and white. The inability to retract one’s material can{" "}
+        <A href="https://newdesigncongress.org/en/pub/this-is-fine/">
+          cause harm
+        </A>. Sometimes, active moderation of content by parties other than the
+        authors could{" "}
+        <A href="https://erinkissane.com/meta-in-myanmar-full-series">
+          prevent harm
+        </A>. But deletion of publicly valuable content can <Em>also</Em>{" "}
+        cause harm. Immutability can support accountability, can counteract
+        gaslighting or the rewriting of alternate facts into the past. How do we
+        deal with lies and manipulation? What are the roles of apologies and
+        foregiveness?
+      </P>
+
+      <P>
+        I do not have all the answers, and neither does anyone else. But we
+        should normalise discussions on these issues. Distributed systems
+        designs are not{" "}
+        <Sidenote
+          note={
+            <>
+              And I <Em>wish</Em>{" "}
+              the academic computer science community would stop pretending they
+              were.
+            </>
+          }
+        >
+          neutral
+        </Sidenote>, neither politically nor socially. When I see a new project
+        pop up that glosses over all of these issues and does not position
+        itself, I am not interested. I care less for what you can do, and more
+        for what you consider worth doing.
+      </P>
+
+      <P>
+        I believe that systems which neither suffer from link rot nor force
+        permanence on all participants, which stay resilient yet allow for
+        mutation, should receive more attention. How efficient can we make them?
+        How accessible can they be, and to whom? How can we categorise different
+        offshoots, how can we efficiently explore, chart, and analyse the design
+        space? Which patterns and actors will emerge, who can, should, and will
+        shape these systems? How can we ensure that as many people as possible
+        who wish to engage with them can benefit?
+      </P>
+
+      <P>
+        I am looking forward to finding out.
       </P>
     </>
   ),
 };
-
-////////
-////////
-////////
-
-// Publishing something on the web always sacrifices <Em>some</Em>
-// {" "}
-// agency over the data: whoever consumes the data can take a
-// screenshot and put it on their fridge, and no computer protocol
-// will allow the author to remove that printout. But an author
-// always retains control over the default way of accessing the data,
-// which will be followed by the vast majority of future visitors.
-
-// A mutable link to your own stuff is under your control and thus exempt from discussions of link rot, but a mutable link to somebody else's stuff is giving up control, depending on them. these mutable links create interdependence, which is deeply human. removing mutable links makes the web not only less expressive but less humane
-
-// from the lens of "cypherlinks are merely copy-pasting", SSB is an incredibly naive system (and a restrictive one, since you can't omit the copy-pasting of anything even if you want to), but one that communicates quite different expectations to (lay) users. Storytelling and teaching and perspectives matter! (also: when telling stories, make clear who gets to resolve names!)
-
-// discussion: signatures already dangerous?
-
-//
-//
-//
-
-// Cade:
-// =====
-
-// Through an engineer's lens, you are strongly defending authorial
-// agency, but you don't fully wrestle with how that agency is itself
-// contested in practice. There’s a huge dierence between deleting your
-// blog post and retroactively erasing material that has public value (or
-// harm). The defense of “active mutation” needs more nuance,
-// particularly in the current climate where revision, deletion, and
-// ephemerality can themselves be part of soft power, manipulation, or
-// escape from accountability.
-
-// Are there situations where mutability is undesirable? Can we design
-// systems where authors retain agency without enabling denialism or
-// revisionist erasure? What are these implications for your proposal here?
-// These are all extremely important , particularly in the current socio-
-// political climate, if you are to gain traction with this compelling concept
-
-// End with an invitation. What kind of system would armatively treat
-// mutability as a right? What kinds of futures might that unlock? Who
-// are the peers in this space? I know I'm asking you to think beyond the
-// scope of link rot solutionism, but think about it: you're trying to get
-// away with proposing an entirely dierent infrastructural ethic, I'm not
-// going to let you get away with scoping that to a focused solution in a
-// vacuum!!
-
-// What this needs is a compsci voice that draws on the discussions you,
-// me and Gwil have had for years: we need a design language for
-// mutable, non-rotting systems that do not rely on scarcity, address
-// resolution, or enforced permanence. That’s the deeper thesis here,
-// and the more we hone and refine it, the more noise we make, the more
-// attention it will bring, and the more likely we are to be able to continue
-// what we do. Look around, look at the state of things; your demands
-// here deserve to be shouted, not whispered.
