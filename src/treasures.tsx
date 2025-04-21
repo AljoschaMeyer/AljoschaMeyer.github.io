@@ -19,6 +19,7 @@ import { Dir, File } from "macromania-outfs";
 import { ResolveAsset } from "macromania-assets";
 import { Html5 } from "macromania-html-utils";
 import { CssDependency } from "macromania-previews";
+import { Def } from "macromania-defref";
 import { Quotes } from "./macros.tsx";
 
 export const treasures = (
@@ -528,6 +529,7 @@ Large institutions can quite suddenly lose their respectability, their legitimac
                 "computer_power_and_human_reason.jpg",
               ]}
               splashAlt="A picture of the cover of the book"
+              n="computer_power_and_human_reason"
               quote={[
                 <P>
                   <Quotes>
@@ -1328,12 +1330,17 @@ type TreasureProps = {
   splashAlt?: Expressions;
   quote?: Expressions | Expressions[];
   horizontal?: boolean;
+  n?: string;
 };
 
 function Treasure(
-  { children, title, metadata, href, splash, splashAlt, quote, horizontal }:
+  { children, title, metadata, href, splash, splashAlt, quote, horizontal, n }:
     TreasureProps,
 ): Expression {
+  const theHref = typeof href === "string"
+    ? href
+    : <ResolveAsset asset={href} />;
+
   return (
     <Div clazz="treasure">
       <Div clazz={horizontal ? "horisplash" : "vertsplash"}>
@@ -1344,9 +1351,7 @@ function Treasure(
             : (
               <Div>
                 <A
-                  href={typeof href === "string"
-                    ? href
-                    : <ResolveAsset asset={href} />}
+                  href={theHref}
                 >
                   <Img
                     src={typeof splash === "string"
@@ -1359,14 +1364,24 @@ function Treasure(
             ))}
         <Div>
           <Div clazz="metadata">
+            {n === undefined ? "" : (
+              <omnomnom>
+                <Def
+                  n={n}
+                  r={<exps x={title} />}
+                  noPreview
+                  defClass={typeof href === "string" ? [] : "pdf"}
+                />
+              </omnomnom>
+            )}
             <A
-              href={typeof href === "string"
-                ? href
-                : <ResolveAsset asset={href} />}
+              id={n ? n : ""}
+              href={theHref}
               clazz={typeof href === "string" ? [] : "pdf"}
             >
               <exps x={title} />
             </A>
+
             <Div>
               <exps x={metadata} />
             </Div>

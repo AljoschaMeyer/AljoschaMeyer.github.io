@@ -168,5 +168,13 @@ body:not(.isPreview) {
   }
 }
 
+ul, ol {
+  padding-left: 0rem;
+}
+
+li {
+  margin-left: 1em;
+}
+
 `;
 }

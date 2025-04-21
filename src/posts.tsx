@@ -20,6 +20,7 @@ export type PostProps = {
   htmlTitle?: Expressions;
   n: string;
   title: Expressions;
+  wideTitle?: boolean;
   date?: Expressions;
   draft?: boolean;
   children?: Expressions;
@@ -34,7 +35,9 @@ export function PostTemplate(
       <CssDependency dep={["layout.css"]} />
       <CssDependency dep={["post.css"]} />
       <Div id="wrapContent">
-        {draft ? <H1>DRAFT, DO NOT SHARE YET PLEASE, THANK YOU =)</H1> : ""}
+        {draft
+          ? <H1 clazz="wide">DRAFT, DO NOT SHARE YET PLEASE, THANK YOU =)</H1>
+          : ""}
 
         <Hsection n={n} title={<exps x={title} />}>
           <exps x={children} />

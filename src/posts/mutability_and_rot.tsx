@@ -3,6 +3,7 @@ import { Marginale, Sidenote } from "macromania-marginalia";
 import { Hsection } from "macromania-hsection";
 import { Quotes } from "../macros.tsx";
 import { ResolveAsset } from "macromania-assets";
+import { R } from "macromania-defref";
 
 export const mutability_and_rot = {
   draft: true,
@@ -111,8 +112,8 @@ export const mutability_and_rot = {
       </P>
 
       <Hsection
-        n="mutability_and_rot_problem_space"
-        title="Data, Mutability, and Naming"
+        n="mutability_and_rot_immutable_names"
+        title="Names and (Im)mutability"
       >
         <P>
           Data is, by definition, immutable. You cannot <Em>change</Em>{" "}
@@ -190,7 +191,12 @@ export const mutability_and_rot = {
             references
           </Sidenote>.
         </P>
+      </Hsection>
 
+      <Hsection
+        n="mutability_and_rot_web"
+        title="Names on the Web"
+      >
         <P>
           The hyperlinks of the web, in contrast, implement <Em>mutable</Em>
           {" "}
@@ -291,8 +297,8 @@ export const mutability_and_rot = {
       </Hsection>
 
       <Hsection
-        n="mutability_and_rot_a_solution"
-        title="A Possible Solution"
+        n="mutability_and_rot_signed_bindings"
+        title="Signed Bindings"
       >
         <P>
           A different approach to name-based mutability is what I will{" "}
@@ -374,7 +380,7 @@ export const mutability_and_rot = {
           <Li>A secure hash of a block in a blockchain.</Li>
           <Li>
             A date on which you placed a secure hash of the data as an
-            advertisement in{" "}
+            advertisement in the{" "}
             <A href="https://en.wikipedia.org/wiki/The_New_York_Times">
               New York Times
             </A>.
@@ -382,43 +388,190 @@ export const mutability_and_rot = {
         </Ul>
 
         <P>
-          There is a significant amount of design space beyond the choice of
-          timestamp.{" "}
-          <A href="https://willowprotocol.org/">Willow</A>, for example, assigns
-          additional structured information to its names, enabling queries for
-          sets set of related bindings. I leave this as an invitation to explore
-          the design space beyond what this post sketches, but restrict my focus
-          to keep things somewhat concise.
+          The choice of timestamps can have some far-reaching consequences. One
+          aspect of particular interest are single-writer versus multi-writer
+          properties. With wall-clock timestamps,<Marginale>
+            We have a discussion of the consequences of using claimed wallclock
+            timestamps on the{" "}
+            <A href="https://willowprotocol.org/more/timestamps-really/index.html">
+              Willow page
+            </A>.
+          </Marginale>{" "}
+          multiple devices can publish data without needing significant
+          coordination (beyond keeping their clocks in rough sync). With logical
+          counters, when two devices publish new data logically concurrently,
+          tiebreaking is needed, and that tiebreaking probably does not always
+          align with user intuition about the passage of physical time.
+          Timestamps based on hash chains enforces mutually exclusive write
+          access to publish updates — concurrent writes can be detected, and
+          typically <A href="https://arxiv.org/pdf/2307.08381">invalidate</A>
+          {" "}
+          the name.
         </P>
-
-        {
-          /* // choice of timestamps has deep implications for single/multi-writer access, availability. But for this discussion, I can abstract over that.
-
-        // Solution Space: SSB/Hypercore (and ATProto?) as purely additive "mutation"
-
-        // from the lens of "cypherlinks are merely copy-pasting", SSB is an incredibly naive system (and a restrictive one, since you can't omit the copy-pasting of anything even if you want to), but one that communicates quite different expectations to (lay) users. Storytelling and teaching and perspectives matter!
-
-        // location vs binding: with the latter, you never know whether you are up to date - switch to eventual consistency as mental model: but, technically, you don't know with location-based only whether you just missed an update by a microsecond. And, in principle, propagation delays for binding-based could be just as low (especially when employing likely-location optimisations)
-
-        // related to main question: can mutability-based systems be made local-first?
-
-        // does this work "at scale"? And *which* scales are important?
-
-        // binding-based systems work if and only if content-addressed systems work; whether they do indeed work (at scale) remains to be seen - my primary goal is merely to convert those who already believe that CAS systems work, not to prophecise whether the distributed future will indeed arrive
 
         <P>
-          Many proposals to make the fediverse less reliant on the continued
-          well-being of individual instances point to content-addressing as the
-          solution. Signed bindings are just as location-independent, yet do not
-          need to give up on mutability. I would love to see more awareness of
-          such alternatives in this space.
+          Beyond implying{" "}
+          <Sidenote
+            note={
+              <>
+                Running a distributed mutual-exclusion protocol to manage
+                multiple writers on different physical devices essentially
+                converts them into a single logical writer.
+              </>
+            }
+          >
+            single-writer
+          </Sidenote>{" "}
+          systems, another important facet of hash chains is that they only
+          allow for non-destructive mutation. Given that inclusion of a secure
+          hash is semantically equivalent to including the hashed data verbatim,
+          such name bindings only ever append new data, while keeping around all
+          old data.
         </P>
 
+        <P>
+          Other properties of signed bindings do not depend on the specific
+          choice of timestamps. A fundamental one is that names do not include
+          any information on how to resolve them — in contrast to an address
+          which essentially <Em>is</Em>{" "}
+          the relevant information how to resolve it. Systems built on signed
+          bindings need to provide infrastructure for name
+          resolution,<Marginale>
+            I drafted quite a few paragraphs of detailed discussion, before
+            deciding this should be left out of scope of this post.
+          </Marginale>{" "}
+          such as{" "}
+          <A href="https://en.wikipedia.org/wiki/Distributed_hash_table">
+            distributed hash tables (DHTs)
+          </A>{" "}
+          or{" "}
+          <A href="https://en.wikipedia.org/wiki/Gossip_protocol">
+            gossip protocols
+          </A>.
+        </P>
 
-        // Systems that eliminate <Em>all</Em> dead links by design{" "}
-        // <Sidenote
-        //   note={
-        //     <>
+        <P>
+          Resilient name resolution of signed bindings always builds on the fact
+          that data need not be served by the original author: everyone can
+          verify the signature for the bound data, so there is no need to trust
+          the peer who gives you the data. The introduction of such
+          intermediaries does open up questions of freshness. Did you get the
+          newest data bound to the name, or is the data stale?{" "}
+          <Sidenote
+            note={
+              <>
+                A prominent exception is{" "}
+                <A href="https://en.wikipedia.org/wiki/Nostr">Nostr</A>, which
+                goes for best-effort delivery with no formal consistency model.
+              </>
+            }
+          >
+            Typically
+          </Sidenote>, systems aim for eventual consistency, where all peers
+          will eventually obtain the most up-to-date data once updates stop and
+          the system keeps running long enough.
+        </P>
+
+        <P>
+          While resolving an address and contacting a server directly may feel
+          like a stronger guarantee of recency, you can never know whether the
+          server did not happen to update its data immediately after serving
+          your request.<Marginale>
+            The naming model I discuss in this post is purely pull-based.
+            Efficient systems should probably incorporate push-based solutions
+            (subscriptions to binding updates) as well.
+          </Marginale>{" "}
+          So you cannot ever be certain to be fully up-to-date in address-based
+          settings either. And with enough engineering effort, you can reduce
+          the delay in name resolution in signed-binding systems quite far as
+          well. In particular, such a system could annotate its names with the
+          (IP) address of a recommended data source(s) to contact for
+          resolution.<Marginale>
+            More broadly speaking, there is always an engineering space where
+            you can overlay centralised architectures over a decentralised
+            system to achieve certain optimisations. The important part is to
+            make absolutely sure that things will continue to work when the
+            centralised components fail.
+          </Marginale>{" "}
+          Such a system would have all the advantages of regular address-based
+          systems while the recommended server(s) are online, while still
+          failing gracefully to a slower but more resilient resolution mechanism
+          to prevent link rot.
+        </P>
+
+        <P>
+          When everyone can serve data to everyone else, the responsibility for
+          keeping data around is diluted. In this sense, no system can fully
+          prevent link rot: when the last remaining copy of some data is lost,
+          it cannot be retrieved any longer. But, conceptually, each{" "}
+          <Em>binding</Em>{" "}
+          itself lasts as long as the digital signature scheme remains secure.
+        </P>
+
+        <P>
+          <Marginale>
+            For every proposal to add content-addressing to the Fediverse to
+            move beyond reliance on individual instances (i.e., addressed
+            locations), there could be an equivalent proposal championing signed
+            bindings.
+          </Marginale>
+          Perhaps curiously, signed bindings share much the same challenges as
+          systems based on content-addressing. Both deal in names that are not
+          human-readable, and both deal in names that carry no information in
+          how to resolve them. I find it fair to say that <Em>if</Em>{" "}
+          content-addressed systems can be made to work at{" "}
+          <Sidenote
+            note={
+              <>
+                Did you know that{" "}
+                <Quotes>
+                  a dominant global system used by pretty much everyone, their
+                  dog, and their dog’s dozens of{" "}
+                  <A href="https://en.wikipedia.org/wiki/Internet_of_things">
+                    IoT
+                  </A>{" "}
+                  devices
+                </Quotes>{" "}
+                is not the only scale worth running systems at?
+              </>
+            }
+          >
+            scale
+          </Sidenote>, so can systems based on signed bindings.
+        </P>
+
+        <P>
+          There is a lot more design space for naming systems which enable
+          mutation. Some examples:
+        </P>
+
+        <Ul>
+          <Li>
+            Who should get to resolve names? Can everyone resolve everything, or
+            is it possible to introduce some level of access control?
+          </Li>
+          <Li>
+            Should names carry additional structure?{" "}
+            <A href="https://willowprotocol.org/">Willow</A>,<Marginale>
+              Willow can also mediate access control via this structure.
+            </Marginale>{" "}
+            for example, arranges names in a three-dimensional space, and then
+            allows for spacial queries to resolve names in bulk.
+          </Li>
+          <Li>
+            Are there decentralised, rot-resistent techniques beyond signed
+            bindings?
+          </Li>
+        </Ul>
+
+        <P>
+          But for now, I hope to have provided a useful overview of the basics.
+        </P>
+
+        {/* immutable has the advantage of "being done" at some point */}
+
+        {
+          /* //     <>
         //       Actually, the content you link to still needs to be stored{" "}
         //       <Em>somewhere</Em>{" "}
         //       for it to be resolvable. In principle, any entity that stores a
@@ -426,54 +579,14 @@ export const mutability_and_rot = {
         //       (transitively) links to. <Em>Surely</Em>{" "}
         //       that is completely feasible and will never run into any resource
         //       limits.
-        //     </>
-        //   }
-        // >
-        //   solve
-        // </Sidenote>{" "}
-        // the problem of link rot */
-        }
-
-        {
-          /* <P>
-        TODO use "signed binding" terminology at start of this paragraph
-          Note that such a name — unlike a physical address — contains no
-          information on how to resolve it to the underlying data. Neither does
-          a hash in content-addressed systems. Both kinds of systems admit the
-          same classes of solutions, for example to query peers with shared{" "}
-          <Sidenote
-            note={
-              <>
-                Whether they share those interest naturally or you pay them to
-                care makes little difference on the purely technical level.
-              </>
-            }
-          >
-            interests
-          </Sidenote>, or a{" "}
-          <A href="https://en.wikipedia.org/wiki/Distributed_hash_table">
-            distributed hash table
-          </A>{" "}
-          which randomly assigns storage responsibilities and routes requests
-          accordingly. Over time, lack of interest in some data might mean that
-          you cannot find anyone who stores it. But the name binding itself
-          never rots away.
-        </P> */
+        //     </> */
         }
       </Hsection>
 
-      <Hsection n="mutability_and_rot_closing" title="Closing Thoughts">
-        {
-          /*
-
-        <P>
-          It seems rather unlikely that signed bindings are the <Em>only</Em>
-          {" "}
-          approach to mutability that does not suffer form link rot. I am
-          looking forward to seeing fresh projects pop up that explore other
-          such approaches in the future.
-        </P> */
-        }
+      <Hsection
+        n="mutability_and_rot_important"
+        title="The Actually Important Questions"
+      >
       </Hsection>
 
       <P>
@@ -482,25 +595,54 @@ export const mutability_and_rot = {
           <A href="https://en.wikipedia.org/wiki/Joseph_Weizenbaum">
             Joseph Weizenbaum
           </A>{" "}
-          here — I believe that every single computer scientist should read his
-          {" "}
-          <A
-            href={
-              <ResolveAsset
-                asset={[
-                  "treasures",
-                  "archive",
-                  "computer_power_and_human_reason.pdf",
-                ]}
-              />
-            }
-          >
-            Computer Power and Human Reason
-          </A>.
+          in his radiant <R n="computer_power_and_human_reason" /> here.
+        </Marginale>
+        <Marginale>
+          I am also channeling{" "}
+          <A href="https://shiba.computer/">Cade Diehm</A>, whose writing has
+          influenced how I approach systems design and who gave me immensely
+          helpful feedback on an early draft of this post.
         </Marginale>
         The previous sections were purely technical, they discussed what{" "}
         <Em>can</Em> be done. Much more important, though, is what{" "}
-        <Em>should</Em> be done.
+        <Em>should</Em>{" "}
+        be done. I personally believe strongly that we need resilient systems
+        that do not suffer from link rot yet allow for active mutation. And I am
+        unhappy how much of the time, energy, and resources that go into
+        research and development of resilient systems go into systems with no or
+        purely non-destructive notions of mutability.
+      </P>
+
+      <P>
+      </P>
+
+      {
+        /*
+
+- yay immutability: censorship-resistence, archiving [marginale: my argumentation will draw on the assumtion of having mutability without link rot, otherwise I would "lose" on both archiving and censorship-resistence ends]
+- should be *a* tool in the "system of the future", but should not be considered defining
+- there are negative consequences to making this defining, i.e. to make links immutable by default (just as if everyone was copy-pasting by default)
+- mutable links leave agency with the author [marginale on fridge notes vs default way of access]
+- by using a mutable link, you voluntarily cede control; this creates interdependence and requires trust
+- these are deeply human things and they sit at the root of the most positive relationships
+- I'd rather immerse myself (and have others immerse themselves) in a medium that reinforces these notions, instead of a medium that tries to eliminate them
+- such a medium also teaches an important lesson: trust is never forced, you *can* choose to copy-paste (or content-address) after all
+- alternativeless or forced trust is a hollow shell and not-a-great-thing
+- drawing the conclusion that all trust should be eliminated is quite a sad thing; instead we should eliminate coerced trust while simultaneously maximising opertunities for voluntarily granting meaningful trust
+
+- note: I am not being comprehensive here, I merely try to convey how I feel and why
+- there are tons of other important issues. vulnerability, forgiveness, lies and manipulation, ...
+- the important part is that we have these discussions
+- the systems we design are not neutral, neither politically nor socially
+- when I see a new project that does not acknowledge this and communicates where it stands on these questions, I'm not going to go near to it. It might be impressive in what it *can* do, but anyone who does not stop to think whether they *should* be doing it should not get support.
+
+- end with powerful final statement and call to action
+
+      */
+      }
+
+      <P>
+        TODO arrange my thoughts, write them down...
       </P>
     </>
   ),
@@ -520,16 +662,45 @@ export const mutability_and_rot = {
 
 // A mutable link to your own stuff is under your control and thus exempt from discussions of link rot, but a mutable link to somebody else's stuff is giving up control, depending on them. these mutable links create interdependence, which is deeply human. removing mutable links makes the web not only less expressive but less humane
 
-// why: fragility: location-based is attackable, censorable, compare "no global singletons" -> what does this mean for DHTs?
-
-// at end: link to willow-page protocol comparison, and link from there back to this. Explicitly call out the cyclic linking
+// from the lens of "cypherlinks are merely copy-pasting", SSB is an incredibly naive system (and a restrictive one, since you can't omit the copy-pasting of anything even if you want to), but one that communicates quite different expectations to (lay) users. Storytelling and teaching and perspectives matter! (also: when telling stories, make clear who gets to resolve names!)
 
 // discussion: signatures already dangerous?
 
-///////
-///////
-///////
+//
+//
+//
 
-// Hsections are out of date
+// Cade:
+// =====
 
-// For Weizenbaum, link to treasures page instead of the pdf
+// Through an engineer's lens, you are strongly defending authorial
+// agency, but you don't fully wrestle with how that agency is itself
+// contested in practice. There’s a huge dierence between deleting your
+// blog post and retroactively erasing material that has public value (or
+// harm). The defense of “active mutation” needs more nuance,
+// particularly in the current climate where revision, deletion, and
+// ephemerality can themselves be part of soft power, manipulation, or
+// escape from accountability.
+
+// Are there situations where mutability is undesirable? Can we design
+// systems where authors retain agency without enabling denialism or
+// revisionist erasure? What are these implications for your proposal here?
+// These are all extremely important , particularly in the current socio-
+// political climate, if you are to gain traction with this compelling concept
+
+// End with an invitation. What kind of system would armatively treat
+// mutability as a right? What kinds of futures might that unlock? Who
+// are the peers in this space? I know I'm asking you to think beyond the
+// scope of link rot solutionism, but think about it: you're trying to get
+// away with proposing an entirely dierent infrastructural ethic, I'm not
+// going to let you get away with scoping that to a focused solution in a
+// vacuum!!
+
+// What this needs is a compsci voice that draws on the discussions you,
+// me and Gwil have had for years: we need a design language for
+// mutable, non-rotting systems that do not rely on scarcity, address
+// resolution, or enforced permanence. That’s the deeper thesis here,
+// and the more we hone and refine it, the more noise we make, the more
+// attention it will bring, and the more likely we are to be able to continue
+// what we do. Look around, look at the state of things; your demands
+// here deserve to be shouted, not whispered.
