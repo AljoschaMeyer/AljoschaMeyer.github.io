@@ -312,9 +312,9 @@ float fbm3(
     // q.y = fbm(_st + vec2(1.7f, 0.2f) + speedY * u_time);
 
     // vec2 r = vec2(fbm(_st + 12.0 * q + speedY * u_time));
-    // // vec2 r = vec2(0.f);
-    // r.x = fbm(_st + qFactor * q + vec2(1.4f, 5.3f) + speedX * u_time * speedDiff);
-    // r.y = fbm(_st + qFactor * q * 0.9f + vec2(8.3f, 2.8f) + speedY * u_time * speedDiff);
+    vec2 r = vec2(0.f);
+    r.x = fbm(_st + qFactor * q + vec2(1.4f, 5.3f) + speedX * u_time * speedDiff);
+    r.y = fbm(_st + qFactor * q * 0.9f + vec2(8.3f, 2.8f) + speedY * u_time * speedDiff);
 
     return fbm(q);
 }
@@ -347,7 +347,7 @@ void main() {
     vec3 color1 = vec3(0.44f, 0.71f, 0.89f);
     bgColor = bg1 * color1 * 1.6f;
 
-    float stars = pow(noise(vec3(st.x * 223.4f, st.y * 217.3f, 0.6f * u_time + 123.4f * st)), 64.f) * 4.0f;
+    float stars = pow(noise(vec3(st.x * 223.7f, st.y * 217.3f, 0.6f * u_time + 123.4f * st)), 64.f) * 4.0f;
     bgColor += stars;
 
     float avatarDistance = distance(gl_FragCoord.xy, u_avatar);
