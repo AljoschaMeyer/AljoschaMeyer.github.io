@@ -56,6 +56,9 @@ height: 2.5rem;">
       <Div clazz="centered" style="font-size: 2em; text-align: center;">
         Aljoscha Meyer does computer science.
       </Div>
+      <Div clazz="centered" style="color: #ddbef2; margin: 0.6rem auto;">
+        And sometimes wishes he didn’t.
+      </Div>
       <Div clazz="centered">
         (<A clazz="u-email" href="mailto:mail@aljoscha-meyer.de">
           mail@aljoscha-meyer.de
@@ -258,30 +261,8 @@ height: 2.5rem;">
         </Div>
       </Div>
 
-      <Div>
-        {posts}
-      </Div>
-
       <Div clazz="centered">
-        <P>Some guiding principles on coding:</P>
-
-        <Ul>
-          <Li>code affects humans, not machines</Li>
-          <Li>think through the consequences of design decisions</Li>
-          <Li>tradeoffs are everywhere, document them</Li>
-          <Li>
-            taking on technical debt should be an informed decision, not the
-            default
-          </Li>
-          <Li>all resources are finite</Li>
-          <Li>share, teach, and be taught</Li>
-          <Li>don't hesitate to create and improve your tools</Li>
-          <Li>know your complexity bounds and impossibility results</Li>
-          <Li>
-            algebraic laws are one honking great idea—let's do more of those
-          </Li>
-          <Li>when in doubt, create beauty</Li>
-        </Ul>
+        {posts}
       </Div>
     </Html5>
   </File>

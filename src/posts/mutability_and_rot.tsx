@@ -1,8 +1,7 @@
-import { A, Br, Code, Em, I, Li, P, Strong, Ul } from "macromania-html";
+import { A, Br, Code, Em, I, Li, P, Ul } from "macromania-html";
 import { Marginale, Sidenote } from "macromania-marginalia";
 import { Hsection } from "macromania-hsection";
 import { Quotes } from "../macros.tsx";
-import { ResolveAsset } from "macromania-assets";
 import { R } from "macromania-defref";
 
 export const mutability_and_rot = {
@@ -10,7 +9,7 @@ export const mutability_and_rot = {
   n: "mutability_and_rot",
   htmlTitle: "On Link Rot",
   title: "Distributed Mutability Without Link Rot",
-  date: "2025/04/13",
+  date: "2025/04/22",
   children: (
     <>
       <P>

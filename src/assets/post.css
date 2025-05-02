@@ -35,3 +35,8 @@ h6 a {
 h1 {
     margin-bottom: 3rem;
 }
+
+#home {
+    margin-top: 5rem;
+    text-align: center;
+}
