@@ -195,7 +195,7 @@ export const mutability_and_rot = {
           mappings — clicking on the same link on different days can yield
           different results. The process from clicking a link to obtaining the
           data is quite involved, but for this discussion we can simplify it
-          down to two separate steps: first, a URLs is resolved into an{" "}
+          down to two separate steps: first, a URL is resolved into an{" "}
           <A href="https://en.wikipedia.org/wiki/IP_address">IP address</A>, and
           second, the{" "}
           <A href="https://en.wikipedia.org/wiki/Web_server">server</A>{" "}
@@ -549,10 +549,10 @@ export const mutability_and_rot = {
               Willow can also mediate access control via this structure.
             </Marginale>{" "}
             for example, arranges names in a three-dimensional space, and then
-            allows for spacial queries to resolve names in bulk.
+            allows for spatial queries to resolve names in bulk.
           </Li>
           <Li>
-            Are there decentralised, rot-resistent techniques beyond signed
+            Are there decentralised, rot-resistant techniques beyond signed
             bindings?
           </Li>
         </Ul>
