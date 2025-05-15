@@ -15,9 +15,9 @@ import { beatles_collection } from "./posts/beatles_collection.tsx";
 export const posts = (
   <RenderPosts
     posts={[
+      mutability_and_rot,
       beatles_collection,
       some_guiding_principles_on_coding,
-      mutability_and_rot,
       {
         link: "/treasures",
         title: "Treasures",

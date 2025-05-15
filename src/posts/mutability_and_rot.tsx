@@ -5,11 +5,10 @@ import { Quotes } from "../macros.tsx";
 import { R } from "macromania-defref";
 
 export const mutability_and_rot = {
-  draft: true,
   n: "mutability_and_rot",
   htmlTitle: "On Link Rot",
   title: "Distributed Mutability Without Link Rot",
-  date: "2025/04/22",
+  date: "2025/05/15",
   children: (
     <>
       <P>
