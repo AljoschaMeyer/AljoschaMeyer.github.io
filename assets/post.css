@@ -3,18 +3,22 @@ body {
     font-family: Charter, 'Bitstream Charter', 'Sitka Text', Cambria, serif;
 
     color: #000000;
-    background-image: linear-gradient(14deg, #ff96fc, #f1b9f2);
+    /* background-image: linear-gradient(14deg, #ff96fc, #f1b9f2); */
+    background-color: #ffe1ff;
+    background-image: linear-gradient(14deg, #ffe1ff, #fec6ff);
     background-attachment: fixed;
 }
 
 a {
-    color: rgb(58, 14, 153);
+    /* color: rgb(58, 14, 153); */
+    color: rgb(97, 73, 149);
 }
 
 @media (prefers-color-scheme: dark) {
     body {
-        color: #fcd5ff;
-        background-image: linear-gradient(14deg, #370636, #600262);
+        color: #fae1ff;
+        background-color: #1e1c1e;
+        background-image: linear-gradient(14deg, #1e1c1e, #461c43);
     }
 
     a {
