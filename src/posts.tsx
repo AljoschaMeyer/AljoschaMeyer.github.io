@@ -19,7 +19,6 @@ export const posts = (
         link: "/simver",
         title: "Simple Versioning Specification",
         date: "2025/05/28",
-        draft: true,
       },
       mutability_and_rot,
       beatles_collection,
