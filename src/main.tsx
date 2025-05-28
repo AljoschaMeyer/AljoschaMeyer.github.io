@@ -14,6 +14,7 @@ import { Div } from "macromania-html";
 
 import { index } from "./index.tsx";
 import { treasures } from "./treasures.tsx";
+import { simver } from "./simver.tsx";
 import { Copy, EnsureNot, Remove } from "macromania-fs";
 import { LayoutStyles } from "./layoutStyles.tsx";
 
@@ -98,6 +99,7 @@ const exp = (
         >
           {index}
           {treasures}
+          {simver}
         </PreviewScopePushWrapper>
       </ServerRoot>
     </Dir>

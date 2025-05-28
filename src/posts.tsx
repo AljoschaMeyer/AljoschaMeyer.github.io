@@ -15,6 +15,12 @@ import { beatles_collection } from "./posts/beatles_collection.tsx";
 export const posts = (
   <RenderPosts
     posts={[
+      {
+        link: "/simver",
+        title: "Simple Versioning Specification",
+        date: "2025/05/28",
+        draft: true,
+      },
       mutability_and_rot,
       beatles_collection,
       some_guiding_principles_on_coding,
@@ -130,9 +136,11 @@ function RenderPosts({ posts }: { posts: PostProps[] }): Expression {
           if ("n" in post) {
             return (
               <>
-                <Time>
-                  <exps x={post.date} />
-                </Time>
+                <R n={post.n}>
+                  <Time>
+                    <exps x={post.date} />
+                  </Time>
+                </R>
                 <R n={post.n}>
                   <exps x={post.title} />
                 </R>
@@ -141,9 +149,11 @@ function RenderPosts({ posts }: { posts: PostProps[] }): Expression {
           } else {
             return (
               <>
-                <Time>
-                  <exps x={post.date} />
-                </Time>
+                <A href={post.link}>
+                  <Time>
+                    <exps x={post.date} />
+                  </Time>
+                </A>
                 <A href={post.link}>
                   <exps x={post.title} />
                 </A>
