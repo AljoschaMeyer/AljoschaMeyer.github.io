@@ -68,40 +68,24 @@ export const simver = (
           </P>
 
           <H2 id="introduction">Introduction</H2>
-
-          <P>
-            In the world of software management there exists a dreaded notion
-            called “<A href="https://Semver.org/#spec-item-8">
-              major version updates
-            </A>.” A software package breaks its API, and signals this by
-            incrementing part of its version number. This pattern projects a
-            human need for conceptual continuity onto a computer system. But
-            computers have no corresponding notion of continuity.
-          </P>
-
           <P>
             From the perspective of dependency management, a software package is
-            solely defined by its API — typcially in prose, sometimes with some
-            basic support by a type system. Dependency management cares about
-            only one notion regarding such APIs: given an explicitly specified
-            package <I>A</I>, can some package <I>B</I>{" "}
+            solely defined by its API — typically in prose, sometimes backed by
+            a type system. Dependency management cares about only one notion
+            regarding such APIs: given an explicitly specified package{" "}
+            <I>A</I>, can some package <I>B</I>{" "}
             — found through dependency resolution — be substituted for it? The
             answer is “yes” if and only if the API of <I>B</I>{" "}
-            is compatible with that of <I>A</I>{" "}
-            (where compatibility typically goes beyond what is expressed in a
-            type system).
+            is compatible with that of <I>A</I> (where <I>compatibility</I>{" "}
+            usually goes beyond what can be checked mechanically in a type
+            system).
           </P>
 
           <P>
             As a package evolves, the maintainers release a sequence of
             successively compatible versions. We propose to assign successive
-            natural numbers to these releases.
-          </P>
-
-          <P>
-            We call this system “Simple Versioning.” Under this scheme, version
-            numbers and the way they change convey meaning about the underlying
-            code and what has been modified from one version to the next.
+            natural numbers to these releases, and call this system “Simple
+            Versioning.”
           </P>
 
           <P>
@@ -111,9 +95,10 @@ export const simver = (
             <I>React version 3.0.0</I>{" "}
             relate to each other in the exact same way as{" "}
             <I>React version 2.0.0</I> and{" "}
-            <I>jQuery 2.0.0</I>. There is of course a meaningful difference
-            between these two pairs, but this difference should have nothing to
-            do with dependency management.
+            <I>jQuery 2.0.0</I>. To humans, there is a meaningful difference
+            between these two pairs, but this difference has nothing to do with
+            dependency management. We clearly should not complicate computer
+            systems based on irrational human needs.
           </P>
 
           <H2 id="simple-versioning-specification-simver">
@@ -137,19 +122,18 @@ export const simver = (
           <Ol>
             <Li>
               <P>
-                There is clearly no need to define <I>software package</I> or
-                {" "}
+                There is no need to define <I>software package</I> or{" "}
                 <I>version</I>{" "}
-                in a specification for versioning software packages, because
-                everybody already knows the one universally agreed-upon meaning
-                of these terms.
+                in a specification for versioning software packages; everybody
+                already knows the one universally agreed-upon meaning of these
+                terms.
               </P>
             </Li>
             <Li>
               <P>
                 Software packages using Simple Versioning must declare a public
-                API. How this is done is out of scope of this specification.
-                Good luck.
+                API. <Em>How</Em>{" "}
+                to do so is out of scope of this specification. Good luck.
               </P>
             </Li>
             <Li>
@@ -268,7 +252,20 @@ export const simver = (
             <I>Flibble 2</I>, the one after that{" "}
             <I>Flibble 3</I>, and so on. This works great with existing package
             managers, and humans will just call the thing <I>Flibble</I>{" "}
-            the whole time (automatically becoming more precise when needed).
+            most of the time (while automatically becoming more precise when
+            needed).
+          </P>
+
+          <H3 id="discoverability">
+            What about discoverability?
+          </H3>
+
+          <P>
+            You do not find out about breaking changes from your package
+            manager, but through other channels such as a website or a code
+            repository. Those same channels can also announce switches to
+            completely new packages due to breaking changes. Clearly, there are
+            absolutely no problems whatsoever with Simple Versioning.
           </P>
 
           <H3 id="minor-vs-patch">
@@ -287,15 +284,6 @@ export const simver = (
             without Simple Versioning.
           </P>
 
-          <H3 id="is-there-a-suggested-regular-expression-regex-to-check-a-simver-string">
-            Is there a suggested regular expression (RegEx) to check a SimVer
-            string?
-          </H3>
-
-          <P>
-            <Code>0|[1-9]\d*</Code>
-          </P>
-
           <H3 id="embed">
             How can I use Simple Versioning in a world full of Semantic
             Versioning infrastructure?
@@ -305,19 +293,38 @@ export const simver = (
             Semantic Versioning contains a subset which is isomorphic to Simple
             Versioning. To embed a Simple Version <I>Number</I>{" "}
             in a Semantic Versioning system, use the semantic version{" "}
-            <I>0.Number.0</I>. This will work for all software using Semantic
-            Versioning, the software will be none the wiser!
+            <I>0.Number.0</I>. This will work with all Semantic Versioning
+            software, and the software will be none the wiser!
+          </P>
+
+          <H3 id="is-there-a-suggested-regular-expression-regex-to-check-a-simver-string">
+            Is there a suggested regular expression (RegEx) to check a SimVer
+            string?
+          </H3>
+
+          <P>
+            <Code>0|[1-9]\d*</Code>
+          </P>
+
+          <H3 id="ebnf-lol">
+            Why did you make me read a 214-character BNF grammar when there is
+            an equivalent 10-character RegEx?
+          </H3>
+
+          <P>
+            Because a <Quotes>specification</Quotes>{" "}
+            without a BNF grammar is too informal to be called a specification.
           </P>
 
           <H3 id="concurrency">
             Sequential version numbering makes concurrent package updates by
             independent maintainers impossible, because they would assign the
-            same version. This precludes truly decentralised,
-            eventually-consistent, delay-tolerant software publishing, thus
-            implicitly entrenching a status quo that assumes complete
-            sovereignty over software packages by a single, privileged author
-            (or group of authors who together act as a single logical author).
-            How dare you?
+            same version number to different programs. This precludes truly
+            decentralised, eventually-consistent, delay-tolerant software
+            publishing, thus implicitly entrenching a status quo that assumes
+            complete sovereignty over software packages by a single, privileged
+            author (or group of authors who together act as a single logical
+            author). How dare you?
           </H3>
 
           <P>
@@ -325,32 +332,32 @@ export const simver = (
           </P>
 
           <P>
-            But since you just asked, I will lay out some ideas. Instead of
+            But, since you did just ask, I will lay out some ideas. Instead of
             using successive numbers as version identifiers, you could identify
-            versions by a secure hash. This hash should be both over the data of
-            the version in question and over the version identifier (i.e., the
-            hash) of the previous version, if any. This results in a linked list
-            of hashes. (If you absolutely insist, you can also hash in some data
-            to distinguish, for example, between patch releases and feature
-            releases.)
+            each version by a secure hash. This hash should be both over the
+            data of the version in question and over the version identifier
+            (i.e., the hash) of the previous version, if any. This results in a
+            linked list of hashes. (If you absolutely insist, you can also hash
+            in some data to distinguish, for example, between patch releases and
+            feature releases.)
           </P>
 
           <P>
-            More precisely, this scheme results in a <Em>tree</Em>{" "}
-            of hashes: different versions of a package might branch off at the
+            More accurately, this scheme results in a <Em>tree</Em>{" "}
+            of hashes: different versions of a package can branch off at the
             same base version. This is great, because it enables concurrent
-            creation of new versions, and thus eliminates the need for a
-            consensus mechanism between package authors.
+            creation of new versions without requiring a consensus mechanism
+            between all package authors for naming them.
           </P>
 
           <P>
             A typical follow-up question to this kind of design is how to merge
-            together concurrently published versions that both have features
-            that should be kept. There is an answer which is as obviously
-            correct and simple as it is boring: add the combined features on one
-            of the concurrent branches, and abandon the other one. Nothing in
-            this system benefits from complicating the underlying data
-            structures and cryptography by adding merge operators.
+            together concurrently published versions which both have features to
+            keep. There is an answer which is as obviously correct and simple as
+            it is boring: add the combined features on one of the concurrent
+            branches, and abandon the other one. Nothing in this system benefits
+            from complicating the underlying data structures and cryptography by
+            adding merge operators.
           </P>
 
           <P>
@@ -358,12 +365,12 @@ export const simver = (
             how do you efficiently determine whether one of them is a
             predecessor of the other? Systems such as{" "}
             <A href="https://worm-blossom.github.io/reed/">Reed</A>{" "}
-            allow determining this in logarithmic time, while adding only a
-            constant amount of additional data to incorporate into each version
-            hash. Even in a peer-to-peer setting where participants might not
-            want to store full version histories, peers can enable these
-            comparisons by storing only a logarithmically-sized subset of the
-            version histories.
+            allow querying the happened-before relation on a tree in logarithmic
+            time, while adding only a constant amount of additional data to
+            incorporate into each version hash. In a peer-to-peer setting where
+            participants might not want to store full version histories, peers
+            can perform these comparisons while storing only
+            logarithmically-sized subsets of the version histories.
           </P>
 
           <P>
@@ -398,8 +405,8 @@ export const simver = (
             decentralised, not one that simply relies on centralised package
             authorship and places the data on content-addressed peer-to-peer
             storage. But, you know, this is just an FAQ entry inside a
-            specification of questionable seriousness, so probably not worth
-            taking seriously.
+            specification of questionable quality, so probably not worth taking
+            seriously.
           </P>
 
           <H2 id="about">About</H2>
@@ -415,6 +422,19 @@ export const simver = (
             If you’d like to leave feedback, feel free to reach out somehow. If
             that is too much effort, instead hug a person who loves you. Or
             plant a tree, or something.
+          </P>
+
+          <P>
+            Yes, I am aware of{" "}
+            <A href="https://simver.org/">simver.org</A>. I am even aware of the
+            same author proposing{" "}
+            <A href="https://mastodon.online/@JayBazuzi/113693758584148399">
+              integral versioning
+            </A>{" "}
+            as well. What is more shocking — the fact that these dazzling ideas
+            (and naming choices) should be rediscovered independently, the fact
+            that I deliberately withheld this prior work for dramatic effect, or
+            the fact that Snape kills Dumbledore?
           </P>
 
           <H2 id="license">License</H2>
