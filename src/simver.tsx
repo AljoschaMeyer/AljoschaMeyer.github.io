@@ -125,7 +125,7 @@ export const simver = (
                 There is no need to define <I>software package</I> or{" "}
                 <I>version</I>{" "}
                 in a specification for versioning software packages; everybody
-                already knows the one universally agreed-upon meaning of these
+                already knows the one, universally agreed-upon meaning of these
                 terms.
               </P>
             </Li>
@@ -266,6 +266,29 @@ export const simver = (
             repository. Those same channels can also announce switches to
             completely new packages due to breaking changes. Clearly, there are
             absolutely no problems whatsoever with Simple Versioning.
+          </P>
+
+          <H3 id="impersonation">
+            What about impersonation? Any troll could publish <I>React 3</I>
+            {" "}
+            after the poor, hard-working React team poured its soul into{" "}
+            <I>React 2</I>.
+          </H3>
+
+          <P>
+            This is only a problem with package managers that provide a single,
+            global namespace. Which is a pretty bad idea in the first place,
+            because it makes meaningful package names a scarce resource (have
+            you ever had the pleasure of trying to name a javascript project
+            before npm had orgs?)
+          </P>
+
+          <P>
+            With package-manager-level scopes, this issue vanishes. In fact, you
+            could create a single scope per project, and turn that scope into a
+            discovery mechanism for breaking changes. But wait, wouldn’t that
+            introduce name scarcity? Anyway, there are clearly absolutely no
+            problems whatsoever with Simple Versioning.
           </P>
 
           <H3 id="minor-vs-patch">
