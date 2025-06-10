@@ -193,7 +193,7 @@ export const simver = (
           <P>
             This is not a new or revolutionary idea. In fact, you probably do
             something{" "}
-            <A href="https://semver.org/#why-use-semantic-versioning">
+            <A href="https://semver.org/spec/v2.0.0.html#why-use-semantic-versioning">
               close to this
             </A>{" "}
             already. The problem is that “close” isn’t good enough. Without
@@ -276,7 +276,7 @@ export const simver = (
           </H3>
 
           <P>
-            This is only a problem with package managers that provide a single,
+            This is only a problem with package managers which provide a single,
             global namespace. Which is a pretty bad idea in the first place,
             because it makes meaningful package names a scarce resource (have
             you ever had the pleasure of trying to name a javascript project
@@ -287,7 +287,7 @@ export const simver = (
             With package-manager-level scopes, this issue vanishes. In fact, you
             could create a single scope per project, and turn that scope into a
             discovery mechanism for breaking changes. But wait, wouldn’t that
-            introduce name scarcity? Anyway, there are clearly absolutely no
+            reintroduce name scarcity? Anyway, there are clearly absolutely no
             problems whatsoever with Simple Versioning.
           </P>
 
@@ -470,8 +470,8 @@ export const simver = (
 
           <P>
             This page was adapted from the{" "}
-            <A href="https://semver.org">Semver 2.0.0</A> page, released under
-            {" "}
+            <A href="https://semver.org/spec/v2.0.0.html">Semver 2.0.0</A>{" "}
+            page, released under{" "}
             <A href="https://Creativecommons.org/Licenses/by/3.0/">
               Creative Commons ― CC BY 3.0
             </A>.

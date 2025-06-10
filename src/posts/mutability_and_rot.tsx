@@ -124,7 +124,7 @@ export const mutability_and_rot = {
         </P>
 
         <P>
-          In programming, the simplemost case of names ist not used for
+          In programming, the simplemost case of names is not used for
           mutability, but merely to make working with large values (or the
           results of complex computations) easier. Many programming languages
           offer deliberately <Em>immutable</Em>{" "}
@@ -672,7 +672,7 @@ export const mutability_and_rot = {
         <Sidenote
           note={
             <>
-              An prime example would be the forced trust in and usage of the
+              A prime example would be the forced trust in and usage of the
               currency of the nation state you happen live in — it certainly is
               no coincidence that cryptocurrency, blockchain, and code-is-law
               enthusiasts frequently employ narratives of trustlessness.

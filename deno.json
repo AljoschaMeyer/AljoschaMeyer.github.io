@@ -43,7 +43,8 @@
   "tasks": {
     "build": "deno run -A ./src/main.tsx",
     "watch": "deno run --watch -A ./src/main.tsx",
-    "serve": "deno run -A ./server.ts"
+    "serve": "deno run -A ./server.ts",
+    "publish": "deno run -A ./publish.ts"
   },
   "include": ["src", "server.ts"],
   "exclude": ["build"]
