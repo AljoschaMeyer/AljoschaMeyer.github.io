@@ -28,6 +28,7 @@ fs.removeSync(tmpDir);
 
 await run("git", ["add", "-A"]);
 await run("git", ["commit", "-am",  "Publish changes"]);
+await run("git", ["push"]);
 await run("git", ["checkout", srcBranch]);
 
 async function run(cmd: string, args: string[]) {
