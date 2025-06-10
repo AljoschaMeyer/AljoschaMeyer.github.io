@@ -9,7 +9,7 @@ const fs = new SimpleFsDeno("..");
 
 await run("deno", ["task", "build"]);
 fs.copySync(`${name}/build`, tmpDir, "assertive");
-fs.removeSync(`${tmpDir}/.git`);
+fs.ensureNotSync(`${tmpDir}/.git`);
 await run("git", ["checkout", pagesBranch]);
 
 for (const file of fs.lsSync(name)) {

@@ -29,8 +29,14 @@
     "macromania-bib": "../macromania_temporary_monorepo/macromania_bib/mod.tsx",
     "macromania-bib/": "../macromania_temporary_monorepo/macromania_bib/",
     "macromania-wip": "../macromania_temporary_monorepo/macromania_wip/mod.tsx",
-    "macromania-emit-latex": "../macromania_temporary_monorepo/macromania_emit_latex/mod.tsx"
+    "macromania-emit-latex": "../macromania_temporary_monorepo/macromania_emit_latex/mod.tsx",
+
+    "@aljoscha-meyer/simple-fs-deno": "../simple_fs_deno/mod.ts"
   },
+  "patch": [
+    "../simple_fs_deno",
+    "../simple_fs_abstraction"
+  ],
   "compilerOptions": {
     "jsx": "react-jsxdev",
     "jsxImportSource": "macromaniajsx",
