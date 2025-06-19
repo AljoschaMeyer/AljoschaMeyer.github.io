@@ -216,15 +216,19 @@ height: 2.5rem;">
               computing the union of two sets over a network, based on
               recursively partitioning the sets and comparing fingerprints of
               the partitions to probabilistically detect whether a partition
-              requires further work. Several open source projects{" "}
-              <A href="https://logperiodic.com/rbsr.html">started</A>{" "}
-              <A href="https://www.youtube.com/watch?v=_D_tbAMqADM&list=PLvsg-fc7APc3liifbs3O_gokEIJcFn7Eu">
-                considering
-              </A>
-              <A href="https://cips.ceramic.network/CIPs/cip-124">this</A>{" "}
-              <A href="https://willowprotocol.org/specs/3d-range-based-set-reconciliation/index.html#d3_range_based_set_reconciliation">
-                algorithm
-              </A>.
+              requires further work.
+            </P>
+          </Card>
+
+          <Card
+            title="RBSR with Merkle Trees"
+            href={["landing", "rbsr_nonhomomorphic.pdf"]}
+            repo="https://github.com/AljoschaMeyer/rbsr2"
+            splash={["landing", "rbsr2.jpg"]}
+            splashAlt="Two figures from the paper: Merkle trees being clamped to a range."
+          >
+            <P>
+              Range-based set reconciliation used to require non-standard hash functions with certain homomorphic properties. This paper describes how to do away with these and use regular Merkle trees instead.
             </P>
           </Card>
 
