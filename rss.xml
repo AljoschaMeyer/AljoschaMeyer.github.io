@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+<title>Aljoscha's Updates</title>
+<link>https://aljoscha-meyer.de/</link>
+<description>Feed of updates to https://aljoscha-meyer.de/</description>
+<pubDate>Wed, 28 May 2025 00:00:00 CEST</pubDate>
+<lastBuildDate>Wed, 28 May 2025 00:00:00 CEST</lastBuildDate>
+<item>
+<title>Simple Versioning Specification</title>
+<link>https://aljoscha-meyer.de/simver</link>
+<description><![CDATA[An entirely serious alternative to the semantic versioning specification.]]></description>
+<guid isPermaLink="true">https://aljoscha-meyer.de/simver</guid>
+<pubDate>Wed, 28 May 2025 00:00:00 CEST</pubDate>
+</item>
+<item>
+<title>Distributed Mutability Without Link Rot</title>
+<link>https://aljoscha-meyer.de/posts/mutability_and_rot</link>
+<description><![CDATA[An essay on how to achieve mutable hypertext without automatically suffering from link rot, and why this matters]]></description>
+<guid isPermaLink="true">https://aljoscha-meyer.de/posts/mutability_and_rot</guid>
+<pubDate>Thu, 15 May 2025 00:00:00 CEST</pubDate>
+</item>
+<item>
+<title>Favourite Beatles Songs</title>
+<link>https://aljoscha-meyer.de/posts/beatles_collection</link>
+<description><![CDATA[A few of my favourite Beatles songs.]]></description>
+<guid isPermaLink="true">https://aljoscha-meyer.de/posts/beatles_collection</guid>
+<pubDate>Fri, 02 May 2025 00:00:00 CEST</pubDate>
+</item>
+<item>
+<title>Some Guiding Principles on Coding</title>
+<link>https://aljoscha-meyer.de/posts/some_guiding_principles_on_coding</link>
+<description><![CDATA[How past me approached coding.]]></description>
+<guid isPermaLink="true">https://aljoscha-meyer.de/posts/some_guiding_principles_on_coding</guid>
+<pubDate>Sat, 26 Apr 2025 00:00:00 CEST</pubDate>
+</item>
+<item>
+<title>Treasures</title>
+<link>https://aljoscha-meyer.de/treasures</link>
+<description><![CDATA[A collection of treasures — works that have been important to me.]]></description>
+<guid isPermaLink="true">https://aljoscha-meyer.de/treasures</guid>
+<pubDate>Tue, 08 Apr 2025 00:00:00 CEST</pubDate>
+</item>
+<item>
+<title>Puzzling</title>
+<link>https://aljoscha-meyer.de/puzzling</link>
+<description><![CDATA[A small puzzling game I once wrote while being sick.]]></description>
+<guid isPermaLink="true">https://aljoscha-meyer.de/puzzling</guid>
+<pubDate>Wed, 01 Jan 2025 00:00:00 CET</pubDate>
+</item>
+</channel>
+</rss>
