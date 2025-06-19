@@ -71,6 +71,7 @@ height: 2.5rem;">
         (<A clazz="u-email" href="mailto:mail@aljoscha-meyer.de">
           mail@aljoscha-meyer.de
         </A>) (<A href="https://github.com/AljoschaMeyer">Github</A>)
+        (<A href="/rss.xml">RSS</A>)
       </Div>
 
       <Div clazz="columns2">
