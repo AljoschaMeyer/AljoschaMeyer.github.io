@@ -67,42 +67,42 @@ const exp = (
     <EnsureNot path="build" />
     <Copy src="src/non_macromania_pages" dest="build" options={{}} />
 
-    {/* Create some assets before the "real" build step. */}
-    <Dir clean={false} name="src">
-      <Dir clean={false} name="assets">
-        <File mode="assertive" name="layout.css">
-          <LayoutStyles
-            htmlFontSizeInPx={16}
-            paddingLeft={0.8}
-            paddingRight={0.8}
-            maxMain={32}
-            paddingMarginalia={1.6}
-            marginalia={18}
-            paddingToc={1.6}
-            toc={13}
-            // dev
-          />
-        </File>
-      </Dir>
-    </Dir>
-    
-    <Dir name="build" mode="placid" clean={false}>
-      <ServerRoot url="">
-        <Dir name="assets">
-          {/* See https://github.com/worm-blossom/macromania-assets */}
-          <Assets input={["src", "assets"]} assets={{}} />
+      {/* Create some assets before the "real" build step. */}
+      <Dir clean={false} name="src">
+        <Dir clean={false} name="assets">
+          <File mode="assertive" name="layout.css">
+            <LayoutStyles
+              htmlFontSizeInPx={16}
+              paddingLeft={0.8}
+              paddingRight={0.8}
+              maxMain={32}
+              paddingMarginalia={1.6}
+              marginalia={18}
+              paddingToc={1.6}
+              toc={13}
+              // dev
+            />
+          </File>
         </Dir>
-        <PreviewScopePushWrapper
-          wrapper={(_ctx, preview) => {
-            return <Div id="wrapContent">{preview}</Div>;
-          }}
-        >
-          {index}
-          {treasures}
-          {simver}
-        </PreviewScopePushWrapper>
-      </ServerRoot>
-    </Dir>
+      </Dir>
+
+      <Dir name="build" mode="placid" clean={false}>
+        <ServerRoot url="https://aljoscha-meyer.de">
+          <Dir name="assets">
+            {/* See https://github.com/worm-blossom/macromania-assets */}
+            <Assets input={["src", "assets"]} assets={{}} />
+          </Dir>
+          <PreviewScopePushWrapper
+            wrapper={(_ctx, preview) => {
+              return <Div id="wrapContent">{preview}</Div>;
+            }}
+          >
+            {index}
+            {treasures}
+            {simver}
+          </PreviewScopePushWrapper>
+        </ServerRoot>
+      </Dir>
   </Config>
 );
 

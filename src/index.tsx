@@ -1,6 +1,6 @@
 import { Expression, Expressions } from "macromania";
 
-import { A, Div, H, H2, H4, Img, Li, P, Ul } from "macromania-html";
+import { A, Div, H, H2, H4, Img, Li, Link, P, Ul } from "macromania-html";
 import { File } from "macromania-outfs";
 import { ResolveAsset } from "macromania-assets";
 import { Html5, ScriptDependencyInfo } from "macromania-html-utils";
@@ -22,6 +22,14 @@ export const index = (
     <Html5
       htmlProps={{ lang: "en-GB" }}
       title={<>Aljoscha Meyer</>}
+      headContents={
+        <Link
+          rel="alternate"
+          type="application/rss+xml"
+          href="/rss.xml"
+          title="Aljoscha's Updates"
+        />
+      }
     >
       <CssDependency dep={["base.css"]} />
       <CssDependency dep={["index.css"]} />
@@ -67,7 +75,9 @@ height: 2.5rem;">
 
       <Div clazz="columns2">
         <Div>
-          <H2>Some Projects</H2>
+          <H2 id="projects">
+            <A href="#projects">Some Projects</A>
+          </H2>
 
           <Card
             title="Willow"
@@ -185,7 +195,9 @@ height: 2.5rem;">
         </Div>
 
         <Div>
-          <H2>Some Writing</H2>
+          <H2 id="writing">
+            <A href="#writing">Some Writing</A>
+          </H2>
 
           <Card
             title="Geometric Search Trees"
@@ -228,7 +240,10 @@ height: 2.5rem;">
             splashAlt="Two figures from the paper: Merkle trees being clamped to a range."
           >
             <P>
-              Range-based set reconciliation used to require non-standard hash functions with certain homomorphic properties. This paper describes how to do away with these and use regular Merkle trees instead.
+              Range-based set reconciliation used to require non-standard hash
+              functions with certain homomorphic properties. This paper
+              describes how to do away with these and use regular Merkle trees
+              instead.
             </P>
           </Card>
 

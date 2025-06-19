@@ -5,7 +5,9 @@ export const some_guiding_principles_on_coding = {
   n: "some_guiding_principles_on_coding",
   htmlTitle: "Principles for Coding",
   title: "Some Guiding Principles on Coding",
-  date: "2025/04/26",
+  date: new Date(2025, 3, 26),
+  summary: `How past me approached coding.`,
+  rssLink: `https://aljoscha-meyer.de/posts/some_guiding_principles_on_coding`,
   children: (
     <>
       <Ul clazz="wide">

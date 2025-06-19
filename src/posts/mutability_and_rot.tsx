@@ -8,7 +8,10 @@ export const mutability_and_rot = {
   n: "mutability_and_rot",
   htmlTitle: "On Link Rot",
   title: "Distributed Mutability Without Link Rot",
-  date: "2025/05/15",
+  date: new Date(2025, 4, 15),
+  summary:
+    `An essay on how to achieve mutable hypertext without automatically suffering from link rot, and why this matters`,
+  rssLink: `https://aljoscha-meyer.de/posts/mutability_and_rot`,
   children: (
     <>
       <P>

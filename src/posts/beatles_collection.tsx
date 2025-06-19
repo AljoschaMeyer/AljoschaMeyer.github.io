@@ -5,7 +5,9 @@ export const beatles_collection = {
   n: "beatles_collection",
   htmlTitle: "Beatles",
   title: "Favourite Beatles Songs",
-  date: "2025/05/02",
+  date: new Date(2025, 4, 2),
+  summary: `A few of my favourite Beatles songs.`,
+  rssLink: `https://aljoscha-meyer.de/posts/beatles_collection`,
   children: (
     <>
       <P>
