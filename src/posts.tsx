@@ -3,6 +3,7 @@ import { Html5 } from "macromania-html-utils";
 import { CssDependency } from "macromania-previews";
 import { ConfigHsection, Hsection } from "macromania-hsection";
 import { mutability_and_rot } from "./posts/mutability_and_rot.tsx";
+import { bab_funding } from "./posts/bab_funding.tsx";
 import { Dir, File } from "macromania-outfs";
 import { A, Div, H1, H2, Hr, Li, Ol, P, Time } from "macromania-html";
 import { R } from "macromania-defref";
@@ -21,6 +22,7 @@ import {
 export const posts = (
   <RenderPosts
     posts={[
+      bab_funding,
       {
         link: "/simver",
         title: "Simple Versioning Specification",
