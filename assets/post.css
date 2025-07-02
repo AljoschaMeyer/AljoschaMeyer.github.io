@@ -2,7 +2,7 @@ body {
     font-size: 1.2em;
     font-family: Charter, 'Bitstream Charter', 'Sitka Text', Cambria, serif;
 
-    color: #0a0a0a;
+    color: #000;
     background-color: #ffe1ff;
     background-image: linear-gradient(14deg, #ffe1ff, #fec6ff);
     background-attachment: fixed;
@@ -14,7 +14,7 @@ a {
 
 @media (prefers-color-scheme: dark) {
     body {
-        color: #fae1ff;
+        color: #fbfbfb;
         background-color: #1e1c1e;
         background-image: linear-gradient(14deg, #1e1c1e, #461c43);
     }
