@@ -4,8 +4,15 @@
 <title>Aljoscha's Updates</title>
 <link>https://aljoscha-meyer.de/</link>
 <description>Feed of updates to https://aljoscha-meyer.de/</description>
-<pubDate>Wed, 28 May 2025 00:00:00 CEST</pubDate>
-<lastBuildDate>Wed, 28 May 2025 00:00:00 CEST</lastBuildDate>
+<pubDate>Wed, 02 Jul 2025 00:00:00 CEST</pubDate>
+<lastBuildDate>Wed, 02 Jul 2025 00:00:00 CEST</lastBuildDate>
+<item>
+<title>Willow News: Funding from NLnet</title>
+<link>https://aljoscha-meyer.de/posts/bab_funding</link>
+<description><![CDATA[The Willow project got funding for implementing a new hash function. Here I explain the gist of it.]]></description>
+<guid isPermaLink="true">https://aljoscha-meyer.de/posts/bab_funding</guid>
+<pubDate>Wed, 02 Jul 2025 00:00:00 CEST</pubDate>
+</item>
 <item>
 <title>Simple Versioning Specification</title>
 <link>https://aljoscha-meyer.de/simver</link>
