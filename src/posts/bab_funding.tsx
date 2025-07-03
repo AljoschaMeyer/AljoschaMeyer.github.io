@@ -5,14 +5,13 @@ import { Quotes } from "../macros.tsx";
 import { R } from "macromania-defref";
 
 export const bab_funding = {
-  draft: true,
   n: "bab_funding",
   htmlTitle: "Bab Introduction",
   title: "Willow News: Funding from NLnet",
   date: new Date(2025, 6, 2),
   summary:
     `The Willow project got funding for implementing a new hash function. Here I explain the gist of it.`,
-  rssLink: `https://aljoscha-meyer.de/posts/bab_funding.html`,
+  rssLink: `https://aljoscha-meyer.de/posts/bab_funding`,
   children: (
     <>
       <P>
