@@ -183,7 +183,7 @@ export const treasures = (
                   fancies in themselves. They live only for mutual envy, for
                   pleasure-seeking and self-display. To have dinners, horses,
                   carriages, rank, and slaves to serve them is now considered
-                  such a necessity that or the sake of it, to satisfy it, they
+                  such a necessity that for the sake of it, to satisfy it, they
                   will sacrifice life, honor, the love of mankind, and will even
                   kill themselves if they are unable to satisfy it.
                 </P>,
@@ -618,8 +618,8 @@ Large institutions can quite suddenly lose their respectability, their legitimac
                     exercise is often in those small contexts in which the
                     challenge is to overcome the fears induced by petty concerns
                     over career, over our relationships to those who appear to
-                    have power over us, over whatever may disturb the tranquil-
-                    ity of our mundane existence.
+                    have power over us, over whatever may disturb the
+                    tranquility of our mundane existence.
                   </P>
                   <P>
                     If this book is to be seen as advocating anything, then let
