@@ -1091,7 +1091,7 @@ ful, fun, or even very useful.
                   (1955)
                 </>
               }
-              href="https://www.youtube.com/watch?v=moYGGxOcJtE"
+              href="https://www.youtube.com/watch?v=qYQiXHqFi20&list=RDqYQiXHqFi20"
               splash={["treasures", "splash", "shostakovich.jpg"]}
               splashAlt="A picture of Shostakovich"
             >
