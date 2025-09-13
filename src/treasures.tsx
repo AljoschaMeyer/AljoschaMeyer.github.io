@@ -551,7 +551,7 @@ Large institutions can quite suddenly lose their respectability, their legitimac
                 </P>,
                 <>
                   <P>
-                    Horkeimer, long before computers became a fetish and gave
+                    Horkheimer, long before computers became a fetish and gave
                     concrete form to the eclipse of reason, gave us the needed
                     perspective:
                   </P>
@@ -579,7 +579,7 @@ Large institutions can quite suddenly lose their respectability, their legitimac
                       red is more beautiful than blue, or that an egg is better
                       than milk.
                     </Quotes>{" "}
-                    [M. Horkeimer, <I>Eclipse of Reason</I>, 1947]
+                    [M. Horkheimer, <I>Eclipse of Reason</I>, 1947]
                   </Blockquote>
                 </>,
                 <P>
