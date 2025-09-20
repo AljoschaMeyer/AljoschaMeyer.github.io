@@ -12,6 +12,7 @@ import { ConfigMarginalia } from "macromania-marginalia";
 import { Counter, makeNumberingRenderer } from "macromania-counters";
 import { some_guiding_principles_on_coding } from "./posts/some_guiding_principles_on_coding.tsx";
 import { beatles_collection } from "./posts/beatles_collection.tsx";
+import { bulk_transclusion } from "./posts/bulk_transclusion.tsx";
 import {
   H4,
   RssFeed,
@@ -22,6 +23,7 @@ import {
 export const posts = (
   <RenderPosts
     posts={[
+      bulk_transclusion,
       bab_funding,
       {
         link: "/simver",
