@@ -4,8 +4,15 @@
 <title>Aljoscha's Updates</title>
 <link>https://aljoscha-meyer.de/</link>
 <description>Feed of updates to https://aljoscha-meyer.de/</description>
-<pubDate>Wed, 02 Jul 2025 00:00:00 CEST</pubDate>
-<lastBuildDate>Wed, 02 Jul 2025 00:00:00 CEST</lastBuildDate>
+<pubDate>Sun, 26 Oct 2025 00:00:00 CEST</pubDate>
+<lastBuildDate>Sun, 26 Oct 2025 00:00:00 CEST</lastBuildDate>
+<item>
+<title>worm-blossom.org</title>
+<link>https://worm-blossom.org/</link>
+<description><![CDATA[Weekly updates from worm-blossom, the moniker under which Sam Gwilym and I do (primarily) computer things.]]></description>
+<guid isPermaLink="true">https://worm-blossom.org/</guid>
+<pubDate>Sun, 26 Oct 2025 00:00:00 CEST</pubDate>
+</item>
 <item>
 <title>Willow News: Funding from NLnet</title>
 <link>https://aljoscha-meyer.de/posts/bab_funding</link>
@@ -23,7 +30,7 @@
 <item>
 <title>Distributed Mutability Without Link Rot</title>
 <link>https://aljoscha-meyer.de/posts/mutability_and_rot</link>
-<description><![CDATA[An essay on how to achieve mutable hypertext without automatically suffering from link rot, and why this matters]]></description>
+<description><![CDATA[An essay on how to achieve mutable hypertext without automatically suffering from link rot, and why this matters.]]></description>
 <guid isPermaLink="true">https://aljoscha-meyer.de/posts/mutability_and_rot</guid>
 <pubDate>Thu, 15 May 2025 00:00:00 CEST</pubDate>
 </item>
