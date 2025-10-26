@@ -70,8 +70,25 @@ height: 2.5rem;">
       <Div clazz="centered">
         (<A clazz="u-email" href="mailto:mail@aljoscha-meyer.de">
           mail@aljoscha-meyer.de
-        </A>) (<A href="https://github.com/AljoschaMeyer">Github</A>)
+        </A>) (<A href="https://codeberg.org/AljoschaMeyer">Codeberg</A>)
         (<A href="/rss.xml">RSS</A>)
+      </Div>
+
+      <Div clazz="centered">
+        <A href="https://worm-blossom.org/">
+          <Img
+            src={
+              <ResolveAsset
+                asset={["worm-blossom.png"]}
+              />
+            }
+            style="max-width: 300px; padding-top: 3rem;"
+          />
+        </A>
+        <P>
+          Weekly devlog at{" "}
+          <A href="https://worm-blossom.org/">worm-blossom.org</A>.
+        </P>
       </Div>
 
       <Div clazz="columns2">

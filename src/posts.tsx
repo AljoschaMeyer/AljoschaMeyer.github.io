@@ -24,6 +24,14 @@ export const posts = (
   <RenderPosts
     posts={[
       bulk_transclusion,
+      {
+        link: "https://worm-blossom.org/",
+        title: "worm-blossom.org",
+        date: new Date(2025, 9, 26),
+        summary:
+          `Weekly updates from worm-blossom, the moniker under which Sam Gwilym and I do (primarily) computer things.`,
+        rssLink: `https://worm-blossom.org/`,
+      },
       bab_funding,
       {
         link: "/simver",

@@ -169,7 +169,7 @@ export const bulk_transclusion = {
         microblogging<Marginale>
           I am simplifying. You would not get the ability to react to posts,
           write replies, etc. I am sticking to the basics for exploring a design
-          space here, not proposing a fully.features system for decentralised
+          space here, not proposing a fully-featured system for decentralised
           social media.
         </Marginale>{" "}
         to anyone with a website. No need for centralised
@@ -245,13 +245,23 @@ export const bulk_transclusion = {
         contain aggregations of other documents, possibly with completely
         different UI parameters. The different renderings in forums of listing
         threads versus listing the posts inside a single thread immediately
-        comes to mind. If bulk UIs were merely a browser, switching rendering
-        needs based on levels of nesting would significantly complicate the
-        declarative UI declaration.{" "}
-        By reifying bulk UIs through bulk transclusion, this becomes trivial
-        instead. Other use-cases enabled by this could be dashboards, trivial
-        inclusion (well, transclusion) of news tickers, and countless other uses
-        I cannot even imagine.
+        comes to mind. If bulk UIs were merely a browser feature, switching
+        rendering needs based on levels of nesting would significantly
+        complicate the declarative UI declaration.{" "}
+        By reifying bulk UIs through bulk transclusion, this becomes trivial and
+        highly flexible instead.
+      </P>
+
+      <P>
+        In fact, one possible design choice here would be to not have any
+        built-in notion of displaying nested hierarchies at all, instead fully
+        relying on the fact that the documents you display can themselves
+        display nested contents again. This reduces the complexity of the
+        bulk-transclusion operator, but at the cost of reducing the inversion of
+        control: rendering of nested hierarchies would rely on the documents
+        which <Quotes>contain</Quotes>{" "}
+        other documents, not on the (potentially) user-controlled transclusion
+        operator.
       </P>
 
       {

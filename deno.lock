@@ -588,6 +588,21 @@
       "jsr:@aljoscha-meyer/logging-utils@1",
       "jsr:@std/fmt@0.221",
       "jsr:@wormblossom/macromania@*"
-    ]
+    ],
+    "links": {
+      "jsr:@aljoscha-meyer/simple-fs-deno@0.1.0": {
+        "dependencies": [
+          "jsr:@std/assert@0.221",
+          "jsr:@std/fs@^1.0.18",
+          "jsr:@std/path@^1.1.0"
+        ]
+      },
+      "jsr:@wormblossom/simple-fs-abstraction@0.1.0": {
+        "dependencies": [
+          "jsr:@std/assert@0.221",
+          "jsr:@std/path@^1.1.0"
+        ]
+      }
+    }
   }
 }
