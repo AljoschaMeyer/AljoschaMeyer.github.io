@@ -3,8 +3,11 @@
   "specifiers": {
     "jsr:@aljoscha-meyer/logging-utils@1": "1.0.0",
     "jsr:@std/fmt@0.221": "0.221.0",
-    "jsr:@std/fs@^1.0.18": "1.0.18",
-    "jsr:@std/path@^1.1.0": "1.1.0",
+    "jsr:@std/fs@^1.0.18": "1.0.19",
+    "jsr:@std/internal@^1.0.10": "1.0.12",
+    "jsr:@std/internal@^1.0.9": "1.0.12",
+    "jsr:@std/path@^1.1.0": "1.1.2",
+    "jsr:@std/path@^1.1.1": "1.1.2",
     "jsr:@wormblossom/macromania@*": "1.0.2",
     "npm:citation-js@0.7.12": "0.7.12_@citation-js+core@0.7.11",
     "npm:citeproc@2.4.63": "2.4.63",
@@ -20,14 +23,21 @@
     "@std/fmt@0.221.0": {
       "integrity": "379fed69bdd9731110f26b9085aeb740606b20428ce6af31ef6bd45ef8efa62a"
     },
-    "@std/fs@1.0.18": {
-      "integrity": "24bcad99eab1af4fde75e05da6e9ed0e0dce5edb71b7e34baacf86ffe3969f3a",
+    "@std/fs@1.0.19": {
+      "integrity": "051968c2b1eae4d2ea9f79a08a3845740ef6af10356aff43d3e2ef11ed09fb06",
       "dependencies": [
-        "jsr:@std/path"
+        "jsr:@std/internal@^1.0.9",
+        "jsr:@std/path@^1.1.1"
       ]
     },
-    "@std/path@1.1.0": {
-      "integrity": "ddc94f8e3c275627281cbc23341df6b8bcc874d70374f75fec2533521e3d6886"
+    "@std/internal@1.0.12": {
+      "integrity": "972a634fd5bc34b242024402972cd5143eac68d8dffaca5eaa4dba30ce17b027"
+    },
+    "@std/path@1.1.2": {
+      "integrity": "c0b13b97dfe06546d5e16bf3966b1cadf92e1cc83e56ba5476ad8b498d9e3038",
+      "dependencies": [
+        "jsr:@std/internal@^1.0.10"
+      ]
     },
     "@wormblossom/macromania@1.0.2": {
       "integrity": "55597c1b9b31c60a3d7ab89b9a7e9c2d47be8db59d30c538d8e2b361e94c0040",
@@ -590,17 +600,18 @@
       "jsr:@wormblossom/macromania@*"
     ],
     "links": {
-      "jsr:@aljoscha-meyer/simple-fs-deno@0.1.0": {
-        "dependencies": [
-          "jsr:@std/assert@0.221",
-          "jsr:@std/fs@^1.0.18",
-          "jsr:@std/path@^1.1.0"
-        ]
-      },
       "jsr:@wormblossom/simple-fs-abstraction@0.1.0": {
         "dependencies": [
           "jsr:@std/assert@0.221",
           "jsr:@std/path@^1.1.0"
+        ]
+      },
+      "jsr:@wormblossom/simple-fs-deno@0.1.0": {
+        "dependencies": [
+          "jsr:@std/assert@0.221",
+          "jsr:@std/fs@^1.0.18",
+          "jsr:@std/path@^1.1.0",
+          "jsr:@wormblossom/simple-fs-abstraction@0.1"
         ]
       }
     }
