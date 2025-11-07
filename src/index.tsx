@@ -101,7 +101,7 @@ height: 2.5rem;">
             title="Willow"
             href="https://willowprotocol.org/"
             repo="https://github.com/earthstar-project/willowprotocol.org"
-            splash="https://willowprotocol.org/emblem.png"
+            splash="https://willowprotocol.org/assets/emblem.png"
             splashAlt="A Willow emblem: a stylised drawing of a Willow’s branch tipping into a water surface, next to a hand-lettered display of the word *Willow*."
           >
             <P>
