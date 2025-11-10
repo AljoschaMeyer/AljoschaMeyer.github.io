@@ -25,6 +25,14 @@ export const posts = (
     posts={[
       bulk_transclusion,
       {
+        link: "https://worm-blossom.org/ufotofu/",
+        title: "ufotofu",
+        date: new Date("2025-11-10"),
+        summary:
+          `Sam and I released ufotofu, a Rust library for working with streams and sinks. The website is... <em>something</em>.`,
+        rssLink: `https://worm-blossom.org/ufotofu/`,
+      },
+      {
         link: "https://worm-blossom.org/",
         title: "worm-blossom.org",
         date: new Date(2025, 9, 26),

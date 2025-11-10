@@ -148,8 +148,8 @@ height: 2.5rem;">
 
           <Card
             title="Macromania"
-            href="https://github.com/worm-blossom/macromania"
-            repo="https://github.com/worm-blossom/macromania"
+            href="https://codeberg.org/macromania/macromania"
+            repo="https://codeberg.org/macromania/macromania"
             splash={["landing", "macromania_deco.png"]}
             splashAlt="The macromania logotype, hand-lettered in a slightly manic font."
           >
@@ -167,8 +167,8 @@ height: 2.5rem;">
 
           <Card
             title="Ufotofu"
-            href="https://docs.rs/ufotofu/latest/ufotofu/"
-            repo="https://github.com/worm-blossom/ufotofu"
+            href="https://worm-blossom.org/ufotofu/"
+            repo="https://codeberg.org/worm-blossom/ufotofu"
           >
             <P>
               A <A href="https://www.rust-lang.org/">Rust</A>{" "}
@@ -188,7 +188,7 @@ height: 2.5rem;">
           <Card
             title="Seasonal Clock"
             href="https://seasonalclock.org/"
-            repo="https://github.com/worm-blossom/seasonal-hours-clock"
+            repo="https://codeberg.org/worm-blossom/seasonal-clock"
             splash={{
               other: (
                 <H
@@ -262,22 +262,6 @@ height: 2.5rem;">
               functions with certain homomorphic properties. This paper
               describes how to do away with these and use regular Merkle trees
               instead.
-            </P>
-          </Card>
-
-          <Card
-            title="Strict Principles for Lazy Sequences"
-            href={["landing", "lazy_on_principle.pdf"]}
-            repo="https://github.com/AljoschaMeyer/lazy_on_principle"
-          >
-            <P>
-              APIs like iterators, streams, sinks, readers, or writers are all
-              APIs for lazily working with potentially infinite sequences of
-              items. There is a large number of competing designs, but little
-              principled work on evaluating them. Starting from the question of
-              how to objectively evaluate such APIs, I derive some instructive
-              and useful hierarchies of interfaces for lazily working with
-              sequences.
             </P>
           </Card>
 
