@@ -4,8 +4,15 @@
 <title>Aljoscha's Updates</title>
 <link>https://aljoscha-meyer.de/</link>
 <description>Feed of updates to https://aljoscha-meyer.de/</description>
-<pubDate>Sun, 26 Oct 2025 00:00:00 CEST</pubDate>
-<lastBuildDate>Sun, 26 Oct 2025 00:00:00 CEST</lastBuildDate>
+<pubDate>Mon, 10 Nov 2025 01:00:00 CET</pubDate>
+<lastBuildDate>Mon, 10 Nov 2025 01:00:00 CET</lastBuildDate>
+<item>
+<title>ufotofu</title>
+<link>https://worm-blossom.org/ufotofu/</link>
+<description><![CDATA[Sam and I released ufotofu, a Rust library for working with streams and sinks. The website is... <em>something</em>.]]></description>
+<guid isPermaLink="true">https://worm-blossom.org/ufotofu/</guid>
+<pubDate>Mon, 10 Nov 2025 01:00:00 CET</pubDate>
+</item>
 <item>
 <title>worm-blossom.org</title>
 <link>https://worm-blossom.org/</link>
