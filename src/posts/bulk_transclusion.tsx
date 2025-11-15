@@ -243,7 +243,7 @@ export const bulk_transclusion = {
           iframe, I would argue that for most hypermedia systems it would make
           more sense to allow unfolding the recursion one level at a time based
           on user interaction.
-        </Marginale>Another benefitial consequence is the arbitrary nesting of
+        </Marginale>Another beneficial consequence is the arbitrary nesting of
         these bulk aggregations. You can aggregate documents which themselves
         contain aggregations of other documents, possibly with completely
         different UI parameters. The distinct presentations in forums for
