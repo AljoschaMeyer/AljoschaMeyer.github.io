@@ -8,10 +8,10 @@ export const bulk_transclusion = {
   n: "bulk_transclusion",
   htmlTitle: "Bulk Transclusion as Reified UI",
   title: "Bulk Transclusion as Reified UI",
-  date: new Date(2025, 8, 19),
+  date: new Date("2025-11-15"),
   draft: true,
   summary: `TODO write summary`,
-  rssLink: `https://aljoscha-meyer.de/posts/bulk_transclusion`,
+  rssLink: `https://aljoscha-meyer.de/posts/bulk_transclusion/`,
   children: (
     <>
       <P>
@@ -101,7 +101,7 @@ export const bulk_transclusion = {
       </Ul>
 
       <P>
-        There are some direct similarities between all of these examples, we can
+        There are some direct similarities between all of these examples; we can
         derive a general pattern of which these are instances:
       </P>
 
@@ -115,14 +115,15 @@ export const bulk_transclusion = {
           manager are themselves again linearised collections of objects.
         </Li>
         <Li>
-          Objects have metadata; to unify these examples we need each object to
-          have a <Em>name</Em>{" "}
-          (thread name, file name), and a timestamp denoting the most recent
-          update. The view aggregating the objects may or may not display that
-          metadata explicitly. Note that sorting in order of original creation
-          (but not rearranging when editing) can be accomplished by using the
-          creation time of an object as its name, and then sorting by name. This
-          is how the microblogging timeline fits into this framework.
+          Objects have metadata; in order to unify these examples we need each
+          object to have a <Em>name</Em>{" "}
+          (e.g. a thread name, or a file name), and a timestamp denoting the
+          most recent update. The view aggregating the objects may or may not
+          display that metadata explicitly. Note that sorting in order of
+          original creation (but not rearranging when editing) can be
+          accomplished by using the creation time of an object as its name, and
+          then sorting by name. This is how the microblogging timeline fits into
+          this framework.
         </Li>
         <Li>
           When dealing with nested objects, there is a choice of how much nested
@@ -181,14 +182,16 @@ export const bulk_transclusion = {
       <P>
         A more abstract but noteworthy property is a certain inversion of
         control: authors provide data, but the aggregation techniques are left
-        to the viewers. On today’s web, authors implicitly set the one true way
-        in which their documents are aggregated: when using a publishing
+        to the viewers. On today’s web, authors implicitly select the one true
+        way in which their documents are aggregated: when using a publishing
         platform they defer to whichever algorithm and UI patterns the platform
-        provides, and for self-hosted websites the default choice is to nt have
+        provides, and for self-hosted websites the default choice is to not have
         any aggregation at all. A web with declarative aggregating UIs would
         lift this burden of choice from authors, and let viewers choose the most
         appropriate view for whatever it is they are trying to accomplish.
       </P>
+
+      <Hr />
 
       <P>
         This alone is already pretty cool in my book. But the system I have
@@ -221,11 +224,11 @@ export const bulk_transclusion = {
         This harkens back to the notion of bulk UIs providing an inversion of
         control for how to access and discover documents.
         Bulk-UI-as-a-browser-feature would make this inversion of control
-        cumbersome to the viewers, but wiht reified bulk UI, the burden can be
-        shared arbitrarily. Authors could easily specify a recommended way of
-        aggregating their documents. But viewers would not be restricted to
-        those recommendations, they might prefer their own UI choices — or those
-        offered by a third party.
+        cumbersome to the viewers, but with <Em>reified</Em>{" "}
+        bulk UI, the burden can be distributed arbitrarily. Authors could easily
+        specify a recommended way of aggregating their documents. But viewers
+        would not be restricted to those recommendations, they might prefer
+        their own UI choices — or those offered by a third party.
       </P>
 
       <P>
@@ -236,17 +239,17 @@ export const bulk_transclusion = {
           all (think of how a file viewer would deal with cyclicly symlinked
           directories). Other UIs would need to detect this case, similar to how
           browsers must already detect iframes which contain themselves. Whereas
-          browsers simply stop rendering at the first repitition of an iframe, I
-          would argue that for most hypermedia systems it would make more sense
-          to allow unfolding the recursion one level at a time based on user
-          interaction.
+          today’s browsers simply stop rendering at the first repitition of an
+          iframe, I would argue that for most hypermedia systems it would make
+          more sense to allow unfolding the recursion one level at a time based
+          on user interaction.
         </Marginale>Another benefitial consequence is the arbitrary nesting of
         these bulk aggregations. You can aggregate documents which themselves
         contain aggregations of other documents, possibly with completely
-        different UI parameters. The different renderings in forums of listing
-        threads versus listing the posts inside a single thread immediately
-        comes to mind. If bulk UIs were merely a browser feature, switching
-        rendering needs based on levels of nesting would significantly
+        different UI parameters. The distinct presentations in forums for
+        listing threads versus listing the posts inside a single thread
+        immediately comes to mind. If bulk UIs were merely a browser feature,
+        switching rendering needs based on levels of nesting would significantly
         complicate the declarative UI declaration.{" "}
         By reifying bulk UIs through bulk transclusion, this becomes trivial and
         highly flexible instead.
@@ -254,31 +257,137 @@ export const bulk_transclusion = {
 
       <P>
         In fact, one possible design choice here would be to not have any
-        built-in notion of displaying nested hierarchies at all, instead fully
-        relying on the fact that the documents you display can themselves
-        display nested contents again. This reduces the complexity of the
-        bulk-transclusion operator, but at the cost of reducing the inversion of
-        control: rendering of nested hierarchies would rely on the documents
-        which <Quotes>contain</Quotes>{" "}
+        built-in notion of displaying <Em>nested</Em>{" "}
+        hierarchies at all, instead fully relying on the fact that the documents
+        you display can themselves display nested contents again. This reduces
+        the complexity of the bulk-transclusion operator, but at the cost of
+        reducing the inversion of control: rendering of nested hierarchies would
+        rely on the documents which <Quotes>contain</Quotes>{" "}
         other documents, not on the (potentially) user-controlled transclusion
         operator.
       </P>
 
-      {
-        /*
-        - at extreme: UI and bulk transclusion become the same thing (extending also to browsers, window managers, etc)
-            - not just for hypermedia? good views as a service?
-            - filtering, also dynamically
-        - neither special-purpose logic nor no aggregation at all (you *could* implement this on todays web with fetch api and iframes, but it would miss the point)
-        - multi-author (cross-domain) by displaying "duplicates"
-        - which authors should be merged, and at which root? reify it!
-        - merging duplicates
-        - CRDTs and explicit "conflicting" state markers
-        - access control?
-        - notifications about new stuff, read vs unread indicators?
-        - Web? Willow!
-        */
-      }
+      <P>
+        Another consideration would be the option of adjusting bulk transclusion
+        operators on the fly. A general-purpose UI could offer options for
+        filtering arbitrary bulk transclusions, for searching within them, for
+        controlling how much of the full contents is displayed, or perhaps
+        simply to change the criteria by which the transcluded documents are
+        linearised (i.e., sorted). All of these could be expressed in
+        interactive widgets — but all of these should correspond to options of
+        the bulk transclusion operator. In fact, it should be simple to persist
+        such adjustments by writing the source document to disk, but with the
+        dynamic changes persistent as options to the modified transclusion
+        operator.
+      </P>
+
+      <P>
+        Today’s popular hypermedia systems (i.e., primarily, the web) either
+        refrain from aggregation, or enable it exclusively through
+        non-declarative ad-hoc specification of special-purpose logic. You could
+        use the latter (i.e., javascript) to prototype flexible bulk
+        transclusion operators on top of iframes and the fetch API. But such a
+        prototype would never implement the core underlying idea: that bulk
+        transclusion can be part of the document model itself.
+      </P>
+
+      <P>
+        If we extend all these ideas beyond hypermedia systems and extend them
+        to their logical extremes, we reach a paradigm where the is no
+        difference between bulk transclusion operators and UI logic. Aside from
+        browsers, window managers are another fairly obvious candidate for this
+        paradigm. But it might be worthwhile to consider where else the paradigm
+        could be applied. What would reified UI look like in a video editor, or
+        in a game engine? Do these questions even make sense (and if not, then
+        how can we characterise the class of applications for which they{" "}
+        <Em>do</Em> make sense)?
+      </P>
+
+      <Hr />
+
+      <P>
+        The final area of this design space I want to highlight for a bit
+        concerns multi-author aggregation. For example, we could imagine a bulk
+        transclusion operator specifying a list of domains from which to
+        aggregate the contents. For example, aggregating all pages in{" "}
+        <Code>https://aljoscha-meyer.de/posts/</Code> and in{" "}
+        <Code>https://blog.example.org/</Code>{" "}
+        to obtain a timeline view. Authorship could become part of the options
+        of the bulk transclusion operator for sorting. A microblogging timeline
+        would sort by timestamp, and could break ties by authorship, whereas
+        other usecases might call for sorting by author first, and by timestamp
+        second.
+      </P>
+
+      <P>
+        Optionally, it might be possible to even <Em>merge</Em>{" "}
+        documents with different authors (i.e., sourced form different domains)
+        but with equal identifiers. A collaborative wiki, for example, could
+        work this way. While it might be difficult or impossible to perform a
+        meaningful semantic merge of arbitrarily many documents by arbitrarily
+        many separate authors, a simplistic solution could be to only display
+        the document with the newest timestamp. Or perhaps to render a list of
+        all <Quotes>conflicting</Quotes>{" "}
+        documents, letting a user expand any of them, or perhaps even render
+        diffs on demand. All the different options can and should be reifiable
+        options of the bulk transclusion operator.
+      </P>
+
+      <P>
+        Once we enter a multi-author setting, another interesting concern is
+        access control. Should everyone be able to transclude arbitrary
+        documents? Or should it be possible to restrict visibility (and,
+        synonymously, transcludability)? If so, by which criteria? Would
+        transclusion operators need to be (self-) authenticating, or should
+        authentication live higher up in the stack?
+      </P>
+
+      <P>
+        Another little puzzle piece — small, but representative of a larger
+        class of design questions — is UI for indicating read vs unread status.
+        Given that (multi-author) bulk aggregation lends itself to UI patterns
+        such as forums or timelines, and given that the whole point is to not
+        require any other custom UI-related logic, it is difficult to settle for
+        an appropriate scope of the whole system. Are unread-notifications
+        appropriate to include, or not? If so, do they admit reification? If
+        not, should they be provided outside the document model as part of the
+        viewer application (similar to how tabs or bookmarks are not part of the
+        web proper but still available in every mainstream browser)? And what
+        about all the other little features we can come up with? How can we make
+        principled choices about what to reify, what to delegate to viewers, and
+        what to simply forego?
+      </P>
+
+      <Hr />
+
+      <P>
+        A final remark at the very end: while I have present things in light of
+        the web as the most widely-used hypermedia system of the present, my
+        personal interest does not actually lie with the web. Most of these
+        ideas arose around thinking about and working with{" "}
+        <A href="https://willowprotocol.org/">Willow</A>. In Willow,{" "}
+        <A href="https://willowprotocol.org/specs/data-model/index.html#Entry">
+          Entries
+        </A>{" "}
+        (the atomic unit of data) have a notion of hierarchical organisation
+        (the path), a timestamp, and a notion of authorship (the subspace id).
+        Further, we have{"  "}
+        <A href="https://willowprotocol.org/specs/grouping-entries/index.html#areas">
+          Areas
+        </A>{" "}
+        as a natural candidate for how to specify the sets of documents to
+        transclude in bulk. And finally, we have a robust capability system in
+        {" "}
+        <A href="https://willowprotocol.org/specs/meadowcap/index.html#meadowcap">
+          Meadowcap
+        </A>{" "}
+        for incorporating access control from the very start. I am not terribly
+        eager to prototype these thoughts of reified UI on the{" "}
+        <Em>web</Em>. But defining a markdown dialect with an Area-powered bulk
+        transclusion operator and using such markdown-ish documents as the
+        payloads of Willow entries is one of the first applications I want to
+        build on Willow!
+      </P>
     </>
   ),
 };
