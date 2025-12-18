@@ -4,8 +4,15 @@
 <title>Aljoscha's Updates</title>
 <link>https://aljoscha-meyer.de/</link>
 <description>Feed of updates to https://aljoscha-meyer.de/</description>
-<pubDate>Mon, 10 Nov 2025 01:00:00 CET</pubDate>
-<lastBuildDate>Mon, 10 Nov 2025 01:00:00 CET</lastBuildDate>
+<pubDate>Thu, 18 Dec 2025 01:00:00 CET</pubDate>
+<lastBuildDate>Thu, 18 Dec 2025 01:00:00 CET</lastBuildDate>
+<item>
+<title>Bulk Transclusion as Reified UI</title>
+<link>https://aljoscha-meyer.de/posts/bulk_transclusion/</link>
+<description><![CDATA[Musings on how a bulk transclusion operator in a hypertext system can subsume common UI patterns that traditionally require ad-hoc logic to implement.]]></description>
+<guid isPermaLink="true">https://aljoscha-meyer.de/posts/bulk_transclusion/</guid>
+<pubDate>Thu, 18 Dec 2025 01:00:00 CET</pubDate>
+</item>
 <item>
 <title>ufotofu</title>
 <link>https://worm-blossom.org/ufotofu/</link>
