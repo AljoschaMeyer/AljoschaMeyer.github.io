@@ -366,10 +366,10 @@ export const bulk_transclusion = {
       <Hr />
 
       <P>
-        A final remark at the very end: while I have present things in light of
-        the web as the most widely-used hypermedia system of the present, my
-        personal interest does not actually lie with the web. Most of these
-        ideas arose around thinking about and working with{" "}
+        A final remark: while I have presented things in light of the web as the
+        most widely-used hypermedia system of the present, my personal interest
+        does not actually lie with the web. Most of these ideas arose around
+        thinking about and working with{" "}
         <A href="https://willowprotocol.org/">Willow</A>. In Willow,{" "}
         <A href="https://willowprotocol.org/specs/data-model/index.html#Entry">
           Entries
