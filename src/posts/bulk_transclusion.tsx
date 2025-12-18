@@ -1,16 +1,14 @@
-import { A, Br, Code, Em, Hr, I, Li, P, Ul } from "macromania-html";
+import { A, Code, Em, Hr, I, Li, P, Ul } from "macromania-html";
 import { Marginale, Sidenote } from "macromania-marginalia";
-import { Hsection } from "macromania-hsection";
 import { Quotes } from "../macros.tsx";
-import { R } from "macromania-defref";
 
 export const bulk_transclusion = {
   n: "bulk_transclusion",
   htmlTitle: "Bulk Transclusion as Reified UI",
   title: "Bulk Transclusion as Reified UI",
-  date: new Date("2025-11-15"),
-  draft: true,
-  summary: `TODO write summary`,
+  date: new Date("2025-12-18"),
+  summary:
+    `Musings on how a bulk transclusion operator in a hypertext system can subsume common UI patterns that traditionally require ad-hoc logic to implement.`,
   rssLink: `https://aljoscha-meyer.de/posts/bulk_transclusion/`,
   children: (
     <>
@@ -117,9 +115,9 @@ export const bulk_transclusion = {
         <Li>
           Objects have metadata; in order to unify these examples we need each
           object to have a <Em>name</Em>{" "}
-          (e.g. a thread name, or a file name), and a timestamp denoting the
-          most recent update. The view aggregating the objects may or may not
-          display that metadata explicitly. Note that sorting in order of
+          (for example, a thread name, or a file name), and a timestamp denoting
+          the most recent update. The view aggregating the objects may or may
+          not display that metadata explicitly. Note that sorting in order of
           original creation (but not rearranging when editing) can be
           accomplished by using the creation time of an object as its name, and
           then sorting by name. This is how the microblogging timeline fits into
@@ -225,10 +223,10 @@ export const bulk_transclusion = {
         control for how to access and discover documents.
         Bulk-UI-as-a-browser-feature would make this inversion of control
         cumbersome to the viewers, but with <Em>reified</Em>{" "}
-        bulk UI, the burden can be distributed arbitrarily. Authors could easily
-        specify a recommended way of aggregating their documents. But viewers
-        would not be restricted to those recommendations, they might prefer
-        their own UI choices — or those offered by a third party.
+        bulk UI, the burden could be distributed arbitrarily. Authors could
+        easily specify a recommended way of aggregating their documents. But
+        viewers would not be restricted to those recommendations, they might
+        prefer their own UI choices — or those offered by a third party.
       </P>
 
       <P>
@@ -292,8 +290,8 @@ export const bulk_transclusion = {
       </P>
 
       <P>
-        If we extend all these ideas beyond hypermedia systems and extend them
-        to their logical extremes, we reach a paradigm where the is no
+        If we extend all these ideas beyond hypermedia systems and follow them
+        to their logical extremes, we reach a design paradigm where there is no
         difference between bulk transclusion operators and UI logic. Aside from
         browsers, window managers are another fairly obvious candidate for this
         paradigm. But it might be worthwhile to consider where else the paradigm
@@ -306,17 +304,17 @@ export const bulk_transclusion = {
       <Hr />
 
       <P>
-        The final area of this design space I want to highlight for a bit
-        concerns multi-author aggregation. For example, we could imagine a bulk
+        The final area of this design space I want to briefly highlight concerns
+        multi-author aggregation. For example, we could imagine a bulk
         transclusion operator specifying a list of domains from which to
         aggregate the contents. For example, aggregating all pages in{" "}
         <Code>https://aljoscha-meyer.de/posts/</Code> and in{" "}
         <Code>https://blog.example.org/</Code>{" "}
-        to obtain a timeline view. Authorship could become part of the options
-        of the bulk transclusion operator for sorting. A microblogging timeline
-        would sort by timestamp, and could break ties by authorship, whereas
-        other usecases might call for sorting by author first, and by timestamp
-        second.
+        to obtain a timeline view. Which locations (or authors) to aggregate
+        could become part of the options of the bulk transclusion operator for
+        sorting. A microblogging timeline would sort by timestamp, and could
+        break ties by authorship, whereas other usecases might call for sorting
+        by author first, and by timestamp second.
       </P>
 
       <P>
@@ -327,8 +325,13 @@ export const bulk_transclusion = {
         meaningful semantic merge of arbitrarily many documents by arbitrarily
         many separate authors, a simplistic solution could be to only display
         the document with the newest timestamp. Or perhaps to render a list of
-        all <Quotes>conflicting</Quotes>{" "}
-        documents, letting a user expand any of them, or perhaps even render
+        all <Quotes>conflicting</Quotes> documents<Marginale>
+          Yet another option here would be to let documents declare a list of
+          other documents versions that they want to explicitly replace. This
+          requires trust between authors, but would reduce irreconcilable
+          updates down to only the truly concurrent updates, where neither
+          update indicates awareness of the other update.
+        </Marginale>, letting a user expand any of them, or perhaps even render
         diffs on demand. All the different options can and should be reifiable
         options of the bulk transclusion operator.
       </P>
@@ -342,7 +345,8 @@ export const bulk_transclusion = {
         authentication live higher up in the stack?
       </P>
 
-      <P>
+      {
+        /* <P>
         Another little puzzle piece — small, but representative of a larger
         class of design questions — is UI for indicating read vs unread status.
         Given that (multi-author) bulk aggregation lends itself to UI patterns
@@ -356,7 +360,8 @@ export const bulk_transclusion = {
         about all the other little features we can come up with? How can we make
         principled choices about what to reify, what to delegate to viewers, and
         what to simply forego?
-      </P>
+      </P> */
+      }
 
       <Hr />
 
@@ -387,6 +392,12 @@ export const bulk_transclusion = {
         transclusion operator and using such markdown-ish documents as the
         payloads of Willow entries is one of the first applications I want to
         build on Willow!
+        {
+          /* {" "}
+        <A href="https://worm-blossom.org/projects/#cobweb">
+          See here for more information
+        </A>. */
+        }
       </P>
     </>
   ),

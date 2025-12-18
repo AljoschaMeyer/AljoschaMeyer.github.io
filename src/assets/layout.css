@@ -30,26 +30,26 @@ body:not(.isPreview) {
 
 /* Start implementing L2 */
 
-@media (min-width:554.6px) {
+@media (min-width:618.6px) {
     #wrapContent {
         
-        width: 32rem;
+        width: 36rem;
         margin: 0 auto;
     }
 }
 
 /* Start implementing L3 */
 
-@media (min-width:868.2px) {
+@media (min-width:932.2px) {
     #wrapContent {
-        width: 51.6rem;
+        width: 55.6rem;
 
         >*:not(section, main), section>*:not(section, main)  {
-            max-width: 32rem;
+            max-width: 36rem;
         }
 
         .wide {
-          max-width: 51.6rem;
+          max-width: 55.6rem;
           clear: right;
         }
     }
@@ -70,7 +70,7 @@ body:not(.isPreview) {
 
 /* Start implementing L4 */
 
-@media (min-width:1335.4px) {
+@media (min-width:1399.4px) {
     .toc {
         display: initial;
         width: 13rem;
@@ -84,12 +84,12 @@ body:not(.isPreview) {
 /* Other styling */
 
 .previewContainer {
-  max-width: min(33.6rem, 100vw);
+  max-width: min(37.6rem, 100vw);
 }
 
-@media (min-width:868.2px) {
+@media (min-width:932.2px) {
   .previewContainer.wide {
-    max-width: min(calc(53.2rem + 18px), 100vw);
+    max-width: min(calc(57.2rem + 18px), 100vw);
   }
 }
 
