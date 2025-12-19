@@ -391,7 +391,8 @@ export const bulk_transclusion = {
         <Em>web</Em>. But defining a markdown dialect with an Area-powered bulk
         transclusion operator and using such markdown-ish documents as the
         payloads of Willow entries is one of the first applications I want to
-        build on Willow! <A href="https://worm-blossom.org/projects/#cobweb">
+        build on Willow!{" "}
+        <A href="https://worm-blossom.org/projects/#cobweb">
           See here for more information
         </A>.
       </P>
