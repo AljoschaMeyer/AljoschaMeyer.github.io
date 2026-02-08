@@ -4,77 +4,77 @@
 <title>Aljoscha's Updates</title>
 <link>https://aljoscha-meyer.de/</link>
 <description>Feed of updates to https://aljoscha-meyer.de/</description>
-<pubDate>Thu, 18 Dec 2025 01:00:00 CET</pubDate>
-<lastBuildDate>Thu, 18 Dec 2025 01:00:00 CET</lastBuildDate>
+<pubDate>Thu, 18 Dec 2025 00:00:00 UTC</pubDate>
+<lastBuildDate>Thu, 18 Dec 2025 00:00:00 UTC</lastBuildDate>
 <item>
 <title>Bulk Transclusion as Reified UI</title>
 <link>https://aljoscha-meyer.de/posts/bulk_transclusion/</link>
 <description><![CDATA[Musings on how a bulk transclusion operator in a hypertext system can subsume common UI patterns that traditionally require ad-hoc logic to implement.]]></description>
 <guid isPermaLink="true">https://aljoscha-meyer.de/posts/bulk_transclusion/</guid>
-<pubDate>Thu, 18 Dec 2025 01:00:00 CET</pubDate>
+<pubDate>Thu, 18 Dec 2025 00:00:00 UTC</pubDate>
 </item>
 <item>
 <title>ufotofu</title>
 <link>https://worm-blossom.org/ufotofu/</link>
 <description><![CDATA[Sam and I released ufotofu, a Rust library for working with streams and sinks. The website is... <em>something</em>.]]></description>
 <guid isPermaLink="true">https://worm-blossom.org/ufotofu/</guid>
-<pubDate>Mon, 10 Nov 2025 01:00:00 CET</pubDate>
+<pubDate>Mon, 10 Nov 2025 00:00:00 UTC</pubDate>
 </item>
 <item>
 <title>worm-blossom.org</title>
 <link>https://worm-blossom.org/</link>
 <description><![CDATA[Weekly updates from worm-blossom, the moniker under which Sam Gwilym and I do (primarily) computer things.]]></description>
 <guid isPermaLink="true">https://worm-blossom.org/</guid>
-<pubDate>Sun, 26 Oct 2025 00:00:00 CEST</pubDate>
+<pubDate>Sat, 25 Oct 2025 22:00:00 UTC</pubDate>
 </item>
 <item>
 <title>Willow News: Funding from NLnet</title>
 <link>https://aljoscha-meyer.de/posts/bab_funding</link>
 <description><![CDATA[The Willow project got funding for implementing a new hash function. Here I explain the gist of it.]]></description>
 <guid isPermaLink="true">https://aljoscha-meyer.de/posts/bab_funding</guid>
-<pubDate>Wed, 02 Jul 2025 00:00:00 CEST</pubDate>
+<pubDate>Tue, 01 Jul 2025 22:00:00 UTC</pubDate>
 </item>
 <item>
 <title>Simple Versioning Specification</title>
 <link>https://aljoscha-meyer.de/simver</link>
 <description><![CDATA[An entirely serious alternative to the semantic versioning specification.]]></description>
 <guid isPermaLink="true">https://aljoscha-meyer.de/simver</guid>
-<pubDate>Wed, 28 May 2025 00:00:00 CEST</pubDate>
+<pubDate>Tue, 27 May 2025 22:00:00 UTC</pubDate>
 </item>
 <item>
 <title>Distributed Mutability Without Link Rot</title>
 <link>https://aljoscha-meyer.de/posts/mutability_and_rot</link>
 <description><![CDATA[An essay on how to achieve mutable hypertext without automatically suffering from link rot, and why this matters.]]></description>
 <guid isPermaLink="true">https://aljoscha-meyer.de/posts/mutability_and_rot</guid>
-<pubDate>Thu, 15 May 2025 00:00:00 CEST</pubDate>
+<pubDate>Wed, 14 May 2025 22:00:00 UTC</pubDate>
 </item>
 <item>
 <title>Favourite Beatles Songs</title>
 <link>https://aljoscha-meyer.de/posts/beatles_collection</link>
 <description><![CDATA[A few of my favourite Beatles songs.]]></description>
 <guid isPermaLink="true">https://aljoscha-meyer.de/posts/beatles_collection</guid>
-<pubDate>Fri, 02 May 2025 00:00:00 CEST</pubDate>
+<pubDate>Thu, 01 May 2025 22:00:00 UTC</pubDate>
 </item>
 <item>
 <title>Some Guiding Principles on Coding</title>
 <link>https://aljoscha-meyer.de/posts/some_guiding_principles_on_coding</link>
 <description><![CDATA[How past me approached coding.]]></description>
 <guid isPermaLink="true">https://aljoscha-meyer.de/posts/some_guiding_principles_on_coding</guid>
-<pubDate>Sat, 26 Apr 2025 00:00:00 CEST</pubDate>
+<pubDate>Fri, 25 Apr 2025 22:00:00 UTC</pubDate>
 </item>
 <item>
 <title>Treasures</title>
 <link>https://aljoscha-meyer.de/treasures</link>
 <description><![CDATA[A collection of treasures — works that have been important to me.]]></description>
 <guid isPermaLink="true">https://aljoscha-meyer.de/treasures</guid>
-<pubDate>Tue, 08 Apr 2025 00:00:00 CEST</pubDate>
+<pubDate>Mon, 07 Apr 2025 22:00:00 UTC</pubDate>
 </item>
 <item>
 <title>Puzzling</title>
 <link>https://aljoscha-meyer.de/puzzling</link>
 <description><![CDATA[A small puzzling game I once wrote while being sick.]]></description>
 <guid isPermaLink="true">https://aljoscha-meyer.de/puzzling</guid>
-<pubDate>Wed, 01 Jan 2025 00:00:00 CET</pubDate>
+<pubDate>Tue, 31 Dec 2024 23:00:00 UTC</pubDate>
 </item>
 </channel>
 </rss>
