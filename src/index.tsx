@@ -111,8 +111,8 @@ height: 2.5rem;">
 
           <Card
             title="Bab"
-            href="https://worm-blossom.github.io/bab/"
-            repo="https://github.com/worm-blossom/bab"
+            href="https://bab-hash.org/"
+            repo="https://codeberg.org/worm-blossom/bab_web"
             splash={["landing", "bab.svg"]}
             splashAlt="A depiction of a Merkle tree, an example of the internals of the family of Bab hash functions."
           >

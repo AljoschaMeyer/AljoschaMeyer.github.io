@@ -23,6 +23,14 @@ import {
 export const posts = (
   <RenderPosts
     posts={[
+      {
+        link: "https://worm-blossom.org/notes/zip_trees",
+        title: "A Visual Guide to Zip-Trees",
+        date: new Date("2026-05-15"),
+        summary:
+          `I experimented a bit with graphic notation of tree algorithms, and ended up with a nice overview of zip-trees.`,
+        rssLink: `https://worm-blossom.org/notes/zip_trees`,
+      },
       bulk_transclusion,
       {
         link: "https://worm-blossom.org/ufotofu/",
