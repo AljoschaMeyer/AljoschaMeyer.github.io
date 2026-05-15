@@ -4,8 +4,15 @@
 <title>Aljoscha's Updates</title>
 <link>https://aljoscha-meyer.de/</link>
 <description>Feed of updates to https://aljoscha-meyer.de/</description>
-<pubDate>Thu, 18 Dec 2025 00:00:00 UTC</pubDate>
-<lastBuildDate>Thu, 18 Dec 2025 00:00:00 UTC</lastBuildDate>
+<pubDate>Fri, 15 May 2026 00:00:00 UTC</pubDate>
+<lastBuildDate>Fri, 15 May 2026 00:00:00 UTC</lastBuildDate>
+<item>
+<title>A Visual Guide to Zip-Trees</title>
+<link>https://worm-blossom.org/notes/zip_trees</link>
+<description><![CDATA[I experimented a bit with graphic notation of tree algorithms, and ended up with a nice overview of zip-trees.]]></description>
+<guid isPermaLink="true">https://worm-blossom.org/notes/zip_trees</guid>
+<pubDate>Fri, 15 May 2026 00:00:00 UTC</pubDate>
+</item>
 <item>
 <title>Bulk Transclusion as Reified UI</title>
 <link>https://aljoscha-meyer.de/posts/bulk_transclusion/</link>
