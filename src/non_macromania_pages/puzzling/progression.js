@@ -1320,6 +1320,9 @@ startTheGame([
         encoded: "a3b1a3a4a2b1a0da8a0a0da9b1a0ea8b2a0ea3a3a1ca3a5a1da8a4a1e"
     },
     {
+        encoded: "a2a4a6a4a4a5a0ea1a5a0ea3a6a1ea3a2a1ca3a1a1ea7a4a0da4a2a0ca1a2a1ea2a3a0ea6a3a2ca2a6a0ea7a2a0da1a4a1ca5a1a1ea5a5a1d",
+    },
+    {
         encoded: "a3a4a9a4a1a4a0ea5a4a1ea1a5a1ea5a5a2ea5a3a0ea1a3a2ea2a8a2da2a0a2da4a0a2da4a8a2da7a7a0ca2a6a0ea4a2a1ea2a2a1ca4a6a1ca3a6a0da3a2a2ca4a4a1da2a4a1da3a5a0da3a3a2da6a3a1da6a5a1ca7a1a2eb1a1a0cb1a7a2ea10a4a2cb3a4a2c"
     },
     {
