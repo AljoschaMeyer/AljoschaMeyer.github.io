@@ -292,6 +292,9 @@ helpMessage.append(p([
     " to restart the current level."
 ]));
 helpMessage.append(p([
+    "Toggle background music with the button in the top-right corner."
+]));
+helpMessage.append(p([
     "Press any key to toggle this help message."
 ]));
 const editorHelpMessage = document.createElement("div");

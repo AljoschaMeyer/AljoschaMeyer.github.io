@@ -4,6 +4,121 @@
 <head>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="./index.css">
+    <style>
+        #soundToggle {
+            z-index: 4;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        /* button from https://codepen.io/pen?editors=1010 */
+
+        .pp-neon {
+            position: relative;
+            display: inline-grid;
+            grid-template-columns: auto auto;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 22px 10px 16px;
+            background: #00000000;
+            border: 1px solid rgba(140, 141, 140, 0.4);
+            border-radius: 8px;
+            color: #f0f1f0;
+            cursor: pointer;
+            text-shadow: 0 0 8px rgba(140, 141, 140, 0.6);
+            box-shadow:
+                inset 0 0 12px rgba(140, 141, 140, 0.1),
+                0 0 14px rgba(140, 141, 140, 0.25);
+            transition:
+                box-shadow 0.25s,
+                border-color 0.2s,
+                transform 0.15s;
+        }
+
+        .pp-neon:hover {
+            border-color: #f0f1f0;
+            box-shadow:
+                inset 0 0 18px rgba(140, 141, 140, 0.2),
+                0 0 22px rgba(140, 141, 140, 0.5);
+            transform: translateY(-1px);
+        }
+
+        .pp-neon:focus-visible {
+            outline: 3px solid rgba(140, 141, 140, 0.5);
+            outline-offset: 3px;
+        }
+
+        .pp-neon-ring {
+            position: relative;
+            display: grid;
+            place-items: center;
+            width: 26px;
+            height: 26px;
+            border: 1.5px solid #f0f1f0;
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(140, 141, 140, 0.4);
+        }
+
+        .pp-neon[aria-pressed="true"] .pp-neon-ring {
+            animation: ppNeonPulse 1.4s ease-in-out infinite;
+        }
+
+        @keyframes ppNeonPulse {
+
+            0%,
+            100% {
+                box-shadow: 0 0 10px rgba(140, 141, 140, 0.4);
+            }
+
+            50% {
+                box-shadow: 0 0 22px rgba(140, 141, 140, 0.85);
+            }
+        }
+
+        .pp-neon-ring svg {
+            display: block;
+        }
+
+        .pp-neon-label {
+            position: relative;
+            display: inline-block;
+            font-size: clamp(0.4rem, 1.5vw, 1.2rem);
+            letter-spacing: 0.2em;
+            /* Reserve width of the longer label (PAUSE) so the button
+     doesn't reflow when the state flips. */
+            min-width: 7ch;
+            text-align: left;
+        }
+
+        .pp-neon-text {
+            display: none;
+        }
+
+        .pp-neon[aria-pressed="false"] .pp-neon-text-play {
+            display: inline;
+        }
+
+        .pp-neon[aria-pressed="true"] .pp-neon-text-pause {
+            display: inline;
+        }
+
+        .pp-neon-icon {
+            transition: d 0.3s cubic-bezier(0.5, 0, 0.3, 1.2);
+        }
+
+        .pp-neon[aria-pressed="true"] .pp-neon-icon {
+            d: path("M7 5 H10 V19 H7 Z M14 5 H17 V19 H14 Z");
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            .pp-neon,
+            .pp-neon * {
+                animation: none !important;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -27,6 +142,40 @@
         </div>
     </div>
     <script src="./progression.js"></script>
+
+    <button id="soundToggle" onclick="toggleMusic()" class="pp-neon" type="button" aria-pressed="false"
+        aria-label="Toggle Sound" data-pp>
+        <span class="pp-neon-ring" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
+                <path class="pp-neon-icon" d="M8 5 L8 19 L19 12 Z" fill="currentColor" />
+            </svg>
+        </span>
+        <span class="pp-neon-label" aria-hidden="true">
+            <span class="pp-neon-text pp-neon-text-play">Sound</span>
+            <span class="pp-neon-text pp-neon-text-pause">Mute</span>
+        </span>
+    </button>
+
+    <script type="text/javascript" src="beepbox_synth.min.js"></script>
+    <script type="text/javascript">
+        document.querySelectorAll('[data-pp]').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                var playing = btn.getAttribute('aria-pressed') === 'true';
+                btn.setAttribute('aria-pressed', String(!playing));
+                btn.setAttribute('aria-label', !playing ? 'Pause' : 'Play');
+            });
+        });
+
+        var synth = new beepbox.Synth("a3N08Puzzling00000Y04nonen411s0k02l04e0Tt2oa7g15j0xr3Z1O_U000000000000i0o1553T0v0pu00f010h600q00008510oadd190w50h2y0000000000000w000000E0c0T0v0pu00f010o500q0000o533516300Fard0a0w50h1y0000000000000w000000E0c0T8v0ju08f030ic2h52f600q0000wB010r7002601mard1a0x590W0w00E1c0beT1v0lu01f0000q0000ED1910517001da4md080AbF6B2Q4cfrPf381R0000E3c0b96387nT2v0ju02f030e61962d7010q0000151ra3bkd030w0h0E0c0Tav0pu2af0000q0000050Oaad080E0c0b111111111111222212341111111122221234000000000000000056565678000000000000001230124056789abc1230124056789abc000000000000000edfghijkl00000000000000000000000000000416372859abcdefghijklmnopqrstuvwxqrstuvwy000000000000001212123456562678121212345656267890000000abcdefghabcdefgi000000000011111111111111111111111111111111111111111111111111111111111100000000000000000000000000000010101210000000000000000000000000000000000000000000p29NFCLy4nFDdW1BQPnQNvA3bU0bYwpv4NvA3bFDE-lq70GpULEjn0000apvwQxb7vPLW46CkU0nA56Ct_F96ge_R5aheDOML8a9QWpHW5cLQReAtfjFD7XEX_NdlG6Lmdv0bloRXhHU5hJ7vWaHpe_R5dcOZ4VLzcYnVzPaP8rIVKnViJAjwYBjerM8XfN10nHeCFMQxje_QhNYLW1EOtiPqIw0b3fhYkEt1nw9pVuwnWv4AdcLQFULJap7EaCPe_SfaPNvaYxfbVNX3efQ5PnD7Ob0qYU-2lduMPFYyGeDCKChXdiOCpuKsvdtczT92Ly1NYRYLnHVsU-q-nHRYEsvqCubVHFzTSOTcYnPnigEJZIxwquSFsg8tLu3SgKv8y5lwF_MKjf5YRRokf8gaOPQvs9sbcPNvdtiBbOkVeiBbOh59Oh5bOl9eiBbpCt_D7ykFrbfhYwagHbf5ZakFHYB8tOkFjnViEHAFiCLw254q-23CduCted3FWpBW0zJ4s4hT2fs4qpN-ysvjcLbyeEhR2eOhQPLZ4svdv8As8s7duyhROeShY077VssvjeDQ2pHWd800ap6b3bE4t0OW1BQ2c0000004av_k03n0PNs6R0000000");
+
+        function toggleMusic() {
+            if (synth.playing) {
+                synth.pause();
+            } else {
+                synth.play();
+            }
+        }
+    </script>
 </body>
 
 </html>
