@@ -273,61 +273,61 @@ function p(contents) {
     return elem;
 }
 const helpMessage = document.createElement("div");
-helpMessage.append(p([
-    "Press ",
-    kbd("w"),
-    " ",
-    kbd("a"),
-    " ",
-    kbd("s"),
-    " ",
-    kbd("d"),
-    " or arrow keys to move."
-]));
-helpMessage.append(p([
-    "Press ",
-    kbd("u"),
-    " to undo a single move, press ",
-    kbd("esc"),
-    " to restart the current level."
-]));
-helpMessage.append(p([
-    "Press any key to toggle this help message."
-]));
+// helpMessage.append(p([
+//     "Press ",
+//     kbd("w"),
+//     " ",
+//     kbd("a"),
+//     " ",
+//     kbd("s"),
+//     " ",
+//     kbd("d"),
+//     " or arrow keys to move."
+// ]));
+// helpMessage.append(p([
+//     "Press ",
+//     kbd("u"),
+//     " to undo a single move, press ",
+//     kbd("esc"),
+//     " to restart the current level."
+// ]));
+// helpMessage.append(p([
+//     "Press any key to toggle this help message."
+// ]));
 const editorHelpMessage = document.createElement("div");
-editorHelpMessage.append(p([
-    "Click to place tiles. Press ",
-    kbd("q"),
-    ", ",
-    kbd("w"),
-    ", or ",
-    kbd("e"),
-    " to select tile types, press ",
-    kbd("1"),
-    " to ",
-    kbd("6"),
-    " to select colors."
-]));
-editorHelpMessage.append(p([
-    "Right-click any wall tile to delete it."
-]));
-editorHelpMessage.append(p([
-    "Press ",
-    kbd("s"),
-    " to move the start location to the current mouse location. Press ",
-    kbd("t"),
-    " to move the target location to the current mouse location."
-]));
-editorHelpMessage.append(p([
-    "Press ",
-    kbd("p"),
-    " to play the level, press ",
-    kbd("r"),
-    " to return to editing. You can share the URL to let others play it as well."
-]));
-editorHelpMessage.append(p([
-    "Press any other key to toggle this help message."
-]));
+// editorHelpMessage.append(p([
+//     "Click to place tiles. Press ",
+//     kbd("q"),
+//     ", ",
+//     kbd("w"),
+//     ", or ",
+//     kbd("e"),
+//     " to select tile types, press ",
+//     kbd("1"),
+//     " to ",
+//     kbd("6"),
+//     " to select colors."
+// ]));
+// editorHelpMessage.append(p([
+//     "Right-click any wall tile to delete it."
+// ]));
+// editorHelpMessage.append(p([
+//     "Press ",
+//     kbd("s"),
+//     " to move the start location to the current mouse location. Press ",
+//     kbd("t"),
+//     " to move the target location to the current mouse location."
+// ]));
+// editorHelpMessage.append(p([
+//     "Press ",
+//     kbd("p"),
+//     " to play the level, press ",
+//     kbd("r"),
+//     " to return to editing. You can share the URL to let others play it as well."
+// ]));
+// editorHelpMessage.append(p([
+//     "Press any other key to toggle this help message."
+// ]));
 class PlayController {
     levels;
     levelIndex;
@@ -387,14 +387,14 @@ class PlayController {
                 }
             }
         });
-        if (showHelpAtStart) {
-            this.displayMessage(helpMessage, true);
-        } else {
+        // if (showHelpAtStart) {
+        //     this.displayMessage(helpMessage, true);
+        // } else {
             this.view.displayMessage(null);
-        }
-        this.view.registerWonGameCb(()=>{
-            this.displayMessage("Thank you for playing");
-        });
+        // }
+        // this.view.registerWonGameCb(()=>{
+        //     this.displayMessage("Thank you for playing");
+        // });
     }
     displayMessage(msg, isHelp) {
         if (this.view.displayMessage(msg)) {
@@ -1308,27 +1308,6 @@ async function startTheGame(levelInfo) {
 }
 startTheGame([
     {
-        encoded: "a3a4a9a1a3a1a0ca8a4a0ca8a1a0ca12a2a0ca13a0a0ca11b3a0ca7b2a0c"
-    },
-    {
-        encoded: "a3a4a3a1a2a1a0ca6a2a0ca3b5a0ca7b4a0c"
-    },
-    {
-        encoded: "a12a8a9a4a12a3a0ca10a4a0ca15a4a0ea8a4a1c"
-    },
-    {
-        encoded: "a3b1a3a4a2b1a0da8a0a0da9b1a0ea8b2a0ea3a3a1ca3a5a1da8a4a1e"
-    },
-    {
         encoded: "a1a3a9a4a1a6a3ca5a5a1eb1a5a1da0a2a0ea4a3a0ca7a3a2ea6a6a5ea11a5a4ca10a3a3eb1a4a1ca3a1a5da9a5a3da10a2a2d"
     },
-    {
-        encoded: "a2a4a6a4a4a5a0ea1a5a0ea3a6a1ea3a2a1ca3a1a1ea7a4a0da4a2a0ca1a2a1ea2a3a0ea6a3a2ca2a6a0ea7a2a0da1a4a1ca5a1a1ea5a5a1d",
-    },
-    {
-        encoded: "a3a4a9a4a1a4a0ea5a4a1ea1a5a1ea5a5a2ea5a3a0ea1a3a2ea2a8a2da2a0a2da4a0a2da4a8a2da7a7a0ca2a6a0ea4a2a1ea2a2a1ca4a6a1ca3a6a0da3a2a2ca4a4a1da2a4a1da3a5a0da3a3a2da6a3a1da6a5a1ca7a1a2eb1a1a0cb1a7a2ea10a4a2cb3a4a2c"
-    },
-    {
-        encoded: "a5a6a18b1b4a1a3db3a2a3db2a1a3db3a0a3db3a1a1eb2a7a0cb3a8a0cb1a8a0cb2a9a0cb2a8a2eb1b4a1da0b3a1da1b4a1da0b5a1da0b4a3ea3b5a1ca2a2a1da4a1a3ca5a2a3ca6a1a3ca5a0a3ca5a1a1ea4a5a3ea7a7a1ea9a6a1ca10a3a3ca11a4a3ca12a3a3ca11a2a3ca11a3a1ea12b2a3da13b1a3da14b2a3da13b3a3da12b5a3ca13b2a1ea14a5a3da15a8a3ea16a7a3ea17a8a3ea16a9a3ea16a8a1ea16a3a1ca17a2a1ca15a2a1ca16a1a1ca16a2a3ea17b1a3ca18a0a3da18b2a1ca19b1a1da19a5a1ea19a9a3ca20a8a3ca21a9a3ca20a10a3ca20a9a1ea21b4a3ea21b3a1da22b4a1da21b5a1da20b4a1da23b2a3ea24a3a3da24a2a3da24b4a2da25b3a2da26b4a2da25b5a2da25b4a0ea25a9a2ca26a8a2ca26a10a2ca27a9a2ca26a9a0e"
-    }
 ]);
