@@ -121,6 +121,12 @@ push vs pull (compare method calls)
 constant vs occasional broadcast (compare the immutable data of FP)
   - append-only logs?
 local-simulated-synchronous-infallible-deterministic vs global-physical-asynchronous-fallible-concurrent
+static typing, interfaces, etc
+*causal* broadcast? (both for sendings by a single process and for ordering between multiple processes)
+    does this require a metric space? if A sends x, and B sends f(x), can B's f(x) arrive at C before x? Does this change based on whether x is data or something special (a symbol)? CC "novelty frontier" and frontier**s**
+no message queues
+joining/leaving
+spawning new actors, communicating their addresses
 
-pi calculus
+calculus of communicating systems (CCS) and pi calculus
 */
