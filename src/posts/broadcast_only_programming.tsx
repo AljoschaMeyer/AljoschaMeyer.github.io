@@ -63,7 +63,7 @@ export const broadcast_only_programming = {
         <A href="https://dmi.unibas.ch/de/personen/christian-tschudin/">
           Christian Tschudin
         </A>{" "}
-        has been developing an interesting mind set around this space, starting
+        has been developing an interesting mindset around this space, starting
         from the assumption that global broadcast is the purest form of
         communication.<Marginale>
           I am probably misrepresenting this or botching it up; my sincere
@@ -77,12 +77,13 @@ export const broadcast_only_programming = {
       </P>
 
       <P>
-        The appealing behind this view is that we can start abstracting over the
+        The appeal behind this view is that we can start abstracting over the
         messy compromises of networking: simply design your systems in the
         (comparatively) easy-to-reason-about broadcast model, and trust that the
         physical infrastructure will be able to simulate that model sufficiently
         well. This idealised approach removes a whole lot of headaches that
-        usually accompany networking.
+        usually accompany networking, and has a tendency to result in highly
+        reliable systems.
       </P>
 
       <P>
@@ -108,11 +109,18 @@ export const broadcast_only_programming = {
 composition
 encapsulation
 frequency bands (private ones?)
-range
+space and range (global braodacst doesn't need space)
+latency (speed of light as fundamental limit)
 internals
 computations
 space
 triggering broadcasts
 mobility
 congestion
+push vs pull (compare method calls)
+constant vs occasional broadcast (compare the immutable data of FP)
+  - append-only logs?
+local-simulated-synchronous-infallible-deterministic vs global-physical-asynchronous-fallible-concurrent
+
+pi calculus
 */
