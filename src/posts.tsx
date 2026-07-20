@@ -13,6 +13,7 @@ import { Counter, makeNumberingRenderer } from "macromania-counters";
 import { some_guiding_principles_on_coding } from "./posts/some_guiding_principles_on_coding.tsx";
 import { beatles_collection } from "./posts/beatles_collection.tsx";
 import { bulk_transclusion } from "./posts/bulk_transclusion.tsx";
+import { broadcast_only_programming } from "./posts/broadcast_only_programming.tsx";
 import {
   H4,
   RssFeed,
@@ -23,6 +24,7 @@ import {
 export const posts = (
   <RenderPosts
     posts={[
+      broadcast_only_programming,
       {
         link: "https://worm-blossom.org/notes/zip_trees",
         title: "A Visual Guide to Zip-Trees",
