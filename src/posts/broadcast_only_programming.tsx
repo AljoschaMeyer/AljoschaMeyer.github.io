@@ -167,8 +167,8 @@ export const broadcast_only_programming = {
       </P>
 
       <P>
-        On obvious solution is to introduce a notion of space and distances, and
-        allow the sending of local broadcasts that only extend to a certain
+        One obvious solution is to introduce a notion of space and distances,
+        and allow the sending of local broadcasts that only extend to a certain
         distance. I will return to this idea in a later section, but for now I
         want to explore the pure, global-broadcast-only model for a bit. There
         is an elegant solution in that model as well, but it requires looking at
@@ -224,7 +224,10 @@ export const broadcast_only_programming = {
         to execute is an arbitrary choice. Further, there is no notion of return
         values, so it makes no sense to freeze time (i.e., pause execution) of
         the sending station. Broadcasting is a fundamentally asynchronous
-        operation.
+        operation.<Marginale>
+          A related observation: OO is essentially pull-based, whereas
+          broadcast-based programming is push-based.
+        </Marginale>
       </P>
 
       <P>
@@ -263,6 +266,16 @@ export const broadcast_only_programming = {
       </P>
 
       <P>
+        <Marginale>
+          Aside from the obvious relation to causal broadcast, I've also found
+          it interesting to ponder the relation to Christian's concept of the
+          {" "}
+          <I>novelty frontier</I>. The novelty frontier between two stations,
+          roughly speaking, consists of the information that is known to one but
+          not the other. Can the causality guarnatees be expressed in terms of
+          novelty frontiers? Does the pairwise notion of novelty frontiers
+          suffice, or is a more global concept necessary?
+        </Marginale>
         A related but more complicated class of guarantees stems from questions
         involving more than two stations. If station <Code>S1</Code>{" "}
         sends a message <Code>M1</Code>, and <Code>S2</Code>{" "}
@@ -274,28 +287,152 @@ export const broadcast_only_programming = {
         <Code>M1</Code> contains a fresh frequency band and <Code>M2</Code>{" "}
         contains that same frequency band?
       </P>
+
+      <P>
+        As long as we consider broadcast-based programming as nothing but a
+        metaphor for structuring programs, it makes sense to deliver the
+        strictest, most causality-respecting guarantees. But if we consider
+        broadcast-based programming as a way programming that lends itself to
+        actual distribution across physical space, this choice becomes less
+        obvious. The internet protocol, for example, has extremely weak causal
+        guarantees. And yet we can fairly easily implement software on top of
+        it, because these guarantees can be implemented by way of sequence
+        numbers, buffering, and retransmissions. Just like TCP adds ordered
+        delivery to IP, it should be possible to implement more causal broadcast
+        variants on top of weak ordering guarantees.
+      </P>
+
+      <P>
+        Speaking of buffering: our programming model has not explicitly featured
+        buffering so far. In the Smalltalk world, there is no need for message
+        buffering at all, because of the linear deterministic control flow. In
+        our model, buffering does become a necessity: if we simulate multiple
+        stations on a single processor, we need to maintain a queue of message
+        handlers to execute. And even in a parallel implementation with a single
+        process per station, messages might arrive faster than they can be
+        processed. This necessitates buffering and/or dropping. That is a
+        fundamental difference to OO: method calls in traditional OO are
+        infallible, but I do not think there is an infallible broadcast receival
+        mechanism that works<Marginale>
+          Whether this is a fatal flaw or an upside that enables transparent
+          parallelisation and distribution is a matter of perspective.
+        </Marginale>{" "}
+        for all possible programs on finite hardware<Marginale>
+          To be fair, OO also pretends that call stacks can grow arbitrarily.
+        </Marginale>.
+      </P>
+
+      <P>
+        Another aspect to consider is that of congestion or interference. For
+        every physical broadcast medium, there is a limit on how many messages
+        can be transmitted simultaneously while still being receivable. This is
+        another aspect that introduces fallability. In a simulated,
+        single-machine implementation, this issue could be subsumed as an issue
+        of buffering: the physical limit of the simulated transfer medium is the
+        available space for buffering messages before their delivery. But there
+        might be upsides to reporting such congestion in a different way to
+        programmers: the correct ways for a station to adjust its behaviour in
+        the face of congestion versus when running out of local message buffer
+        space are completely different after all.
+      </P>
+
+      <P>
+        Moving on to other interesting aspects, there is the notion of station
+        identity. A landmark of OO is the ability to pass around references to
+        objects; this is strictly required because without a reference you
+        cannot send a message to an object. Broadcast-based programming, in
+        contrast, can do completely without references to stations: the operator
+        for station creation does not need to return a value. That is quite the
+        paradigm shift in practical terms, but also philosophically: what does
+        it mean for the identity of a station if it cannot be references? There
+        is no notion of equality of stations, and not even a direct way to even
+        sense whether other stations exist. If you broadcast a message and
+        nobody replies, that does not necessarily mean that nobody else is
+        there. Conversely, a station that never sends a single message might
+        just as well not exist<Marginale>
+          Especially if all observable side-effects of the programming language
+          must be triggered by sending messages that are handled by system
+          stations.{" "}
+          <Quotes>Everything is a station</Quotes>, as the famous slogan goes.
+        </Marginale>.
+      </P>
+
+      <P>
+        To recapitulate, a (global-) broadcast-based programming language needs:
+      </P>
+
+      <Ul>
+        <Li>An operator for sending messages.</Li>
+        <Li>
+          A language for defining the behaviour of a station, i.e., for defining
+          which messages it sends in response to receiving messages.
+        </Li>
+        <Li>A statementoperator for creating new stations.</Li>
+        <Li>
+          If encapsulation is desired: an operator for minting new frequency
+          bands.
+        </Li>
+        <Li>
+          A definition of which scheduling and delivery orders are allowed to
+          happen.
+        </Li>
+      </Ul>
+
+      <P>
+        The biggest downsides of this model compared to object-oriented
+        programming are nondeterministic execution and the need for buffering.
+        The upside that stations are significantly more loosely coupled than
+        objects are.
+      </P>
+
+      <P>
+        A final note for the theory nerds: it seems fairly straightforward to
+        port some process calculi in the style Milner et al. to the
+        broadcast-based world. You could use the same syntax as{" "}
+        <A href="https://en.wikipedia.org/wiki/Calculus_of_communicating_systems">
+          calculus of communicating systems
+        </A>{" "}
+        and adjust the semantics from handshake-based communication to the
+        broadcast setting. I imagine the corresponding notions of transition
+        systems and bisimilarity to be quite fun. And it should similarly be
+        possible to repurpose the syntax of the{" "}
+        <A href="https://en.wikipedia.org/wiki/Calculus_of_communicating_systems">
+          pi calculus
+        </A>{" "}
+        to formally study the properties of frequency band allocation and
+        transmission.<Marginale>
+          A fun difference to Milner-style calculi is that in our setting
+          observers need not influence the system behaviour, whereas you can
+          take the view that in a handshake-based calculus the only way to
+          observe a system is by interacting with it.
+        </Marginale>{" "}
+        And I expect such systems to demonstrate that <Em>techincally</Em>{" "}
+        you do not need a dedicated language for specifying message handlers,
+        you can probably do it with the minimal set of operators (send message,
+        obtain fresh frequency band, spawn station) together with a conditional
+        operator (assuming a spawn operator that supports recursion,
+        alternatively an additional replication operator should do the trick).
+      </P>
     </>
   ),
 };
 
 /*
-*causal* broadcast? (both for sendings by a single process and for ordering between multiple processes)
-    does this require a metric space? if A sends x, and B sends f(x), can B's f(x) arrive at C before x? Does this change based on whether x is data or something special (a symbol)? CC "novelty frontier" and frontier**s**
-    compare how spatial computing handles this (no causality whatsoever
-    recreate causality through buffering, CC TCP)
-identity of stations
+
 push vs pull (compare method calls), sensing vs receiving (compare spatial computing locality)
-congestion
-no message queues
 constant vs occasional broadcast (compare the immutable data of FP)
   - append-only logs? reducibility between global broadcast and globally-accessible append-only logs?
 
 local-simulated-synchronous-infallible-deterministic vs global-physical-asynchronous-fallible-concurrent
 
 space and range (global braodacst doesn't need space), guarantees?
+spatial prigramming (but without the 2d visiual programming language)
 latency (speed of light as fundamental limit)
 re-ordering of messages
 mobility
+causality in spatial programming
+identity of stations?
+sender determines how far the signal travels (contrast with spatial programming, where a "receiver" decides how much of its environment it actively senses)
 
 computations
 calculus of communicating systems (CCS) and pi calculus
