@@ -1,4 +1,4 @@
-import { A, Code, Em, H2, H3, Hr, I, Li, P, Ul } from "macromania-html";
+import { A, Code, Dfn, Em, H2, H3, Hr, I, Li, P, Ul } from "macromania-html";
 import { Marginale, Sidenote } from "macromania-marginalia";
 import { Quotes } from "../macros.tsx";
 
@@ -100,16 +100,214 @@ export const broadcast_only_programming = {
       <P>
         Bla
       </P>
+
+      <P>
+        The paradigm of object-oriented programming is structured around message
+        passing. Objects encapsulate state, but this state is not accessible to
+        other objects. Instead, objects call methods on other objects,i.e., they
+        pass messages to each other. Programs are structured around this
+        fundamental mechanism. The underlying metaphor that inspired this
+        approach to programming is that of cells in an organism: each has a
+        complex, stateful interior, but communication to other cells is strictly
+        mediated through a protective membrane.
+      </P>
+
+      <P>
+        For broadcast-based programming, an underlying metaphor could be that of
+        birds interacting in a forest. Each is its own, stateful organism, each
+        can broadcast signals to all other birds, and each can hear and react to
+        the signals sent by the others. In programming terms, this metaphor is
+        fairly close to the actor model, with the big difference that messages
+        are not sent to specific recipients but simply broadcast.
+      </P>
+
+      <P>
+        I will call the stateful processes that make up a broadcast-based
+        program{" "}
+        <Dfn>stations</Dfn>. Every station can broadcast messages, and it can
+        react to messages. Similar to how an object is defined by specifying a
+        set of methods, a station is defined by specifying how it reacts to the
+        messages it receives.
+      </P>
+
+      <P>
+        Message broadcasts can be designed in several ways. In the most basic
+        formulation, the operator for sending messages takes no arguments but
+        the message to send, and the definitions of message handlers receive no
+        arguments but the message.<Marginale>
+          Whether there is static typing, a notion of interfaces, etc, is an
+          orthogonal issue I will mostly ignore.
+        </Marginale>{" "}
+        One fairly obvious addition would be to introduce a notion of{" "}
+        <Quotes>frequency bands</Quotes>. Sending a message would require
+        specifying both the message and the frequency band on which to send it,
+        and then message handlers would be defined on a per-frequency-band
+        basis.
+      </P>
+
+      <P>
+        This mechanism would immediately yield a neat mechanism for composition
+        and encapsulation: one of the primitives of such a language would be an
+        operator for obtaining a fresh, unique frequency band unknown to any
+        other station (fully analogous to symbols in Lisps). By communicating
+        that frequency band to another station, the two stations can then
+        communicate without leaking any information to the remainder of the
+        program.
+      </P>
+
+      <P>
+        There is a problem with this approach, however: how would the station
+        that minted a new frequency band communicate that band to only the
+        intended recipient? There is a chicken-and-egg problem here. And it
+        makes a lot of sense: if the only communication mechanism there is is
+        global broadcast, establishing a secret between two stations is going to
+        be difficult. In the real world, we have key-agreement protocols to work
+        around this issue. In a programming language, there should probably be
+        an easier way to solve this.
+      </P>
+
+      <P>
+        On obvious solution is to introduce a notion of space and distances, and
+        allow the sending of local broadcasts that only extend to a certain
+        distance. I will return to this idea in a later section, but for now I
+        want to explore the pure, global-broadcast-only model for a bit. There
+        is an elegant solution in that model as well, but it requires looking at
+        a different topic: the lifecycle of stations.
+      </P>
+
+      <P>
+        Defining a station (or an object in OO-programming) is easy, you simply
+        define how it reacts to messages. But to get a running program, you also
+        need to <Em>create</Em> stations.<Marginale>
+          <Em>Removing</Em>{" "}
+          stations again is also necessary for a real programming language, but
+          I consider this an optimisation detail that is mostly orthogonal to
+          everything else I'm exploring here. Any of garbage collection, manual
+          deallocation, or RAII works.
+        </Marginale>{" "}
+        The obvious solution is to allow each station to create new stations.
+        And similar to the constructors of object-oriented programming, it seems
+        sensible to allow the passing of arguments from the creating station to
+        the created station. And this passing of arguments can be the escape
+        hatch for non-global communication. The creating station can allocate a
+        fresh frequency band, pass it to the created station, and then the two
+        of them can communicate in a fully encapsulated way.
+      </P>
+
+      <P>
+        Another variant of the broadcast operator is whether the receiver should
+        be aware of the identity of the sender. The answer, I think, is a fairly
+        clear{" "}
+        <Em>no</Em>. In object-oriented programming, an object has no idea who
+        called its methods, and this is important to make programs flexible and
+        maintainable. The same applies to broadcast-based programming.
+      </P>
+
+      <P>
+        The next detail of the language semantics to consider is that of
+        concurrency and scheduling. in the idealised mental model, all stations
+        operate in parallel. To which degree can and should a programming
+        language approximate this? In the OO world, there are different answers.
+        (Single-threaded) smalltalk diverges from the metaphor of concurrent
+        cells and simply follows a single control flow. When a method is called,
+        time stops from the perspective of the caller, and time starts for the
+        callee. This makes for a fully deterministic language semantics.
+        Contrast this with Erlang, where processes (which are essentially
+        objects) all execute concurrently and scheduling is non-deterministic.
+      </P>
+
+      <P>
+        For broadcast-based programming, it is more difficult to emulate the
+        deterministic-yet-not-arbitrary execution semantics of Smalltalk for
+        several reasons. When a station sends a message, there could be any
+        number of stations that have a handler for that message. Which of these
+        to execute is an arbitrary choice. Further, there is no notion of return
+        values, so it makes no sense to freeze time (i.e., pause execution) of
+        the sending station. Broadcasting is a fundamentally asynchronous
+        operation.
+      </P>
+
+      <P>
+        For these reasons, a broadcast-based programming language faces the
+        choice of either establishing deterministic semantics via completely
+        arbitrary criteria or of embracing non-deterministic execution order.
+        The latter might seem scary, but it has the big upside of allowing for
+        actual parallel execution of several stations on parallel (or
+        distributed) hardware.
+      </P>
+
+      <P>
+        The final big question regarding the semantics of our hypothetical
+        language(s) is that of{" "}
+        <Em>causality</Em>. Which guarantees should the language make about the
+        order in which messages are sent or received? A first guarantee is that
+        a language should not be received by any station before it has
+        been<Marginale>
+          This might sound obvious, but I can easily imagine compiler
+          optimisations that would love to break this rule (and I can easily
+          imagine compilers that aim to prove that they can get away with
+          violating this rule without chaning any observable program semantics)
+        </Marginale>{" "}
+        sent. Beyond this rule, there are several decisions that are less
+        clear-cut.
+      </P>
+
+      <P>
+        If a station <Code>S</Code> sends a message <Code>M1</Code>{" "}
+        followed by another message{" "}
+        <Code>M2</Code>, should all other stations be guaranteed to receive{" "}
+        <Code>M1</Code> before{" "}
+        <Code>M2</Code>? Adding this guarantee (and any other guarantee in this
+        area) will make programming easier (and possibly more expressive) but
+        (distributed) implementation of the language more difficult.
+      </P>
+
+      <P>
+        A related but more complicated class of guarantees stems from questions
+        involving more than two stations. If station <Code>S1</Code>{" "}
+        sends a message <Code>M1</Code>, and <Code>S2</Code>{" "}
+        receives it and in its message handler sends a message{" "}
+        <Code>M2</Code>, is any third station <Code>S3</Code> allowed to receive
+        {" "}
+        <Code>M2</Code> before <Code>M1</Code>? What if <Code>M2</Code>{" "}
+        is the result of applying a function to <Code>M1</Code>? What if{" "}
+        <Code>M1</Code> contains a fresh frequency band and <Code>M2</Code>{" "}
+        contains that same frequency band?
+      </P>
     </>
   ),
 };
 
 /*
+*causal* broadcast? (both for sendings by a single process and for ordering between multiple processes)
+    does this require a metric space? if A sends x, and B sends f(x), can B's f(x) arrive at C before x? Does this change based on whether x is data or something special (a symbol)? CC "novelty frontier" and frontier**s**
+    compare how spatial computing handles this (no causality whatsoever
+    recreate causality through buffering, CC TCP)
+identity of stations
+push vs pull (compare method calls), sensing vs receiving (compare spatial computing locality)
+congestion
+no message queues
+constant vs occasional broadcast (compare the immutable data of FP)
+  - append-only logs? reducibility between global broadcast and globally-accessible append-only logs?
+
+local-simulated-synchronous-infallible-deterministic vs global-physical-asynchronous-fallible-concurrent
+
+space and range (global braodacst doesn't need space), guarantees?
+latency (speed of light as fundamental limit)
+re-ordering of messages
+mobility
+
+computations
+calculus of communicating systems (CCS) and pi calculus
+    observability of a system does not require the system to interact with the observer
+
+
+
 
 composition
 encapsulation
 frequency bands (private ones?)
-space and range (global braodacst doesn't need space)
+space and range (global braodacst doesn't need space), guarantees?
 latency (speed of light as fundamental limit)
 internals
 computations
@@ -117,16 +315,20 @@ space
 triggering broadcasts
 mobility
 congestion
-push vs pull (compare method calls)
+push vs pull (compare method calls), sensing vs receiving (compare spatial computing locality)
 constant vs occasional broadcast (compare the immutable data of FP)
-  - append-only logs?
+  - append-only logs? reducibility between global broadcast and globally-accessible append-only logs?
 local-simulated-synchronous-infallible-deterministic vs global-physical-asynchronous-fallible-concurrent
 static typing, interfaces, etc
 *causal* broadcast? (both for sendings by a single process and for ordering between multiple processes)
     does this require a metric space? if A sends x, and B sends f(x), can B's f(x) arrive at C before x? Does this change based on whether x is data or something special (a symbol)? CC "novelty frontier" and frontier**s**
+    compare how spatial computing handles this (no causality whatsoever
+    recreate causality through buffering, CC TCP)
 no message queues
+sender address attached to each broadast? (no, probably, compare method calls... but what about physics?)
 joining/leaving
-spawning new actors, communicating their addresses
+spawning new stations, communicating their addresses
 
 calculus of communicating systems (CCS) and pi calculus
+    observability of a system does not require the system to interact with the observer
 */
