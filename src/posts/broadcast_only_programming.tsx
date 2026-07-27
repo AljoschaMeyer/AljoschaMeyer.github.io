@@ -303,6 +303,10 @@ export const broadcast_only_programming = {
       </P>
 
       <P>
+        TODO interaction with station creation and removal semantics/timing
+      </P>
+
+      <P>
         Speaking of buffering: our programming model has not explicitly featured
         buffering so far. In the Smalltalk world, there is no need for message
         buffering at all, because of the linear deterministic control flow. In
@@ -352,7 +356,7 @@ export const broadcast_only_programming = {
         just as well not exist<Marginale>
           Especially if all observable side-effects of the programming language
           must be triggered by sending messages that are handled by system
-          stations.{" "}
+          stations. TODO notes on randomness-as-a-system-service and symmetry breaking{" "}
           <Quotes>Everything is a station</Quotes>, as the famous slogan goes.
         </Marginale>.
       </P>
@@ -419,24 +423,20 @@ export const broadcast_only_programming = {
 
 /*
 
-push vs pull (compare method calls), sensing vs receiving (compare spatial computing locality)
 constant vs occasional broadcast (compare the immutable data of FP)
-  - append-only logs? reducibility between global broadcast and globally-accessible append-only logs?
+- append-only logs? reducibility between global broadcast and globally-accessible append-only logs?
 
 local-simulated-synchronous-infallible-deterministic vs global-physical-asynchronous-fallible-concurrent
 
 space and range (global braodacst doesn't need space), guarantees?
-spatial prigramming (but without the 2d visiual programming language)
+spatial programming (but without the 2d visiual programming language)
 latency (speed of light as fundamental limit)
 re-ordering of messages
 mobility
 causality in spatial programming
 identity of stations?
+sensing vs receiving (compare spatial computing locality)
 sender determines how far the signal travels (contrast with spatial programming, where a "receiver" decides how much of its environment it actively senses)
-
-computations
-calculus of communicating systems (CCS) and pi calculus
-    observability of a system does not require the system to interact with the observer
 
 
 
