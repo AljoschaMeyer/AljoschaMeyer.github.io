@@ -15,6 +15,10 @@ body,
 body {
     min-height: 100vh;
     background-color: black;
+
+    font-family: Avenir, Montserrat, Corbel, 'URW Gothic', source-sans-pro, sans-serif;
+    font-size: clamp(0.8rem, 3vw, 2.4rem);
+    color: #f0f1f0;
 }
 
 #glCanvas,
@@ -44,10 +48,6 @@ body {
     height: 100vh;
     overflow: hidden;
 
-    font-family: Avenir, Montserrat, Corbel, 'URW Gothic', source-sans-pro, sans-serif;
-    /* font-size: 32px; */
-    font-size: clamp(0.8rem, 3vw, 2.4rem);
-    color: #f0f1f0;
     background-color: #000000c0;
 
     padding: 2em;
