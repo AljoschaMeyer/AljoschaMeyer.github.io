@@ -356,7 +356,8 @@ export const broadcast_only_programming = {
         just as well not exist<Marginale>
           Especially if all observable side-effects of the programming language
           must be triggered by sending messages that are handled by system
-          stations. TODO notes on randomness-as-a-system-service and symmetry breaking{" "}
+          stations. TODO notes on randomness-as-a-system-service and symmetry
+          breaking{" "}
           <Quotes>Everything is a station</Quotes>, as the famous slogan goes.
         </Marginale>.
       </P>
@@ -392,7 +393,7 @@ export const broadcast_only_programming = {
       <P>
         A final note for the theory nerds: it seems fairly straightforward to
         port some process calculi in the style Milner et al. to the
-        broadcast-based world. You could use the same syntax as{" "}
+        broadcast-based world. You could use the same syntax as the{" "}
         <A href="https://en.wikipedia.org/wiki/Calculus_of_communicating_systems">
           calculus of communicating systems
         </A>{" "}
