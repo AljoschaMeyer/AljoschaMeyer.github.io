@@ -190,6 +190,19 @@ export const broadcast_based_programming = {
       </P>
 
       <P>
+        Note that there are good arguments for <Em>not</Em>{" "}
+        guaranteeing strong causal constraints: a truly distributed
+        implementation of a BBP langauge becomes much easier with weaker
+        guarantees, and programs can still recreate stronger guarantees if they
+        require them. Just like TCP adds ordered delivery to IP by means of
+        sequence numbers, buffering, and retransmissions, it should be possible
+        to implement strong causal broadcast guarantees on top of weak causality
+        guarantees.
+      </P>
+
+      <Hr />
+
+      <P>
         A strong suite of OOP is encapsulation, and BBP as described so far is
         lacking in that regard: all broadcasts are global, thus every part of a
         program can react to every other part of a program. A nice way of
@@ -259,45 +272,22 @@ export const broadcast_based_programming = {
         proper set of causality constraints first).
       </P>
 
-      ---
+      <Hr />
 
       <P>
-        Another variant of the broadcast operator is whether the receiver should
-        be aware of the identity of the sender. The answer, I think, is a fairly
-        clear{" "}
-        <Em>no</Em>. In object-oriented programming, an object has no idea who
-        called its methods, and this is important to make programs flexible and
-        maintainable. The same applies to broadcast-based programming.
-      </P>
-
-      <P>
-        As long as we consider broadcast-based programming as nothing but a
-        metaphor for structuring programs, it makes sense to deliver the
-        strictest, most causality-respecting guarantees. But if we consider
-        broadcast-based programming as a way programming that lends itself to
-        actual distribution across physical space, this choice becomes less
-        obvious. The internet protocol, for example, has extremely weak causal
-        guarantees. And yet we can fairly easily implement software on top of
-        it, because these guarantees can be implemented by way of sequence
-        numbers, buffering, and retransmissions. Just like TCP adds ordered
-        delivery to IP, it should be possible to implement more causal broadcast
-        variants on top of weak ordering guarantees.
-      </P>
-
-      <P>
-        Moving on to other interesting aspects, there is the notion of station
-        identity. A landmark of OO is the ability to pass around references to
-        objects; this is strictly required because without a reference you
-        cannot send a message to an object. Broadcast-based programming, in
-        contrast, can do completely without references to stations: the operator
-        for station creation does not need to return a value. That is quite the
-        paradigm shift in practical terms, but also philosophically: what does
-        it mean for the identity of a station if it cannot be references? There
-        is no notion of equality of stations, and not even a direct way to even
-        sense whether other stations exist. If you broadcast a message and
-        nobody replies, that does not necessarily mean that nobody else is
-        there. Conversely, a station that never sends a single message might
-        just as well not exist<Marginale>
+        A final interesting aspect of BBP is the notion of{" "}
+        <Em>station identity</Em>. A landmark of OO is the ability to pass
+        around references to objects; this is strictly required because without
+        a reference you cannot send a message to an object. Broadcast-based
+        programming, in contrast, can do completely without references to
+        stations: the operator for station creation does not need to return a
+        value. That is quite the paradigm shift in practical terms, but also
+        philosophically: what does it mean for the identity of a station if it
+        cannot be references? There is no notion of equality of stations, and
+        not even a direct way to even sense whether other stations exist. If you
+        broadcast a message and nobody replies, that does not necessarily mean
+        that nobody else is there. Conversely, a station that never sends a
+        single message might just as well not exist<Marginale>
           Especially if all observable side-effects of the programming language
           must be triggered by sending messages that are handled by system
           stations. TODO notes on randomness-as-a-system-service and symmetry
@@ -306,8 +296,10 @@ export const broadcast_based_programming = {
         </Marginale>.
       </P>
 
+      <Hr />
+
       <P>
-        To recapitulate, a (global-) broadcast-based programming language needs:
+        To recapitulate, a BBP language needs:
       </P>
 
       <Ul>
@@ -316,27 +308,21 @@ export const broadcast_based_programming = {
           A language for defining the behaviour of a station, i.e., for defining
           which messages it sends in response to receiving messages.
         </Li>
-        <Li>A statementoperator for creating new stations.</Li>
+        <Li>A statement for creating new stations.</Li>
         <Li>
           If encapsulation is desired: an operator for minting new frequency
           bands.
         </Li>
         <Li>
-          A definition of which scheduling and delivery orders are allowed to
-          happen.
+          A definition of causality guarantees, speciying which station
+          scheduling and message orders are allowed to happen, and how they
+          interact with station creation and removal.
         </Li>
       </Ul>
 
       <P>
-        The biggest downsides of this model compared to object-oriented
-        programming are nondeterministic execution and the need for buffering.
-        The upside that stations are significantly more loosely coupled than
-        objects are.
-      </P>
-
-      <P>
-        A final note for the theory nerds: it seems fairly straightforward to
-        port some process calculi in the style Milner et al. to the
+        Some final notes for the theory nerds: it seems fairly straightforward
+        to port some process calculi in the style Milner et al. to the
         broadcast-based world. You could use the same syntax as the{" "}
         <A href="https://en.wikipedia.org/wiki/Calculus_of_communicating_systems">
           calculus of communicating systems
@@ -362,6 +348,8 @@ export const broadcast_based_programming = {
         operator (assuming a spawn operator that supports recursion,
         alternatively an additional replication operator should do the trick).
       </P>
+
+      ---
 
       <P>
         Another aspect to consider is that of congestion or interference. For
