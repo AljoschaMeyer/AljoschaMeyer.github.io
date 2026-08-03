@@ -2,41 +2,34 @@ import { A, Code, Dfn, Em, H2, H3, Hr, I, Li, P, Ul } from "macromania-html";
 import { Marginale, Sidenote } from "macromania-marginalia";
 import { Quotes } from "../macros.tsx";
 
-export const broadcast_only_programming = {
-  n: "broadcast_only_programming",
-  htmlTitle: "Broadcast-Only Programming",
-  title: "Broadcast-Only Programming",
+export const broadcast_based_programming = {
+  n: "broadcast_based_programming",
+  htmlTitle: "Broadcast-Based Programming",
+  title: "Broadcast-Based Programming",
   date: new Date("2026-07-20"),
   summary: `Sketching a new programming language paradigm.`,
-  rssLink: `https://aljoscha-meyer.de/posts/broadcast_only_programming/`,
+  rssLink: `https://aljoscha-meyer.de/posts/broadcast_based_programming/`,
   children: (
     <>
       <P>
-        In this post, I try to sketch a new programming paradigm. The premise is
-        simple: if the communication primitive of <Em>message-passing</Em>{" "}
+        In this post, I try to explore a new programming paradigm. The premise
+        is simple: if the communication primitive of <Em>message-passing</Em>
+        {" "}
         leads to object-oriented programming, then what programming paradigm
-        does the communication primitive of <Em>broadcast</Em> lead to?
+        does the communication primitive of <Em>broadcast</Em>{" "}
+        lead to? My explorations lead to some hopythetical relatives of
+        Smalltalk and Erlang, as well as to an interesting take on Spatial
+        Programming.
       </P>
 
       <P>
-        I do not have a fully fledged-out answer, but I have some ideas. I want
-        to stress in advance that this is a flight of fancy, <Em>not</Em>{" "}
-        an exercise in engineering. There is no clear conclusion waiting for you
-        at the end. And while I do believe there can be value in exploring this
-        design space, I am not constraining myself by practicality or usefulness
-        in this post. Curiosity for curiosity's sake is where it's at.
+        This post is exploratory more than actually useful. Whether
+        broadcast-based programming languages would actually be a good idea I
+        doubt somewhat. But I learnt a bunch of stuff by exploring this space,
+        and you might as well.
       </P>
 
-      <H2>Background</H2>
-
-      <P>
-        This post requires some rather non-standard background knowledge — both
-        to see the value in the central premise, and to serve as points of
-        comparison. I will attempt to briefly sketch out my main points of
-        references.
-      </P>
-
-      <H3>Networking</H3>
+      <H2>Broadcast Communication</H2>
 
       <P>
         While this post is mostly about programming languages, I will start out
@@ -87,72 +80,131 @@ export const broadcast_only_programming = {
       </P>
 
       <P>
-        I do no need you, the reader, to fully subscribe to this view. In fact,
-        {" "}
-        <Em>I</Em>{" "}
-        do not completely subscribe to it either. But at the very least, I
-        consider it to be <Em>interesting</Em>{" "}
-        enough to warrant further exploration.
+        Whether this is actually a good idea I cannot answer conclusively. But
+        it makes for an interesting starting point for designing programming
+        languages.
       </P>
 
-      <H3>Programming Paradigms</H3>
+      <H2>Broadcast-Based Programming</H2>
 
       <P>
-        Bla
+        To approach our hypothetical programming language paradigm of
+        boradcast-based programming (BBP), I will start with a recap of how
+        message passing leads to object-oriented programming (OOP).
       </P>
 
       <P>
         The paradigm of object-oriented programming is structured around message
         passing. Objects encapsulate state, but this state is not accessible to
-        other objects. Instead, objects call methods on other objects,i.e., they
-        pass messages to each other. Programs are structured around this
-        fundamental mechanism. The underlying metaphor that inspired this
-        approach to programming is that of cells in an organism: each has a
-        complex, stateful interior, but communication to other cells is strictly
-        mediated through a protective membrane.
+        other objects. Instead, objects call methods on other objects, i.e.,
+        they pass messages to each other. Method calls are synchronous and
+        point-to-point: on a method call, the single caller suspends its
+        execution and resumes once the single callee returned its result.
       </P>
 
       <P>
-        For broadcast-based programming, an underlying metaphor could be that of
-        birds interacting in a forest. Each is its own, stateful organism, each
-        can broadcast signals to all other birds, and each can hear and react to
-        the signals sent by the others. In programming terms, this metaphor is
-        fairly close to the actor model, with the big difference that messages
-        are not sent to specific recipients but simply broadcast.
-      </P>
-
-      <P>
-        I will call the stateful processes that make up a broadcast-based
-        program{" "}
-        <Dfn>stations</Dfn>. Every station can broadcast messages, and it can
+        For broadcast-based programming, we also need state-encapsulating
+        entities that do the broadcasting; to avoid ambiguity I will call these
+        entities <Dfn>stations</Dfn> (rather than <I>objects</I> or{" "}
+        <I>processes</I>). Every station can broadcast messages, and it can
         react to messages. Similar to how an object is defined by specifying a
         set of methods, a station is defined by specifying how it reacts to the
-        messages it receives.
+        messages it receives. <Em>All</Em>{" "}
+        program code lives in message handlers.
       </P>
 
       <P>
-        Message broadcasts can be designed in several ways. In the most basic
-        formulation, the operator for sending messages takes no arguments but
-        the message to send, and the definitions of message handlers receive no
-        arguments but the message.<Marginale>
-          Whether there is static typing, a notion of interfaces, etc, is an
-          orthogonal issue I will mostly ignore.
-        </Marginale>{" "}
-        One fairly obvious addition would be to introduce a notion of{" "}
-        <Quotes>frequency bands</Quotes>. Sending a message would require
-        specifying both the message and the frequency band on which to send it,
-        and then message handlers would be defined on a per-frequency-band
-        basis.
+        Unlike method calls, broadcasts do not have a dedicated receiver. A
+        station simply sends its message, and{" "}
+        <Sidenote
+          note={
+            <>
+              This corresponds to truly <Em>global</Em>{" "}
+              broadcast; I will discuss mechanisms corresponding to local
+              broadcast later.
+            </>
+          }
+        >
+          all
+        </Sidenote>{" "}
+        other stations can react to it. Consequently, broadcasting is an{" "}
+        <Em>asynchronous</Em>{" "}
+        operation: broadcasting a message does not suspend the station, it will
+        simply continue executing its current code (i.e., message handler).
       </P>
 
       <P>
-        This mechanism would immediately yield a neat mechanism for composition
-        and encapsulation: one of the primitives of such a language would be an
-        operator for obtaining a fresh, unique frequency band unknown to any
-        other station (fully analogous to symbols in Lisps). By communicating
-        that frequency band to another station, the two stations can then
-        communicate without leaking any information to the remainder of the
-        program.
+        In OOP, methods calls result in a call stack at runtime. For BBP, the
+        resulting runtime data structure is less obvious. Because there can be
+        many stations reacting to the same broadcast, all their message handlers
+        should be enqueued (FIFO). Execution of the code that issued the
+        broadcast could either resume immediately, or it could be suspended and
+        enqueued after all receivers — either works.
+      </P>
+
+      <P>
+        Note that this introduces a nondeterminism that is not inherent to
+        (single-threaded) OOP: the order in which message handlers are enqueued
+        is essentially arbitrary. Language semantics could either mandate a
+        specific ordering, or they could simply leave the ordering as an
+        implementation-specific detail. The latter choice essentially makes
+        message handlers concurrent, and this could be expanded upon by allowing
+        the runtime to parallelise execution of message handlers. This leads to
+        a model closer to Erlang than Smalltalk: stations run on their own
+        logical threads, which might be interleaved or even executed in parallel
+        on actual hardware.
+      </P>
+
+      <P>
+        Enqueing message handlers results in certain causality guarantees: if
+        station <Code>A</Code> sends a message <Code>m1</Code>, and station{" "}
+        <Code>B</Code> reacts to it by sending a message{" "}
+        <Code>m2</Code>, than a third station will handle <Code>m1</Code>{" "}
+        before it handles{" "}
+        <Code>m2</Code>. In principle, instead of mandating a particular
+        queueing mechanism, we could instead define the admissable behaviour of
+        the runtime as a set of <Em>causality constraints</Em>{" "}
+        on the order in which message handlers are run. The more restrictive the
+        causality constraints are, the more predictable the programming model
+        becomes, but the less freedom the runtime has for optimisation.
+      </P>
+
+      <P>
+        Some sensible causality constraints beyond the one sketched in the
+        previous paragraph include that a message handler cannot be run before
+        the message has been sent, and that if a single station sends two
+        messages sequentially, then all handlers must run in the same order.
+      </P>
+
+      <P>
+        These constraints seem sensible to me, but I have no formal reason to
+        know whether they alone would suffice for a good programming model or
+        whether more constraints would be necessary. An implementation based on
+        enqueueing handlers statisfies all three criteria, but I don't know
+        whether there are <Em>better</Em>{" "}
+        implementations that also satisfy them. In any case, for all three
+        constraints I can imagine compiler optimisations that would love to
+        break them, so it would be interesting to have compilers that seek to
+        prove that breaking a constraint does not change the program semantics,
+        in order to do an advanced optimisation.
+      </P>
+
+      <P>
+        A strong suite of OOP is encapsulation, and BBP as described so far is
+        lacking in that regard: all broadcasts are global, thus every part of a
+        program can react to every other part of a program. A nice way of
+        introducing encapsulation is through a notion of{" "}
+        <Dfn>frequency bands</Dfn>. Sending a message would require specifying
+        both the message and the frequency band on which to send it, and then
+        message handlers would be defined on a per-frequency-band basis.
+      </P>
+
+      <P>
+        One of the primitives of such a BBP language would be an operator for
+        obtaining a fresh, unique frequency band unknown to any other station
+        (fully analogous to symbols in Lisps). After communicating that
+        frequency band to another station, the two stations can then communicate
+        without leaking any information to the remainder of the program.
       </P>
 
       <P>
@@ -163,27 +215,17 @@ export const broadcast_only_programming = {
         global broadcast, establishing a secret between two stations is going to
         be difficult. In the real world, we have key-agreement protocols to work
         around this issue. In a programming language, there should probably be
-        an easier way to solve this.
+        an easier way to solve this. I have a neat proposal, but it requires
+        looking at a different topic first: the lifecycle of stations.
       </P>
 
       <P>
-        One obvious solution is to introduce a notion of space and distances,
-        and allow the sending of local broadcasts that only extend to a certain
-        distance. I will return to this idea in a later section, but for now I
-        want to explore the pure, global-broadcast-only model for a bit. There
-        is an elegant solution in that model as well, but it requires looking at
-        a different topic: the lifecycle of stations.
-      </P>
-
-      <P>
-        Defining a station (or an object in OO-programming) is easy, you simply
-        define how it reacts to messages. But to get a running program, you also
-        need to <Em>create</Em> stations.<Marginale>
+        <Em>Defining</Em>{" "}
+        a station is easy, you simply define how it reacts to messages. But to
+        get a running program, you also need to <Em>create</Em>{" "}
+        stations.<Marginale>
           <Em>Removing</Em>{" "}
-          stations again is also necessary for a real programming language, but
-          I consider this an optimisation detail that is mostly orthogonal to
-          everything else I'm exploring here. Any of garbage collection, manual
-          deallocation, or RAII works.
+          stations again is also necessary for a real programming language.
         </Marginale>{" "}
         The obvious solution is to allow each station to create new stations.
         And similar to the constructors of object-oriented programming, it seems
@@ -195,97 +237,37 @@ export const broadcast_only_programming = {
       </P>
 
       <P>
+        Note that there are some interesting questions around causality
+        constraints regarding the interaction of message sending and station
+        creation (and removal): if a station <Code>S1</Code>{" "}
+        first sends a message <Code>m</Code> and then creates a new station{" "}
+        <Code>S2</Code>, then <Code>S2</Code> probably should not react to{" "}
+        <Code>m</Code>. Similarly, there can be constraints for cross-station
+        interaction, and constraints for how station removal must ensure that
+        certain future messages will not be handled by the removed station. And
+        as usual, logically concurrent broadcasts and station lifecycle events
+        should all for nondeterministic semantics.
+      </P>
+
+      <P>
+        On the implementation side, simply enqueing station creation and removal
+        in the same queues as message handlers (or message broadcasts) seems to
+        satisfy most sensible causality constraints I can come up with. This
+        might require suspending the current handler and enqueing its resumption
+        after enqueing a station creation or deletion though — I haven't fully
+        worked out the details here (and doing so would require developing a
+        proper set of causality constraints first).
+      </P>
+
+      ---
+
+      <P>
         Another variant of the broadcast operator is whether the receiver should
         be aware of the identity of the sender. The answer, I think, is a fairly
         clear{" "}
         <Em>no</Em>. In object-oriented programming, an object has no idea who
         called its methods, and this is important to make programs flexible and
         maintainable. The same applies to broadcast-based programming.
-      </P>
-
-      <P>
-        The next detail of the language semantics to consider is that of
-        concurrency and scheduling. in the idealised mental model, all stations
-        operate in parallel. To which degree can and should a programming
-        language approximate this? In the OO world, there are different answers.
-        (Single-threaded) smalltalk diverges from the metaphor of concurrent
-        cells and simply follows a single control flow. When a method is called,
-        time stops from the perspective of the caller, and time starts for the
-        callee. This makes for a fully deterministic language semantics.
-        Contrast this with Erlang, where processes (which are essentially
-        objects) all execute concurrently and scheduling is non-deterministic.
-      </P>
-
-      <P>
-        For broadcast-based programming, it is more difficult to emulate the
-        deterministic-yet-not-arbitrary execution semantics of Smalltalk for
-        several reasons. When a station sends a message, there could be any
-        number of stations that have a handler for that message. Which of these
-        to execute is an arbitrary choice. Further, there is no notion of return
-        values, so it makes no sense to freeze time (i.e., pause execution) of
-        the sending station. Broadcasting is a fundamentally asynchronous
-        operation.<Marginale>
-          A related observation: OO is essentially pull-based, whereas
-          broadcast-based programming is push-based.
-        </Marginale>
-      </P>
-
-      <P>
-        For these reasons, a broadcast-based programming language faces the
-        choice of either establishing deterministic semantics via completely
-        arbitrary criteria or of embracing non-deterministic execution order.
-        The latter might seem scary, but it has the big upside of allowing for
-        actual parallel execution of several stations on parallel (or
-        distributed) hardware.
-      </P>
-
-      <P>
-        The final big question regarding the semantics of our hypothetical
-        language(s) is that of{" "}
-        <Em>causality</Em>. Which guarantees should the language make about the
-        order in which messages are sent or received? A first guarantee is that
-        a language should not be received by any station before it has
-        been<Marginale>
-          This might sound obvious, but I can easily imagine compiler
-          optimisations that would love to break this rule (and I can easily
-          imagine compilers that aim to prove that they can get away with
-          violating this rule without chaning any observable program semantics)
-        </Marginale>{" "}
-        sent. Beyond this rule, there are several decisions that are less
-        clear-cut.
-      </P>
-
-      <P>
-        If a station <Code>S</Code> sends a message <Code>M1</Code>{" "}
-        followed by another message{" "}
-        <Code>M2</Code>, should all other stations be guaranteed to receive{" "}
-        <Code>M1</Code> before{" "}
-        <Code>M2</Code>? Adding this guarantee (and any other guarantee in this
-        area) will make programming easier (and possibly more expressive) but
-        (distributed) implementation of the language more difficult.
-      </P>
-
-      <P>
-        <Marginale>
-          Aside from the obvious relation to causal broadcast, I've also found
-          it interesting to ponder the relation to Christian's concept of the
-          {" "}
-          <I>novelty frontier</I>. The novelty frontier between two stations,
-          roughly speaking, consists of the information that is known to one but
-          not the other. Can the causality guarnatees be expressed in terms of
-          novelty frontiers? Does the pairwise notion of novelty frontiers
-          suffice, or is a more global concept necessary?
-        </Marginale>
-        A related but more complicated class of guarantees stems from questions
-        involving more than two stations. If station <Code>S1</Code>{" "}
-        sends a message <Code>M1</Code>, and <Code>S2</Code>{" "}
-        receives it and in its message handler sends a message{" "}
-        <Code>M2</Code>, is any third station <Code>S3</Code> allowed to receive
-        {" "}
-        <Code>M2</Code> before <Code>M1</Code>? What if <Code>M2</Code>{" "}
-        is the result of applying a function to <Code>M1</Code>? What if{" "}
-        <Code>M1</Code> contains a fresh frequency band and <Code>M2</Code>{" "}
-        contains that same frequency band?
       </P>
 
       <P>
@@ -300,44 +282,6 @@ export const broadcast_only_programming = {
         numbers, buffering, and retransmissions. Just like TCP adds ordered
         delivery to IP, it should be possible to implement more causal broadcast
         variants on top of weak ordering guarantees.
-      </P>
-
-      <P>
-        TODO interaction with station creation and removal semantics/timing
-      </P>
-
-      <P>
-        Speaking of buffering: our programming model has not explicitly featured
-        buffering so far. In the Smalltalk world, there is no need for message
-        buffering at all, because of the linear deterministic control flow. In
-        our model, buffering does become a necessity: if we simulate multiple
-        stations on a single processor, we need to maintain a queue of message
-        handlers to execute. And even in a parallel implementation with a single
-        process per station, messages might arrive faster than they can be
-        processed. This necessitates buffering and/or dropping. That is a
-        fundamental difference to OO: method calls in traditional OO are
-        infallible, but I do not think there is an infallible broadcast receival
-        mechanism that works<Marginale>
-          Whether this is a fatal flaw or an upside that enables transparent
-          parallelisation and distribution is a matter of perspective.
-        </Marginale>{" "}
-        for all possible programs on finite hardware<Marginale>
-          To be fair, OO also pretends that call stacks can grow arbitrarily.
-        </Marginale>.
-      </P>
-
-      <P>
-        Another aspect to consider is that of congestion or interference. For
-        every physical broadcast medium, there is a limit on how many messages
-        can be transmitted simultaneously while still being receivable. This is
-        another aspect that introduces fallability. In a simulated,
-        single-machine implementation, this issue could be subsumed as an issue
-        of buffering: the physical limit of the simulated transfer medium is the
-        available space for buffering messages before their delivery. But there
-        might be upsides to reporting such congestion in a different way to
-        programmers: the correct ways for a station to adjust its behaviour in
-        the face of congestion versus when running out of local message buffer
-        space are completely different after all.
       </P>
 
       <P>
@@ -411,12 +355,26 @@ export const broadcast_only_programming = {
           take the view that in a handshake-based calculus the only way to
           observe a system is by interacting with it.
         </Marginale>{" "}
-        And I expect such systems to demonstrate that <Em>techincally</Em>{" "}
+        And I expect such systems to demonstrate that <Em>technically</Em>{" "}
         you do not need a dedicated language for specifying message handlers,
         you can probably do it with the minimal set of operators (send message,
         obtain fresh frequency band, spawn station) together with a conditional
         operator (assuming a spawn operator that supports recursion,
         alternatively an additional replication operator should do the trick).
+      </P>
+
+      <P>
+        Another aspect to consider is that of congestion or interference. For
+        every physical broadcast medium, there is a limit on how many messages
+        can be transmitted simultaneously while still being receivable. This is
+        another aspect that introduces fallability. In a simulated,
+        single-machine implementation, this issue could be subsumed as an issue
+        of buffering: the physical limit of the simulated transfer medium is the
+        available space for buffering messages before their delivery. But there
+        might be upsides to reporting such congestion in a different way to
+        programmers: the correct ways for a station to adjust its behaviour in
+        the face of congestion versus when running out of local message buffer
+        space are completely different after all.
       </P>
     </>
   ),
