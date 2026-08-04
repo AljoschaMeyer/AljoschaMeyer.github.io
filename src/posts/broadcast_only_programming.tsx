@@ -9,21 +9,28 @@ export const broadcast_based_programming = {
   date: new Date("2026-07-20"),
   summary: `Sketching a new programming language paradigm.`,
   rssLink: `https://aljoscha-meyer.de/posts/broadcast_based_programming/`,
+  isDraft: true,
   children: (
     <>
       <P>
-        In this post, I try to explore a new programming paradigm. The premise
-        is simple: if the communication primitive of <Em>message-passing</Em>
+        In this post, I sketch out a new programming paradigm. The premise is
+        simple: if the communication primitive of <Em>message-passing</Em>{" "}
+        leads to{" "}
+        <A href="https://en.wikipedia.org/wiki/Object-oriented_programming">
+          object-oriented programming
+        </A>, then what programming paradigm does the communication primitive of
         {" "}
-        leads to object-oriented programming, then what programming paradigm
-        does the communication primitive of <Em>broadcast</Em>{" "}
-        lead to? My explorations lead to some hopythetical relatives of
-        Smalltalk and Erlang, as well as to an interesting take on Spatial
-        Programming.
+        <Em>broadcast</Em>{" "}
+        lead to? The explorations lead to some hypothetical relatives of
+        <A href="https://en.wikipedia.org/wiki/Smalltalk">Smalltalk</A> and{" "}
+        <A href="https://en.wikipedia.org/wiki/Erlang_(programming_language)">
+          Erlang
+        </A>, and to a (hopefully) interesting take on{" "}
+        <A href="https://www.cs.unm.edu/~ackley/#rh-is">Spatial Programming</A>.
       </P>
 
       <P>
-        This post is exploratory more than actually useful. Whether
+        This text is exploratory more than actually useful. Whether
         broadcast-based programming languages would actually be a good idea I
         doubt somewhat. But I learnt a bunch of stuff by exploring this space,
         and you might as well.
@@ -32,7 +39,7 @@ export const broadcast_based_programming = {
       <H2>Broadcast Communication</H2>
 
       <P>
-        While this post is mostly about programming languages, I will start out
+        While I will write mostly about programming languages, I will start out
         in the domain that inspired these ideas: computer networking.
       </P>
 
@@ -88,7 +95,7 @@ export const broadcast_based_programming = {
       <H2>Broadcast-Based Programming</H2>
 
       <P>
-        To approach our hypothetical programming language paradigm of
+        To approach the hypothetical programming language paradigm of
         boradcast-based programming (BBP), I will start with a recap of how
         message passing leads to object-oriented programming (OOP).
       </P>
@@ -99,7 +106,7 @@ export const broadcast_based_programming = {
         other objects. Instead, objects call methods on other objects, i.e.,
         they pass messages to each other. Method calls are synchronous and
         point-to-point: on a method call, the single caller suspends its
-        execution and resumes once the single callee returned its result.
+        execution and resumes once the single callee returns its result.
       </P>
 
       <P>
@@ -135,11 +142,11 @@ export const broadcast_based_programming = {
 
       <P>
         In OOP, methods calls result in a call stack at runtime. For BBP, the
-        resulting runtime data structure is less obvious. Because there can be
-        many stations reacting to the same broadcast, all their message handlers
-        should be enqueued (FIFO). Execution of the code that issued the
-        broadcast could either resume immediately, or it could be suspended and
-        enqueued after all receivers — either works.
+        resulting runtime data structure is more interesting. Because there can
+        be many stations reacting to the same broadcast, all their message
+        handlers should be enqueued (FIFO). Execution of the code that issued
+        the broadcast could either resume immediately, or it could be suspended
+        and enqueued after all receivers — either works.
       </P>
 
       <P>
@@ -151,8 +158,8 @@ export const broadcast_based_programming = {
         message handlers concurrent, and this could be expanded upon by allowing
         the runtime to parallelise execution of message handlers. This leads to
         a model closer to Erlang than Smalltalk: stations run on their own
-        logical threads, which might be interleaved or even executed in parallel
-        on actual hardware.
+        logical threads, which might be interleaved or even executed in
+        parallel.
       </P>
 
       <P>
@@ -192,7 +199,7 @@ export const broadcast_based_programming = {
       <P>
         Note that there are good arguments for <Em>not</Em>{" "}
         guaranteeing strong causal constraints: a truly distributed
-        implementation of a BBP langauge becomes much easier with weaker
+        implementation of a BBP language becomes much easier with weaker
         guarantees, and programs can still recreate stronger guarantees if they
         require them. Just like TCP adds ordered delivery to IP by means of
         sequence numbers, buffering, and retransmissions, it should be possible
@@ -341,7 +348,8 @@ export const broadcast_based_programming = {
           take the view that in a handshake-based calculus the only way to
           observe a system is by interacting with it.
         </Marginale>{" "}
-        And I expect such systems to demonstrate that <Em>technically</Em>{" "}
+        And I expect such formalisms to demonstrate that <Em>technically</Em>
+        {" "}
         you do not need a dedicated language for specifying message handlers,
         you can probably do it with the minimal set of operators (send message,
         obtain fresh frequency band, spawn station) together with a conditional
@@ -349,41 +357,135 @@ export const broadcast_based_programming = {
         alternatively an additional replication operator should do the trick).
       </P>
 
-      ---
+      <H2>Space and Distribution</H2>
 
       <P>
-        Another aspect to consider is that of congestion or interference. For
-        every physical broadcast medium, there is a limit on how many messages
-        can be transmitted simultaneously while still being receivable. This is
-        another aspect that introduces fallability. In a simulated,
-        single-machine implementation, this issue could be subsumed as an issue
-        of buffering: the physical limit of the simulated transfer medium is the
-        available space for buffering messages before their delivery. But there
-        might be upsides to reporting such congestion in a different way to
-        programmers: the correct ways for a station to adjust its behaviour in
-        the face of congestion versus when running out of local message buffer
-        space are completely different after all.
+        The BBP model as described so far implements <Em>global</Em>{" "}
+        broadcast.<Marginale>
+          Fair warning: things get significantly more wacky from here on.
+        </Marginale>{" "}
+        It is also worthwhile to explore variants based on local broadcasts, in
+        order to allow for scalable distributed implementations.
+      </P>
+
+      <P>
+        In what follows I will refer extensively to{" "}
+        <A href="https://www.cs.unm.edu/~ackley/papers/hotos-11.pdf">
+          David Ackley's vision of infinitely scalable computing
+        </A>, you should read that paper if you haven't (and perhaps watch{" "}
+        <A href="https://www.youtube.com/watch?v=eQgxFuw8f1U">
+          Lu Wilson's spatial programming presentation
+        </A>{" "}
+        for a more concrete introduction). My basic premise is that broadcasting
+        computational atoms would make for an alternate primitive of a
+        living-ish computer.
+      </P>
+
+      <P>
+        My central consideration is that the Movable Feast Machine (MFM) is
+        premised on an unrealistic model:<Marginale>
+          I am exaggerating in this paragraph, you can fairly easily defend the
+          MFM model against this criticism. But the conceptual argument I make
+          is sound, I believe.
+        </Marginale>{" "}
+        having the computational atoms <Quotes>sense</Quotes>{" "}
+        the environment in a fixed-size event window goes against physics. An
+        entity cannot teleport information from outside to itself. Broadcast is
+        the more realistic model: every computational atom is responsible for
+        sending out information, and the receival of information is a purely
+        local information (occuring when the broadcast has physically reached
+        the receiver).
+      </P>
+
+      <P>
+        A broadcast-based spatial programming (BBSP) approach has a couple of
+        neat properties. For one, it admits heterogenous computational atoms of
+        vastly differing scales. Stations could involve a conventional CPU and
+        powerful transmitters and receivers, or they could be low-level,
+        low-state hardware components that perform meaningful computations only
+        in tandem with other stations (and whose state must be interpreted in
+        tandem with that of other stations to become meaningful). Additionally,
+        stations could be mobile (i.e., move through space) without requiring
+        any tweaks to the system as a whole.
+      </P>
+
+      <P>
+        Instead of a fixed-size window for sensing, stations could decide for
+        themselves how far they send their messages. In fact, a single station
+        could choose to broadcast at different ranges (strengths). There are
+        physical tradeoffs: low-range communication can enjoy high bitrates,
+        whereas long-range communication needs a lower bitrate. The thought of
+        having a steady stream of low-bitrate communication at the speed of
+        light over great distances while also having high-bitrate local
+        broadcasts feels a lot more appealing to me than a fixed local event
+        window size.
+      </P>
+
+      <P>
+        Additionally, the system design has no theoretical limit on the spatial
+        densitity of the computational atoms. Some areas might have relatively
+        few stations (say, in between the earth and the moon), others might pack
+        them very densely (say, in a BBSP-based microprocessor). Whereas Lu
+        Wilson's notion of recursive spatial programming mostly makes sense when
+        thinking about a virtual machine, a higher density of stations makes
+        intuitive sense in the real world, and does not require any changes to
+        the computational model at all (similar to how mobility also just
+        works).
+      </P>
+
+      <P>
+        If the goal is to make BBSP applicable to the real world rather than for
+        a virtual machine model, there are several additional facets to
+        consider:
+      </P>
+
+      <Ul>
+        <Li>
+          Interference: broadcast too much information in the same space at the
+          same time and signals cannot be decoded any more. This requires
+          cooperative congestion control to tackle. Is it possible to handle
+          this transparently, or should this source of problems be exposed to
+          programmers?
+        </Li>
+        <Li>
+          Overload: a station might receive messages more quickly than it can
+          process them. This can be partially solved through buffering, but
+          eventually buffer space might be exhausted (or buffering messages for
+          a long time might make their processing pointless), so at some point
+          messages would have to be dropped. Or alternatively, there could be
+          system-wide (well, or at least locally-agreed-upon) limits on how much
+          information to broadcast.
+        </Li>
+        <Li>
+          Latency: broadcasts require a nonzero amount of time to reach other
+          stations. Depending on scale, this delay might become nonnegligable.
+        </Li>
+      </Ul>
+
+      <P>
+        Finally, BBSP is a setting in which the strong causality guarantees of
+        BBP cannot be upheld. While some basic properties of causality still
+        hold (a message cannot arrive before it was sent), other tempting
+        assumptions are not self-evident. In particular, the computational moedl
+        should <Em>not</Em>{" "}
+        assume that the space in which the stations are distributed is a{" "}
+        <A href="https://en.wikipedia.org/wiki/Metric_space">metric space</A>
+        {" "}
+        with respect to message propagation times. Even message reordering
+        should probably be allowed.<Marginale>
+          And by <Quotes>be allowed</Quotes>{" "}
+          I mean that programs should be robust against it. Because reorderings
+          {" "}
+          <Em>will</Em>{" "}
+          happen somewhere eventually, whether the theoretical design allows
+          them or not.
+        </Marginale>
       </P>
     </>
   ),
 };
 
 /*
-
-constant vs occasional broadcast (compare the immutable data of FP)
-- append-only logs? reducibility between global broadcast and globally-accessible append-only logs?
-
-local-simulated-synchronous-infallible-deterministic vs global-physical-asynchronous-fallible-concurrent
-
-space and range (global braodacst doesn't need space), guarantees?
-spatial programming (but without the 2d visiual programming language)
-latency (speed of light as fundamental limit)
-re-ordering of messages
-mobility
-causality in spatial programming
-identity of stations?
-sensing vs receiving (compare spatial computing locality)
-sender determines how far the signal travels (contrast with spatial programming, where a "receiver" decides how much of its environment it actively senses)
 
 
 
