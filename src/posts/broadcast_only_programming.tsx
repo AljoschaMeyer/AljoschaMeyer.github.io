@@ -1,4 +1,17 @@
-import { A, Code, Dfn, Em, H2, H3, Hr, I, Li, P, Ul } from "macromania-html";
+import {
+  A,
+  Br,
+  Code,
+  Dfn,
+  Em,
+  H2,
+  H3,
+  Hr,
+  I,
+  Li,
+  P,
+  Ul,
+} from "macromania-html";
 import { Marginale, Sidenote } from "macromania-marginalia";
 import { Quotes } from "../macros.tsx";
 
@@ -9,7 +22,7 @@ export const broadcast_based_programming = {
   date: new Date("2026-07-20"),
   summary: `Sketching a new programming language paradigm.`,
   rssLink: `https://aljoscha-meyer.de/posts/broadcast_based_programming/`,
-  isDraft: true,
+  draft: true,
   children: (
     <>
       <P>
@@ -21,7 +34,7 @@ export const broadcast_based_programming = {
         </A>, then what programming paradigm does the communication primitive of
         {" "}
         <Em>broadcast</Em>{" "}
-        lead to? The explorations lead to some hypothetical relatives of
+        lead to? The explorations lead to some hypothetical relatives of{" "}
         <A href="https://en.wikipedia.org/wiki/Smalltalk">Smalltalk</A> and{" "}
         <A href="https://en.wikipedia.org/wiki/Erlang_(programming_language)">
           Erlang
@@ -45,17 +58,27 @@ export const broadcast_based_programming = {
 
       <P>
         The predominant networking model for most developers is given by the
-        internet: point-to-point communication. An IP packet has a single sender
-        and a single receiver. UDP and TCP are about pairs of computers
-        exchanging messages.
+        internet: point-to-point communication. An{" "}
+        <A href="https://en.wikipedia.org/wiki/Internet_Protocol">IP</A>{" "}
+        packet has a single sender and a single receiver.{" "}
+        <A href="https://en.wikipedia.org/wiki/User_Datagram_Protocol">UDP</A>
+        {" "}
+        and{" "}
+        <A href="https://en.wikipedia.org/wiki/Transmission_Control_Protocol">
+          TCP
+        </A>{" "}
+        are about pairs of computers exchanging messages.
       </P>
 
       <P>
         On a lower level, many modes of communication do <Em>not</Em>{" "}
-        have single receivers, instead they are broadcast model. Classic
-        ethernet has each computer send data to all connected machines
-        simultaneously. Radio, LoRa, and other wireless technologies are very
-        much broadcast-based. As is human speach or writing, for that matter.
+        have single receivers, instead they are broadcast model. Classic{" "}
+        <A href="https://en.wikipedia.org/wiki/Ethernet">Ethernet</A>{" "}
+        has each computer send data to all connected machines simultaneously.
+        Radio,{" "}
+        <A href="https://en.wikipedia.org/wiki/LoRa">LoRa</A>, and other
+        wireless technologies are very much broadcast-based. As is human speach
+        or writing, for that matter.
       </P>
 
       <P>
@@ -69,11 +92,12 @@ export const broadcast_based_programming = {
           I am probably misrepresenting this or botching it up; my sincere
           apologies to you Christian.
         </Marginale>{" "}
-        Because it cannot be achieved in practice, we use other communication
-        forms as an approximation: local broadcast, repeaters, pub-sub,
-        flooding, point-to-point cables, etc. All of these can be interpreted as
-        weakenings of the global broadcast idea; by weakening the primitive it
-        becomes more feasible to implement in the real world.
+        Because true global broadcast cannot be achieved in practice, we use
+        other forms of communication as approximations: local broadcast,
+        repeaters, pub-sub, flooding, point-to-point cables, etc. All of these
+        can be interpreted as weakenings of the global broadcast idea; by
+        weakening the primitive it becomes more feasible to implement in the
+        real world.
       </P>
 
       <P>
@@ -141,7 +165,7 @@ export const broadcast_based_programming = {
       </P>
 
       <P>
-        In OOP, methods calls result in a call stack at runtime. For BBP, the
+        In OOP, method calls result in a call stack at runtime. For BBP, the
         resulting runtime data structure is more interesting. Because there can
         be many stations reacting to the same broadcast, all their message
         handlers should be enqueued (FIFO). Execution of the code that issued
@@ -157,16 +181,28 @@ export const broadcast_based_programming = {
         implementation-specific detail. The latter choice essentially makes
         message handlers concurrent, and this could be expanded upon by allowing
         the runtime to parallelise execution of message handlers. This leads to
-        a model closer to Erlang than Smalltalk: stations run on their own
-        logical threads, which might be interleaved or even executed in
-        parallel.
+        a model closer to{" "}
+        <Sidenote
+          note={
+            <>
+              Note also the similarities with the{" "}
+              <A href="https://en.wikipedia.org/wiki/Actor_model">
+                actor model
+              </A>.
+            </>
+          }
+        >
+          Erlang
+        </Sidenote>{" "}
+        than Smalltalk: stations run on their own logical threads, which might
+        be interleaved or even executed in parallel.
       </P>
 
       <P>
         Enqueing message handlers results in certain causality guarantees: if
         station <Code>A</Code> sends a message <Code>m1</Code>, and station{" "}
         <Code>B</Code> reacts to it by sending a message{" "}
-        <Code>m2</Code>, than a third station will handle <Code>m1</Code>{" "}
+        <Code>m2</Code>, then a third station will handle <Code>m1</Code>{" "}
         before it handles{" "}
         <Code>m2</Code>. In principle, instead of mandating a particular
         queueing mechanism, we could instead define the admissable behaviour of
@@ -187,7 +223,7 @@ export const broadcast_based_programming = {
         These constraints seem sensible to me, but I have no formal reason to
         know whether they alone would suffice for a good programming model or
         whether more constraints would be necessary. An implementation based on
-        enqueueing handlers statisfies all three criteria, but I don't know
+        enqueueing handlers statisfies all three criteria, but I don’t know
         whether there are <Em>better</Em>{" "}
         implementations that also satisfy them. In any case, for all three
         constraints I can imagine compiler optimisations that would love to
@@ -235,8 +271,8 @@ export const broadcast_based_programming = {
         global broadcast, establishing a secret between two stations is going to
         be difficult. In the real world, we have key-agreement protocols to work
         around this issue. In a programming language, there should probably be
-        an easier way to solve this. I have a neat proposal, but it requires
-        looking at a different topic first: the lifecycle of stations.
+        an easier way to solve this. I have a proposal, but it requires looking
+        at a different topic first: the lifecycle of stations.
       </P>
 
       <P>
@@ -274,7 +310,7 @@ export const broadcast_based_programming = {
         in the same queues as message handlers (or message broadcasts) seems to
         satisfy most sensible causality constraints I can come up with. This
         might require suspending the current handler and enqueing its resumption
-        after enqueing a station creation or deletion though — I haven't fully
+        after enqueing a station creation or deletion though — I haven’t fully
         worked out the details here (and doing so would require developing a
         proper set of causality constraints first).
       </P>
@@ -287,20 +323,28 @@ export const broadcast_based_programming = {
         around references to objects; this is strictly required because without
         a reference you cannot send a message to an object. Broadcast-based
         programming, in contrast, can do completely without references to
-        stations: the operator for station creation does not need to return a
-        value. That is quite the paradigm shift in practical terms, but also
+        stations: the operator for station creation does not even need to return
+        a value. That is quite the paradigm shift in practical terms, but also
         philosophically: what does it mean for the identity of a station if it
-        cannot be references? There is no notion of equality of stations, and
+        cannot be referenced? There is no notion of equality of stations, and
         not even a direct way to even sense whether other stations exist. If you
         broadcast a message and nobody replies, that does not necessarily mean
         that nobody else is there. Conversely, a station that never sends a
         single message might just as well not exist<Marginale>
           Especially if all observable side-effects of the programming language
           must be triggered by sending messages that are handled by system
-          stations. TODO notes on randomness-as-a-system-service and symmetry
-          breaking{" "}
-          <Quotes>Everything is a station</Quotes>, as the famous slogan goes.
+          stations.{" "}
+          <Quotes>Everything is a station</Quotes>, as the famous slogan
+          goes.<Br />There are some interesting implications around randomness
+          and symmetry breaking though if yout take this model to its logical
+          extreme.
         </Marginale>.
+      </P>
+
+      <P>
+        OOP languages have traditionally had a difficult time with value-based
+        semantics, because objects necessarily require working with pointers.
+        BBP languages could do a better job there.
       </P>
 
       <Hr />
@@ -329,15 +373,23 @@ export const broadcast_based_programming = {
 
       <P>
         Some final notes for the theory nerds: it seems fairly straightforward
-        to port some process calculi in the style Milner et al. to the
-        broadcast-based world. You could use the same syntax as the{" "}
+        to port some process calculi in the style{" "}
+        <A href="https://en.wikipedia.org/wiki/Robin_Milner">Milner</A>{" "}
+        et al. to the broadcast-based world. You could use the same syntax as
+        the{" "}
         <A href="https://en.wikipedia.org/wiki/Calculus_of_communicating_systems">
           calculus of communicating systems
         </A>{" "}
         and adjust the semantics from handshake-based communication to the
-        broadcast setting. I imagine the corresponding notions of transition
-        systems and bisimilarity to be quite fun. And it should similarly be
-        possible to repurpose the syntax of the{" "}
+        broadcast setting. I imagine the resulting notions of{" "}
+        <A href="https://en.wikipedia.org/wiki/Transition_system">
+          transition systems
+        </A>{" "}
+        and{" "}
+        <A href="https://en.wikipedia.org/wiki/Bisimulation">bisimulation</A>
+        {" "}
+        to be quite fun. And it should similarly be possible to repurpose the
+        syntax of the{" "}
         <A href="https://en.wikipedia.org/wiki/Calculus_of_communicating_systems">
           pi calculus
         </A>{" "}
@@ -348,16 +400,15 @@ export const broadcast_based_programming = {
           take the view that in a handshake-based calculus the only way to
           observe a system is by interacting with it.
         </Marginale>{" "}
-        And I expect such formalisms to demonstrate that <Em>technically</Em>
-        {" "}
+        I expect such formalisms to demonstrate that <Em>technically</Em>{" "}
         you do not need a dedicated language for specifying message handlers,
         you can probably do it with the minimal set of operators (send message,
         obtain fresh frequency band, spawn station) together with a conditional
-        operator (assuming a spawn operator that supports recursion,
-        alternatively an additional replication operator should do the trick).
+        operator and either a replication operator or the ability to have
+        stations recursively spawn copies of themselves.
       </P>
 
-      <H2>Space and Distribution</H2>
+      <H2>Space and Locality</H2>
 
       <P>
         The BBP model as described so far implements <Em>global</Em>{" "}
@@ -369,32 +420,35 @@ export const broadcast_based_programming = {
       </P>
 
       <P>
-        In what follows I will refer extensively to{" "}
+        In what follows I refer primarily to{" "}
         <A href="https://www.cs.unm.edu/~ackley/papers/hotos-11.pdf">
-          David Ackley's vision of infinitely scalable computing
-        </A>, you should read that paper if you haven't (and perhaps watch{" "}
+          David Ackley’s vision of infinitely scalable computing
+        </A>, you should read that paper if you haven’t yet (and perhaps watch
+        {" "}
         <A href="https://www.youtube.com/watch?v=eQgxFuw8f1U">
-          Lu Wilson's spatial programming presentation
+          Lu Wilson’s spatial programming presentation
         </A>{" "}
-        for a more concrete introduction). My basic premise is that broadcasting
-        computational atoms would make for an alternate primitive of a
-        living-ish computer.
+        for a more concrete introduction). My basic premise is that
+        computational atoms which broadcast messages would make for a good
+        primitive of a living-ish computer.
       </P>
 
       <P>
-        My central consideration is that the Movable Feast Machine (MFM) is
-        premised on an unrealistic model:<Marginale>
+        My central consideration is that the{" "}
+        <A href="https://movablefeastmachine.org/">Movable Feast Machine</A>
+        {" "}
+        (MFM) is premised on an unrealistic model:<Marginale>
           I am exaggerating in this paragraph, you can fairly easily defend the
-          MFM model against this criticism. But the conceptual argument I make
-          is sound, I believe.
+          MFM model against this criticism. But the conceptual argument is
+          sound, I believe.
         </Marginale>{" "}
         having the computational atoms <Quotes>sense</Quotes>{" "}
-        the environment in a fixed-size event window goes against physics. An
-        entity cannot teleport information from outside to itself. Broadcast is
-        the more realistic model: every computational atom is responsible for
-        sending out information, and the receival of information is a purely
-        local information (occuring when the broadcast has physically reached
-        the receiver).
+        their environment in a fixed-size event window goes against physics. An
+        entity cannot magically teleport information from the outside to itself.
+        Broadcast is the more realistic model: every computational atom is
+        responsible for sending out information, and the receival of information
+        is a purely local operation (occuring when the broadcast has physically
+        reached the receiver).
       </P>
 
       <P>
@@ -415,10 +469,9 @@ export const broadcast_based_programming = {
         could choose to broadcast at different ranges (strengths). There are
         physical tradeoffs: low-range communication can enjoy high bitrates,
         whereas long-range communication needs a lower bitrate. The thought of
-        having a steady stream of low-bitrate communication at the speed of
-        light over great distances while also having high-bitrate local
-        broadcasts feels a lot more appealing to me than a fixed local event
-        window size.
+        having a steady stream of low-bitrate communication over great distances
+        while also having high-bitrate local broadcasts feels a lot more
+        appealing to me than a fixed local event window size.
       </P>
 
       <P>
@@ -426,7 +479,7 @@ export const broadcast_based_programming = {
         densitity of the computational atoms. Some areas might have relatively
         few stations (say, in between the earth and the moon), others might pack
         them very densely (say, in a BBSP-based microprocessor). Whereas Lu
-        Wilson's notion of recursive spatial programming mostly makes sense when
+        Wilson’s notion of recursive spatial programming mostly makes sense when
         thinking about a virtual machine, a higher density of stations makes
         intuitive sense in the real world, and does not require any changes to
         the computational model at all (similar to how mobility also just
@@ -458,7 +511,7 @@ export const broadcast_based_programming = {
         </Li>
         <Li>
           Latency: broadcasts require a nonzero amount of time to reach other
-          stations. Depending on scale, this delay might become nonnegligable.
+          stations. Depending on scale, this delay might become nonnegligible.
         </Li>
       </Ul>
 
@@ -477,44 +530,16 @@ export const broadcast_based_programming = {
           I mean that programs should be robust against it. Because reorderings
           {" "}
           <Em>will</Em>{" "}
-          happen somewhere eventually, whether the theoretical design allows
-          them or not.
+          happen somewhere eventually, whether the theoretical model allows them
+          or not.
         </Marginale>
+      </P>
+
+      <H2>Conclusion</H2>
+
+      <P>
+        This was fun. I hope you think so as well.
       </P>
     </>
   ),
 };
-
-/*
-
-
-
-
-composition
-encapsulation
-frequency bands (private ones?)
-space and range (global braodacst doesn't need space), guarantees?
-latency (speed of light as fundamental limit)
-internals
-computations
-space
-triggering broadcasts
-mobility
-congestion
-push vs pull (compare method calls), sensing vs receiving (compare spatial computing locality)
-constant vs occasional broadcast (compare the immutable data of FP)
-  - append-only logs? reducibility between global broadcast and globally-accessible append-only logs?
-local-simulated-synchronous-infallible-deterministic vs global-physical-asynchronous-fallible-concurrent
-static typing, interfaces, etc
-*causal* broadcast? (both for sendings by a single process and for ordering between multiple processes)
-    does this require a metric space? if A sends x, and B sends f(x), can B's f(x) arrive at C before x? Does this change based on whether x is data or something special (a symbol)? CC "novelty frontier" and frontier**s**
-    compare how spatial computing handles this (no causality whatsoever
-    recreate causality through buffering, CC TCP)
-no message queues
-sender address attached to each broadast? (no, probably, compare method calls... but what about physics?)
-joining/leaving
-spawning new stations, communicating their addresses
-
-calculus of communicating systems (CCS) and pi calculus
-    observability of a system does not require the system to interact with the observer
-*/
