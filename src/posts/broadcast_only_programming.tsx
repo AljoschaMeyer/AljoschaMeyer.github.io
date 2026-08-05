@@ -43,7 +43,7 @@ export const broadcast_based_programming = {
       </P>
 
       <P>
-        This text is exploratory more than actually useful. Whether
+        This text is exploratory more than practically useful. Whether
         broadcast-based programming languages would actually be a good idea I
         doubt somewhat. But I learnt a bunch of stuff by exploring this space,
         and you might as well.
