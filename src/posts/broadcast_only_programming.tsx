@@ -302,7 +302,7 @@ export const broadcast_based_programming = {
         interaction, and constraints for how station removal must ensure that
         certain future messages will not be handled by the removed station. And
         as usual, logically concurrent broadcasts and station lifecycle events
-        should all for nondeterministic semantics.
+        should allow for nondeterministic semantics.
       </P>
 
       <P>
