@@ -4,8 +4,15 @@
 <title>Aljoscha's Updates</title>
 <link>https://aljoscha-meyer.de/</link>
 <description>Feed of updates to https://aljoscha-meyer.de/</description>
-<pubDate>Fri, 15 May 2026 00:00:00 UTC</pubDate>
-<lastBuildDate>Fri, 15 May 2026 00:00:00 UTC</lastBuildDate>
+<pubDate>Mon, 20 Jul 2026 00:00:00 UTC</pubDate>
+<lastBuildDate>Mon, 20 Jul 2026 00:00:00 UTC</lastBuildDate>
+<item>
+<title>Broadcast-Based Programming</title>
+<link>https://aljoscha-meyer.de/posts/broadcast_based_programming/</link>
+<description><![CDATA[Sketching a new programming language paradigm.]]></description>
+<guid isPermaLink="true">https://aljoscha-meyer.de/posts/broadcast_based_programming/</guid>
+<pubDate>Mon, 20 Jul 2026 00:00:00 UTC</pubDate>
+</item>
 <item>
 <title>A Visual Guide to Zip-Trees</title>
 <link>https://worm-blossom.org/notes/zip_trees</link>
