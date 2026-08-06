@@ -22,7 +22,6 @@ export const broadcast_based_programming = {
   date: new Date("2026-07-20"),
   summary: `Sketching a new programming language paradigm.`,
   rssLink: `https://aljoscha-meyer.de/posts/broadcast_based_programming/`,
-  draft: true,
   children: (
     <>
       <P>
@@ -343,7 +342,7 @@ export const broadcast_based_programming = {
 
       <P>
         OOP languages have traditionally had a difficult time with value-based
-        semantics, because objects necessarily require working with pointers.
+        semantics, because objects necessarily require working with references.
         BBP languages could do a better job there.
       </P>
 
@@ -481,8 +480,8 @@ export const broadcast_based_programming = {
         them very densely (say, in a BBSP-based microprocessor). Whereas Lu
         Wilson’s notion of recursive spatial programming mostly makes sense when
         thinking about a virtual machine, a higher density of stations makes
-        intuitive sense in the real world, and does not require any changes to
-        the computational model at all (similar to how mobility also just
+        intuitive sense in the physical world, and does not require any changes
+        to the computational model at all (similar to how mobility also just
         works).
       </P>
 
